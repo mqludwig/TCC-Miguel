@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "625806842917",
+    "project_id": "filosofando-ec199",
+    "storage_bucket": "filosofando-ec199.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:625806842917:android:c44e49a8527c968025f3cc",
+        "android_client_info": {
+          "package_name": "com.filosofando"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "625806842917-gdsfd2tiarvcj9o70db2t24q428vtcos.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTx9-X9f6-12uPFcYV1bqBrq7HyZvaAOQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "625806842917-gdsfd2tiarvcj9o70db2t24q428vtcos.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
