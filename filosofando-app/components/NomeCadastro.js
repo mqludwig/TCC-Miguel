@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     },
     texto:{
         paddingBottom: 3,
-        color: 'white'
+        color: 'black'
     }
 
 

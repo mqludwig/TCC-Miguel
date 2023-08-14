@@ -1,16 +1,11 @@
-import { StyleSheet, Text, View, Image,TouchableOpacity, KeyboardAvoidingView, Platform, SafeAreaView } from 'react-native';
-import {useState} from 'react';
-import Field from '../components/Field';
+import { StyleSheet, Text, View, Image,TouchableOpacity, KeyboardAvoidingView, Platform, SafeAreaView, ImageBackground } from 'react-native';
 import { useFonts } from 'expo-font';
 import Splash from './Splash'
-import Password from '../components/Password';
 import { useNavigation } from 'expo-router';
-import { emailLogin } from '../auth/emailAuth'; 
 
-export default function Login() {
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
-  const [userMessage, setUserMessage] = useState(false);
+export default function Welcome() {
+    const img = require('../assets/images/backgrounds/backgroundAzul.png')
+    const logoBranco = require('../assets/images/logoBranca.png')
 
   const nav = useNavigation();
 
@@ -20,147 +15,114 @@ export default function Login() {
   
   if(fontsLoaded){
   return (
-    <>
-    
-    <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={[styles.darkbg, styles.container]}>
-    <View style= {styles.container}>
-    <View>
-      <View>
-          <Image style={styles.image}source={require('../assets/logoescuro.png')}/>
-      </View>
-    </View>
+   
+   
+    <SafeAreaView style={styles.container}>
+    <ImageBackground source={img} style={styles.imageBackground}>
 
-    <View style={styles.inferior}>
-    <View>
-      {
-        userMessage ? <Text style={styles.loginMsg}>Usuário ou senha inválido</Text> : null
-      }
-      
-    </View>
-    
-        <View style={styles.loginForm}>
-              <Field label='E-MAIL' icon= 'user'/>
-              <Password labelpass= 'SENHA' ipassword= 'lock' />
 
-              <TouchableOpacity 
-              //onPress={()=>setUserMessage(true)} 
-              style={styles.loginButton}
-              onPress={() => {
-                emailLogin('miguelludwig1@gmail.com', '123456')
-                console.log('miguelludwig1@gmail.com', '123456')
-              }}
-              >
+        <SafeAreaView style={styles.superior}>
 
-                <Text style={styles.loginButtonText}>ENTRAR</Text>
-              </TouchableOpacity>
+            <Image source={logoBranco} style={styles.imgprincipal} />
 
-              <TouchableOpacity style={styles.forgotPassword}>
-                <Text style={styles.forgotPasswordText}>Esqueceu sua senha?</Text>
-              </TouchableOpacity>
+        </SafeAreaView>
+        <SafeAreaView style={styles.centro}>
+            <Text style={styles.fontCentro}>Bem vindo ao Filosofando.</Text>
+            <Text style={[styles.fontCentro, { marginTop: 25 }]}>Aprenda filosofia de forma divertida.</Text>
+        </SafeAreaView>
 
-              <View style={styles.naoPossui}>
-                <Text style={styles.notYet}>Ainda não possui conta? </Text>
-                <TouchableOpacity onPress ={() => nav.navigate ('Register')}>
-                  <Text style={styles.naoPossuiCadastre}>CADASTRE-SE</Text>
-                </TouchableOpacity>
-                </View>
-        </View>
-    </View>
-    </View>
-    </KeyboardAvoidingView>
-  
+        <SafeAreaView style={styles.inferior}>
+            <TouchableOpacity style={styles.botaoBranco} onPress={() => nav.navigate ('Register')}>
+                <Text style={styles.botaoTexto}>Inscreva-se</Text>
+            </TouchableOpacity>
 
-    </>
+            <TouchableOpacity onPress={() => nav.navigate ('Login')}>
+                <Text style={styles.fontInferior}>Entrar</Text>
+            </TouchableOpacity>
+        </SafeAreaView>
+
+    </ImageBackground>
+</SafeAreaView>
+   
     
   );}
       else{
         return <Splash/>
       }
 }
-     const styles = StyleSheet.create({
-
-      container:{
+const styles = StyleSheet.create({
+    container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
-      notYet:{
-        fontFamily: 'LisuBosa-Regular',
-        fontSize: 20,
-        color: '#fff'
-      },
-      naoPossuiCadastre:{
-        color: '#00BF63',
-        fontFamily: 'LisuBosa-Regular',
-        fontSize: 20,
-      },
-      naoPossui:{
-        flexDirection: 'row',
-        paddingTop: 100,
+        flexDirection: "column",
+        width: "100%",
+       
+    },
+    superior: {
+        marginBottom: 120,
+        textAlign: "center",
+    },
+    centro: {
+        marginBottom: 90,
+        textAlign: "center",
+        alignItems:"center",
+        
+    },
+    inferior: {
+        marginBottom: 20,
+        textAlign: "center",
+        alignItems: "center",
+    },
 
-      },
-      forgotPassword:{
-        marginTop: 7
-      },
-      forgotPasswordText:{
-        fontFamily: 'LisuBosa-Regular',
-        fontSize: 17,
-        color: '#AE7CD4'
-      },
-      superior:{
-        height: '50%',
-        width: '100%',
-      },
-      inferior:{
-        height: '50%',
-        width: '100%',
-        marginBottom: 100
-      },
-      image:{
-        width: 270,
-        height: 80,
-        resizeMode: 'contain',
-        paddingBottom:300,
-        marginTop: 100
-      },
-      darkbg:{
-        backgroundColor: '#6D458B'
-      },
-      loginMsg:{
-        fontWeight: 'bold',
-        fontSize: 14,
-        color: '#fff',
-        marginTop: 10,
-        marginBottom:0,
-        alignSelf: 'center'
-      },
-      loginForm:{
-        width:'80%',
-        alignItems: 'center',
-        fontFamily: 'LisuBosa-Regular',
-      },
-      loginInput:{
-        backgroundColor: '#fff',
-        fontSize: 20,
-        padding: 7,
-        marginBottom: 15
-      },
-      loginButton:{
-        padding: 4,
-        height: '15%',
-        width: 110,
-        height:40,
-        backgroundColor: '#00BF63',
-        justifyContent: 'center',
-        borderRadius: 40,
-        alignSelf: 'center',
-        marginTop: 40,
-      },
-      loginButtonText:{
-        fontWeight: 'bold',
-        fontSize: 20,
-        color: '#6D458B',
-        textAlign: 'center',
-      }
+    imageBackground: {
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%"
+    },
+    imgprincipal: {
+        width: 100,
+        height: 100,
+        borderRadius: 10,
+    },
 
-     })
+    botaoBranco: {
+        backgroundColor: "white",
+        borderRadius: 17,
+        width: 200,
+        height: 40,
+        margin: 12,
+        padding: 2,
+        textAlign: "center",
+       
+
+    },
+
+    botaoTexto: {
+        fontSize: 25,
+        fontWeight: "bold",
+        color: "#0A357D",
+        textAlign: "center",
+
+    },
+    fontCentro: {
+        fontSize: 25,
+        color: "white",
+        
+
+    },
+
+    fontInferior: {
+        fontSize: 25,
+        color: "white",
+        fontWeight: "bold",
+
+    },
+
+
+
+
+
+
+
+});

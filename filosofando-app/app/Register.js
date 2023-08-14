@@ -8,6 +8,7 @@ export default function Register(){
     const [fontsLoaded] = useFonts ({
         'Montserrat-Regular': require ('../assets/fonts/Montserrat-Regular.ttf'),
         'LisuBosa-Regular': require ('../assets/fonts/LisuBosa-Regular.ttf'),
+        'LilitaOne-Regular': require ('../assets/fonts/LilitaOne-Regular.ttf'),
       });
     
       const nav = useNavigation();
@@ -18,7 +19,7 @@ export default function Register(){
         <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.container}>
         <ScrollView>
             <View style={styles.superior}>
-                <Text style={styles.textCadastro}> CADASTRO </Text>
+                <Text style={styles.textCadastro}> Criar uma nova  {'\n'} conta </Text>
             </View>
             <View style={styles.meio}>
                 
@@ -28,22 +29,22 @@ export default function Register(){
                 
                 <Cadastro label='Email'/>
 
-                <Cadastro label='Senha:'/>
+                <Cadastro label='Senha'/>
                 
                 <Cadastro label='Confirme sua senha'/>
             </View>
             <View style={styles.rodape}>
                 <TO style={styles.registerButton}>
                     <Text style={styles.registerButtonText}>
-                        CADASTRAR
+                        Sign Up
                     </Text>
                 </TO>
                 </View>
 
                 <View style={styles.naoPossui}>
-                    <Text style={styles.notYet}> Já possui conta? </Text>
-                    <TO onPress ={() => nav.navigate ('index')}>
-                    <Text style={styles.naoPossuiCadastre}>ENTRE</Text>
+                    
+                    <TO onPress ={() => nav.navigate ('Login')}>
+                    <Text style={styles.naoPossuiCadastro}>Já tem uma conta? Faça login aqui!</Text>
                     </TO>
                 </View>
         </ScrollView>
@@ -60,7 +61,7 @@ export default function Register(){
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        backgroundColor: '#6D458B'
+        backgroundColor: '#3533CD'
     },
     
     superior:{
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-end',
         paddingBottom: 30,
-        marginTop: 80
+        marginTop: 80,
     },
     meio:{
         flex: 2,
@@ -85,33 +86,38 @@ const styles = StyleSheet.create({
         padding: 4,
         height: 40,
         width: 200,
-        backgroundColor: '#00BF63',
+        backgroundColor: '#FF5757',
         justifyContent: 'center',
-        borderRadius: 50,
+        borderRadius: 5,
         alignSelf: 'center',
         marginTop: 10,
         marginBottom: 50
     },
     registerButtonText:{
-        fontWeight: '400',
+        fontWeight: 'bold',
+        //fontWeight: '400',
         fontSize:20,
-        color: '#6D458B',
+        color: 'white',
         textAlign: 'center',
+       
+
+
     },
     textCadastro:{
         fontSize: 40,
-        color: '#00bf63',
-        fontFamily: 'Montserrat-Regular',
-        marginBottom: 30
+        color: 'white',
+        fontWeight: "bold",
+        marginBottom: 30,
+        textAlign: 'center',
+        color: 'yellow',
+        fontFamily: 'LilitaOne-Regular',
+        
+        
     },
-    notYet:{
-        fontFamily: 'LisuBosa-Regular',
-        fontSize: 20,
-        color: '#fff'
-      },
-      naoPossuiCadastre:{
-        color: '#00BF63',
-        fontFamily: 'LisuBosa-Regular',
+  
+      naoPossuiCadastro:{
+        color: '#FF5757',
+        fontFamily: 'LilitaOne-Regular',
         fontSize: 20,
       },
       naoPossui:{
