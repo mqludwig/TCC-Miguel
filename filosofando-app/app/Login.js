@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image,TouchableOpacity, KeyboardAvoidingView, Platform, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, Image,TouchableOpacity, KeyboardAvoidingView, Platform, SafeAreaView, ImageBackground} from 'react-native';
 import {useState} from 'react';
 import Field from '../components/Field';
 import { useFonts } from 'expo-font';
@@ -11,24 +11,33 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [userMessage, setUserMessage] = useState(false);
+  
+
+  const img = require('../assets/images/backgrounds/backgroundAzul.png')
 
   const nav = useNavigation();
 
   const [fontsLoaded] = useFonts ({
     'LisuBosa-Regular': require ('../assets/fonts/LisuBosa-Regular.ttf'),
+    'LilitaOne-Regular': require ('../assets/fonts/LilitaOne-Regular.ttf'),
   });
   
   if(fontsLoaded){
   return (
     <>
     
-    <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={[styles.darkbg, styles.container]}>
+    <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.container}>
+    <ImageBackground source={img} style={styles.imageBackground}>
     <View style= {styles.container}>
-    <View>
-      <View>
-          <Image style={styles.image}source={require('../assets/images/logo.png')}/>
+ 
+      <View style= {styles.superior}>
+        <Text style={styles.nomeApp}>Filosofando</Text>
+       </View>
+        <View style= {styles.centro}>
+        <Text style={styles.subtitulo}>Login</Text>
+        <Text style={styles.vermelho}>Entre para continuar</Text>
       </View>
-    </View>
+
 
     <View style={styles.inferior}>
     <View>
@@ -39,15 +48,15 @@ export default function Login() {
     </View>
     
         <View style={styles.loginForm}>
-              <Field label='E-MAIL' icon= 'user'/>
-              <Password labelpass= 'SENHA' ipassword= 'lock' />
+              <Field label='E-MAIL' email={email} setEmail={setEmail}/>
+              <Password labelpass= 'SENHA' senha={senha} setSenha={setSenha}/>
 
               <TouchableOpacity 
               //onPress={()=>setUserMessage(true)} 
               style={styles.loginButton}
               onPress={() => {
-                emailLogin('miguelludwig1@gmail.com', '123456')
-                console.log('miguelludwig1@gmail.com', '123456')
+                emailLogin(email, senha)
+                console.log(email, senha)
               }}
               >
 
@@ -55,18 +64,29 @@ export default function Login() {
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.forgotPassword}>
-                <Text style={styles.forgotPasswordText}>Esqueceu sua senha?</Text>
+                <Text style={styles.esquecer}>Esqueceu sua senha?</Text>
               </TouchableOpacity>
+              
 
               <View style={styles.naoPossui}>
               
                 <TouchableOpacity onPress ={() => nav.navigate ('Register')}>
-                  <Text style={styles.naoPossuiCadastre}>Criar nova conta!</Text>
+                  <Text style={styles.esquecer}>Criar nova conta!</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress ={() => nav.navigate ('Home')}>
+                  <Text style={styles.esquecer}>Home</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress ={() => nav.navigate ('Quiz')}>
+                  <Text style={styles.esquecer}>Quiz</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress ={() => nav.navigate ('Philosopher')}>
+                  <Text style={styles.esquecer}>Filosofo</Text>
                 </TouchableOpacity>
                 </View>
         </View>
     </View>
     </View>
+    </ImageBackground>
     </KeyboardAvoidingView>
   
 
@@ -84,48 +104,58 @@ export default function Login() {
         justifyContent: 'center',
         alignItems: 'center',
       },
-      notYet:{
-        fontFamily: 'LisuBosa-Regular',
-        fontSize: 20,
-        color: '#fff'
+      imageBackground: {
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%"
+    },
+      nomeApp:{
+        fontSize: 65,
+        color: 'white',
+        fontFamily: 'LilitaOne-Regular',
+
       },
-      naoPossuiCadastre:{
-        color: '#00BF63',
-        fontFamily: 'LisuBosa-Regular',
-        fontSize: 20,
+      subtitulo:{
+        fontSize: 50,
+        color: 'white',
+      
       },
+      vermelho:{
+        color: '#FF5757',
+        fontSize:16,
+      },
+      
+      
       naoPossui:{
         flexDirection: 'row',
-        paddingTop: 100,
+        paddingTop: 10,
 
       },
       forgotPassword:{
         marginTop: 7
       },
-      forgotPasswordText:{
-        fontFamily: 'LisuBosa-Regular',
+      esquecer:{
+        
         fontSize: 17,
-        color: '#AE7CD4'
+        color: 'white', 
+        fontWeight: 'bold',
       },
       superior:{
-        height: '50%',
-        width: '100%',
+        alignItems: 'center',
+        paddingTop: 150,
+      },
+      centro:{
+        alignItems: 'center',
+        paddingTop: 50,
       },
       inferior:{
         height: '50%',
         width: '100%',
         marginBottom: 100
       },
-      image:{
-        width: 150,
-        height: 80,
-        resizeMode: 'contain',
-        paddingBottom:300,
-        marginTop: 100
-      },
-      darkbg:{
-        backgroundColor: '#6D458B'
-      },
+
       loginMsg:{
         fontWeight: 'bold',
         fontSize: 14,
@@ -139,12 +169,7 @@ export default function Login() {
         alignItems: 'center',
         fontFamily: 'LisuBosa-Regular',
       },
-      loginInput:{
-        backgroundColor: '#fff',
-        fontSize: 20,
-        padding: 7,
-        marginBottom: 15
-      },
+    
       loginButton:{
         padding: 4,
         height: '15%',

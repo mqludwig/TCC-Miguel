@@ -1,20 +1,17 @@
 import { StyleSheet, View, TextInput, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { useFonts } from 'expo-font';
+import { useState } from 'react';
 export default (props) => {
-    const [fontsLoaded] = useFonts ({
-        'LisuBosa-ExtraLight': require ('../assets/fonts/LisuBosa-ExtraLight.ttf'),
-      });
-
+    
+      const [hydePass, setHidePass] = useState(true);
       
 
     return(
         <View style={styles.container}>
-            <View style={styles.icone} >
-                <Icon name= {props.icon} size={20} color= 'white' /> 
-            </View>
+            
             <View style={styles.texto}>
-            <TextInput placeholder = {props.label}  keyboardType='email-address' placeholderTextColor={'white'} color='white' ></TextInput>
+            <TextInput value = {props.Email} onChangeText={(text)=> props.setEmail(text)} placeholder = {props.label}  keyboardType='email-address' placeholderTextColor={'rgba(0, 0, 0,0.6)'} color='black' ></TextInput>
             </View>
         </View>
     );
@@ -23,15 +20,17 @@ export default (props) => {
 const styles = StyleSheet.create({
     container: {
         borderBottomWidth: 1,
-        borderBottomColor: 'white',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        width: '80%',
-        height: '11%',
+        width: '85%',
+        height: '15%',
         paddingTop: 0,
-        paddingBottom: 1,
+        paddingBottom: 0,
         marginTop: 20,
+        marginBottom: 15,
+        backgroundColor: "rgba(255, 255, 255, 0.4)",
+        borderRadius: 15,
     },
 
     texto:{

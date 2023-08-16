@@ -5,7 +5,7 @@ import { useNavigation } from 'expo-router';
 
 export default function Welcome() {
     const img = require('../assets/images/backgrounds/backgroundAzul.png')
-    const logoBranco = require('../assets/images/logoBranca.png')
+    const logoBranco = require('../assets/images/logos/logoBranca.png')
 
   const nav = useNavigation();
 

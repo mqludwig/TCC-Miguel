@@ -3,29 +3,26 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useState } from 'react';
 export default (props) => {
 
-    const [input, setInput] = useState('');
+    
     const [hidePass, setHidePass] = useState(true);
 
     return(
         <View style={styles.container}>
-            <View style={styles.icone} >
-                <Icon name= {props.ipassword} size={20} color= 'white' /> 
-            </View>
+           
             <View style={styles.texto}>
-            <TextInput placeholder = {props.labelpass}  
-            placeholderTextColor={'white'} 
-            color='white' 
-            value = {input}
-            onChangeText={(texto) => setInput(texto)} 
-            secureTextEntry={hidePass}
-            />
+            <TextInput placeholder= {props.labelpass} placeholderTextColor={'rgba(0, 0, 0,0.6)'}  color='black' value = {props.senha} onChangeText={(text) => props.setSenha(text)} secureTextEntry={hidePass}
+           />
+             
+           
+           
+
              
             </View>
             <TouchableOpacity style={styles.senhaVisivel} onPress={ () => setHidePass(!hidePass)}>
             {hidePass ?
-            <Icon name= 'eye' size={20} color= 'white'/> 
+            <Icon name= 'eye' size={20} color= 'black'/> 
                 :
-            <Icon name= 'eye-slash' size={20} color= 'white'/> 
+            <Icon name= 'eye-slash' size={20} color= 'black'/> 
             }
                 
             </TouchableOpacity>
@@ -36,15 +33,17 @@ export default (props) => {
 const styles = StyleSheet.create({
     container: {
         borderBottomWidth: 1,
-        borderBottomColor: 'white',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        width: '80%',
-        height: '11%',
+        width: '85%',
+        height: '15%',
         paddingTop: 0,
-        paddingBottom: 1,
+        paddingBottom: 0,
         marginTop: 20,
+        marginBottom: 15,
+        backgroundColor: "rgba(255, 255, 255, 0.4)",
+        borderRadius: 15,
     },
 
     senhaVisivel:{

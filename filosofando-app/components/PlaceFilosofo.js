@@ -1,15 +1,17 @@
-import { StyleSheet, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TextInput, TouchableOpacity,Text, image } from 'react-native';
 export default (props) => {
 
     return(
         <View style={styles.container}>
             <View style={styles.texto}>
-            <TextInput placeholder = {props.label}  paddingLeft={4} placeholderTextColor={'rgba(0, 0, 0,0.6)'} color='black' ></TextInput>
+            
+            {/* <TextInput placeholder = {props.label}  paddingLeft={4} placeholderTextColor={'rgba(0, 0, 0,0.6)'} color='black' ></TextInput> */}
+            <Text style={styles.texto2} color='white'>{props.nomeFilosofo}</Text>
+            
             </View>
         </View>
     );
 }
-
 const styles = StyleSheet.create({
     container: {
         borderBottomWidth: 1,
@@ -33,9 +35,10 @@ const styles = StyleSheet.create({
         paddingLeft:10,
         flex:2,
         selectionColor: 'white'
-
-
-
     },
 
+    texto2:{
+        color: 'white',
+        fontSize: 20,
+    },
 })

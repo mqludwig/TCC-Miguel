@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, TouchableOpacity as TO, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity as TO, ScrollView, KeyboardAvoidingView, ImageBackground } from 'react-native';
 import Cadastro from '../components/Cadastro';
 import { useFonts } from 'expo-font';
 import Splash from './Splash';
@@ -11,12 +11,15 @@ export default function Register(){
         'LilitaOne-Regular': require ('../assets/fonts/LilitaOne-Regular.ttf'),
       });
     
+      const img = require('../assets/images/backgrounds/backgroundAzul.png')
+
       const nav = useNavigation();
       
       if(fontsLoaded){
     return(
         <>
         <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.container}>
+        <ImageBackground source={img} style={styles.imageBackground}>
         <ScrollView>
             <View style={styles.superior}>
                 <Text style={styles.textCadastro}> Criar uma nova  {'\n'} conta </Text>
@@ -48,6 +51,7 @@ export default function Register(){
                     </TO>
                 </View>
         </ScrollView>
+        </ImageBackground>
         </KeyboardAvoidingView>
         </>
     );
@@ -61,7 +65,15 @@ export default function Register(){
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        backgroundColor: '#3533CD'
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    imageBackground: {
+        flex: 1,
+        resizeMode: "cover",
+        
+        width: "100%"
     },
     
     superior:{
@@ -106,10 +118,8 @@ const styles = StyleSheet.create({
     textCadastro:{
         fontSize: 40,
         color: 'white',
-        fontWeight: "bold",
-        marginBottom: 30,
+       marginBottom: 30,
         textAlign: 'center',
-        color: 'yellow',
         fontFamily: 'LilitaOne-Regular',
         
         
