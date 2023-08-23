@@ -82,6 +82,9 @@ export default function Login() {
                 <TouchableOpacity onPress ={() => nav.navigate ('Philosopher')}>
                   <Text style={styles.esquecer}>Filosofo</Text>
                 </TouchableOpacity>
+                <TouchableOpacity onPress ={() => nav.navigate ('Dialog')}>
+                  <Text style={styles.esquecer}>Texto</Text>
+                </TouchableOpacity>
                 </View>
         </View>
     </View>

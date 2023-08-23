@@ -1,16 +1,18 @@
 import { StyleSheet, View, TextInput, TouchableOpacity,Text, image } from 'react-native';
-//import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 export default (props) => {
-    const imgFilosofo = require('../assets/images/filosofos/tales.png');
+   
     
     return(
         <View style={styles.container}>
             
             
             {/* <TextInput placeholder = {props.label}  paddingLeft={4} placeholderTextColor={'rgba(0, 0, 0,0.6)'} color='black' ></TextInput> */}
-            <Text style={styles.nome}>{props.nomeFilosofo}</Text>
-            <Text style={styles.frase}>{props.fraseFilosofo}</Text>
+            <Text style={styles.nome}>{props.nomePersonagem}</Text>
+            <Text style={styles.direita}>{props.textoDireita}</Text>
+            <Text style={styles.esquerda}>{props.textoEsquerda}</Text>
+           
+           <Text style={styles.frase}>{props.fraseFilosofo}</Text>
             <Icon name={props.icon} size={70} color= 'red'  /> 
             
            
@@ -44,19 +46,19 @@ const styles = StyleSheet.create({
     //     selectionColor: 'white'
     // },
 
-    nome:{
-        color: 'white',
-        fontSize: 50,
-        fontWeight: 'bold',
-    },
-
-    frase:{
+     nome:{
         color: 'white',
         fontSize: 20,
-        borderRadius: 15,
-        //backgroundColor: '#332d2f',
+        
+     },
+
+    // frase:{
+    //     color: 'white',
+    //     fontSize: 20,
+    //     borderRadius: 15,
+    //     //backgroundColor: '#332d2f',
        
-    },
+    // },
 
 
 

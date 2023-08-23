@@ -24,6 +24,13 @@ export default function Register(){
             <View style={styles.superior}>
                 <Text style={styles.textCadastro}> Criar uma nova  {'\n'} conta </Text>
             </View>
+            <View style={styles.temConta}>
+                    
+                    <TO onPress ={() => nav.navigate ('Login')}>
+                    <Text style={styles.temContaText}>Já tem uma conta? Faça login aqui!</Text>
+                    </TO>
+                </View>
+
             <View style={styles.meio}>
                 
                 <Cadastro label='Nome'/>
@@ -36,7 +43,7 @@ export default function Register(){
                 
                 <Cadastro label='Confirme sua senha'/>
             </View>
-            <View style={styles.rodape}>
+            <View style={styles.inferior}>
                 <TO style={styles.registerButton}>
                     <Text style={styles.registerButtonText}>
                         Sign Up
@@ -44,12 +51,7 @@ export default function Register(){
                 </TO>
                 </View>
 
-                <View style={styles.naoPossui}>
-                    
-                    <TO onPress ={() => nav.navigate ('Login')}>
-                    <Text style={styles.naoPossuiCadastro}>Já tem uma conta? Faça login aqui!</Text>
-                    </TO>
-                </View>
+               
         </ScrollView>
         </ImageBackground>
         </KeyboardAvoidingView>
@@ -71,8 +73,7 @@ const styles = StyleSheet.create({
 
     imageBackground: {
         flex: 1,
-        resizeMode: "cover",
-        
+        resizeMode: "cover", 
         width: "100%"
     },
     
@@ -80,8 +81,9 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'flex-end',
-        paddingBottom: 30,
+        paddingBottom: -100, //modificar
         marginTop: 80,
+    
     },
     meio:{
         flex: 2,
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginTop:80
     },
-    rodape:{
+    inferior:{
         flex:1,
         marginTop: 100
     },
@@ -113,7 +115,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
        
 
-
     },
     textCadastro:{
         fontSize: 40,
@@ -125,15 +126,16 @@ const styles = StyleSheet.create({
         
     },
   
-      naoPossuiCadastro:{
+      temContaText:{
         color: '#FF5757',
-        fontFamily: 'LilitaOne-Regular',
-        fontSize: 20,
+        fontWeight: 'bold',
+        fontSize: 15,
       },
-      naoPossui:{
+      temConta:{
         flexDirection: 'row',
         justifyContent: 'center',
-        marginBottom: 30
+        marginBottom: 0, //modificar
+       
 
       },
 

@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View, Image,TouchableOpacity, KeyboardAvoidingView, Platform, SafeAreaView, ImageBackground, ScrollView } from 'react-native';
 import { useFonts } from 'expo-font';
 import Splash from './Splash';
-import PlaceFilosofo from '../components/PlaceFilosofo';
+import DialogosField from '../components/DialogosField';
 import { useNavigation } from 'expo-router';
 
-export default function Philosopher() {
+export default function Texto() {
 
   const imgFilosofo = require('../assets/images/filosofos/tales.png');
   const imgCapa = require('../assets/images/covers/talesCover.jpg');
@@ -23,38 +23,19 @@ export default function Philosopher() {
     <ScrollView>
 
     <View style={styles.superior}>
-    <PlaceFilosofo nomeFilosofo ='Nome do Filósofo'/>
+    <DialogosField nomePersonagem ='Professor Setarcos'/>
     <Image source={imgFilosofo} style={styles.imagemFilosofo} />
     </View>
 
       <View style={styles.centro}>
      <Image source={imgCapa} style={styles.imagemCapa} />
-      <View style={styles.frases}>
-     <PlaceFilosofo fraseFilosofo ='"A água é o princípio de todas as coisasaaaaaaaaaaaaaaaaaaa dsad."'/>
-     </View>
+     
      </View>
 
      
      <Text style={styles.exercicios}>Exercícios</Text>
     
-     <View style={styles.inferior}>
-   
-     <TouchableOpacity onPress={() => nav.navigate ('Text')} style={styles.button}>
-     <PlaceFilosofo icon='book-open'/>
-     <Text style={styles.textoBotao}>Textos</Text>
-     </TouchableOpacity>
- 
- 
-     <TouchableOpacity onPress={() => nav.navigate ('Quiz')} style={styles.button}>
-     <PlaceFilosofo icon='clipboard-list'/>
-     <Text style={styles.textoBotao}>Quiz</Text>
-     </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => nav.navigate ('Challenge')} style={styles.button}>
-      <PlaceFilosofo icon='bolt'/> 
-      <Text style={styles.textoBotao}>Desafio</Text>
-      </TouchableOpacity>
-    </View>
+     
      
      </ScrollView>
     </View>
@@ -90,7 +71,7 @@ const styles = StyleSheet.create({
      
      
     },
-
+   
     frases:{
       backgroundColor: '#332d2f',
       width: '90%',
