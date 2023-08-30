@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     },
 
     frases:{
-      backgroundColor: '#332d2f',
+      //backgroundColor: '#332d2f',
       width: '90%',
       height: 200,  
       borderRadius:25,

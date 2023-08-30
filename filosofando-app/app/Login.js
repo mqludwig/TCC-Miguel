@@ -85,6 +85,10 @@ export default function Login() {
                 <TouchableOpacity onPress ={() => nav.navigate ('Dialog')}>
                   <Text style={styles.esquecer}>Texto</Text>
                 </TouchableOpacity>
+                <TouchableOpacity onPress ={() => nav.navigate ('Profile')}>
+                  <Text style={styles.esquecer}>Profile</Text>
+                </TouchableOpacity>
+
                 </View>
         </View>
     </View>

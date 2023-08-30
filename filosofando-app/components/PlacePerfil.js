@@ -1,6 +1,7 @@
 import { StyleSheet, View, TextInput, TouchableOpacity,Text, image } from 'react-native';
 //import Icon from 'react-native-vector-icons/FontAwesome5';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+//import Icon from 'react-native-vector-icons/FontAwesome5';
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5"
 export default (props) => {
     const imgFilosofo = require('../assets/images/filosofos/tales.png');
     
@@ -8,10 +9,11 @@ export default (props) => {
         <View style={styles.container}>
             
             
-            {/* <TextInput placeholder = {props.label}  paddingLeft={4} placeholderTextColor={'rgba(0, 0, 0,0.6)'} color='black' ></TextInput> */}
-            <Text style={styles.nome}>{props.nomeFilosofo}</Text>
+           
+            <Text style={styles.nome}>{props.nomeUsuario}</Text>
+            <Text style={styles.nick}>{props.nickname}</Text>
             <Text style={styles.frase}>{props.fraseFilosofo}</Text>
-            <Icon name={props.icon} size={70} color= 'red'  /> 
+            <FontAwesome5 name={props.icon} size={70} color= 'red'  /> 
             
            
 
@@ -54,7 +56,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 20,
         borderRadius: 15,
-        backgroundColor: '#332d2f',
+        //backgroundColor: '#332d2f',
        
     },
 

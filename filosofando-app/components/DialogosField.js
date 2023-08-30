@@ -9,8 +9,11 @@ export default (props) => {
             
             {/* <TextInput placeholder = {props.label}  paddingLeft={4} placeholderTextColor={'rgba(0, 0, 0,0.6)'} color='black' ></TextInput> */}
             <Text style={styles.nome}>{props.nomePersonagem}</Text>
-            <Text style={styles.direita}>{props.textoDireita}</Text>
-            <Text style={styles.esquerda}>{props.textoEsquerda}</Text>
+            
+            <View style={styles.direita}>
+            <Text style={styles.direitaTexto}>{props.textoDireita}</Text>
+            </View>
+            <Text style={styles.esquerdaTexto}>{props.textoEsquerda}</Text>
            
            <Text style={styles.frase}>{props.fraseFilosofo}</Text>
             <Icon name={props.icon} size={70} color= 'red'  /> 
@@ -22,6 +25,21 @@ export default (props) => {
     );
 }
 const styles = StyleSheet.create({
+    
+    direita:{
+        alignItems:  'flex-end',
+    },
+    direitaTexto:{
+        color: 'red',
+    },
+    esquerda:{
+        alignItems:  'flex-start',
+    },
+    esquerdaTexto:{
+        color: 'yellow',
+
+    },
+  
     container: {
         // borderBottomWidth: 1,
         // flexDirection: 'row',
@@ -47,19 +65,15 @@ const styles = StyleSheet.create({
     // },
 
      nome:{
-        color: 'white',
-        fontSize: 20,
+        // marginTop:15,
+        // marginLeft: 10, 
+        // flex: 1, 
+        color: 'white', 
+        fontSize: 20, 
         
      },
 
-    // frase:{
-    //     color: 'white',
-    //     fontSize: 20,
-    //     borderRadius: 15,
-    //     //backgroundColor: '#332d2f',
-       
-    // },
-
+   
 
 
 

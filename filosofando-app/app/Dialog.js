@@ -3,7 +3,10 @@ import { useFonts } from 'expo-font';
 import Splash from './Splash';
 import DialogosField from '../components/DialogosField';
 import { useNavigation } from 'expo-router';
-
+import { LinearGradient } from 'expo-linear-gradient';
+import TextoDireita from '../components/DialogComp/RightText';
+import TextoEsquerda from '../components/DialogComp/LeftText';
+import CharacterName from '../components/DialogComp/CharacterName';
 export default function Texto() {
 
   const imgFilosofo = require('../assets/images/filosofos/tales.png');
@@ -20,23 +23,34 @@ export default function Texto() {
    
    
     <View style={styles.container}>
-    <ScrollView>
-
-    <View style={styles.superior}>
-    <DialogosField nomePersonagem ='Professor Setarcos'/>
+   
+    
+   <LinearGradient
+                    colors={['black', 'gray']} // Cores do gradiente
+                    style={styles.superior} // Aplica o gradiente ao estilo da barra superior
+                >
     <Image source={imgFilosofo} style={styles.imagemFilosofo} />
-    </View>
-
+    <DialogosField nomePersonagem ='Professor Setarcos' style={styles.nome}/>
+    
+    </LinearGradient>
+    <ScrollView style={styles.scrollContent}>
       <View style={styles.centro}>
-     <Image source={imgCapa} style={styles.imagemCapa} />
+     
+      <CharacterName NomePersonagem = 'Professor Setarcós'/>
+      
+      {/* <DialogosField textoEsquerda ='Olá jovem, espero que você esteja tendo um ótimo dia 😀! Eu sou Aldus Setarcos, é um prazer conhecer você! '/>
+      <DialogosField textoEsquerda ='Na aula de hoje vamos aprender um pouquinho sobre quem era Platão'/>
+      <DialogosField textoEsquerda ='Certo?'/>
+      <DialogosField textoDireita ='blablabla bla bla'/>
+      <DialogosField textoEsquerda ='Platão nasceu na cidade grega de Atenas bla bla bla bla'/>
+      <DialogosField textoEsquerda ='Vou colocar aqui algumas imagens de Atenas pra você conseguir se deslocar até lá'/> */}
+     
+      
      
      </View>
-
-     
-     <Text style={styles.exercicios}>Exercícios</Text>
-    
-     
-     
+     <View style={styles.inferior}>
+     <DialogosField icon='arrow-alt-circle-right'/>    
+    </View>
      </ScrollView>
     </View>
    
@@ -54,52 +68,40 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
        
     },
+    scrollContent: {
+      flex: 1,
+     
+  },
+    
     superior:{
+      
       flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginTop: 30,
-      marginBottom: 20,
-      marginHorizontal: 70,
-      paddingHorizontal: 20,
+      alignItems: 'center', 
+      justifyContent: 'flex-start',
+      marginTop: 20, 
+      marginBottom: 0,
+      paddingBottom: 10, 
+      
+      zIndex: 1,
+      
+      
     },
     centro:{
       
-      justifyContent: 'center',
-      alignItems: 'center',
-      textAlign: 'center',
+    
      
      
     },
    
-    frases:{
-      backgroundColor: '#332d2f',
-      width: '90%',
-      height: 200,  
-      borderRadius:25,
-      textAlign: 'center',
-      
-
-    },
+  
     imagemFilosofo:{
-      width: 150,
-      height: 150,
+      width: 60,
+      height: 60,
       resizeMode: "contain",
       
     },
-    imagemCapa:{
-      width: '90%',
-      height: 180,  
-      borderRadius:25,
-    },
-    exercicios:{
-      color: 'white',
-    
-     fontSize: 35,
-      marginBottom: 20,
-      fontFamily: 'LisuBosa-Regular',
-
-    },
+   
+   
 
     inferior:{
   
@@ -110,10 +112,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     
     },
-   textoBotao:{
-    color: 'white',
-    fontSize:25,
-   },
+  
   
    button: {
     marginHorizontal: 35, 

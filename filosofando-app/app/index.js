@@ -2,6 +2,11 @@ import { StyleSheet, Text, View, Image,TouchableOpacity, KeyboardAvoidingView, P
 import { useFonts } from 'expo-font';
 import Splash from './Splash'
 import { useNavigation } from 'expo-router';
+import 'react-native-gesture-handler';
+import { createStackNavigator } from '@react-navigation/stack';
+
+
+
 
 export default function Welcome() {
     const img = require('../assets/images/backgrounds/backgroundAzul.png')
