@@ -6,20 +6,22 @@ import UserName from '../components/ProfileComp/UserName';
 import Nickname from '../components/ProfileComp/Nickname';
 import ProfileImage from '../components/ProfileComp/ProfileImage';
 import { useNavigation } from 'expo-router';
-
+import {Asset, useAssets} from 'expo-asset';
 export default function Philosopher() {
 
   const imgFilosofo = require('../assets/images/filosofos/tales.png');
   const imgCapa = require('../assets/images/covers/talesCover.jpg');
   const nav = useNavigation();
-
+  const [assets, error] = useAssets([require ('../assets/images/filosofos/anaximandro.png'), require ('../assets/images/filosofos/anaximenes.png'), 
+])
   const [fontsLoaded] = useFonts ({
     'LisuBosa-Regular': require ('../assets/fonts/LisuBosa-Regular.ttf'),
     'PlayfairDisplay-Black' : require ('../assets/fonts/Playfair_Display/PlayfairDisplay-Black.ttf')
   });
   
-  if(fontsLoaded){
-  return (
+  if(fontsLoaded && assets){
+   
+    return (
    
    
     <View style={styles.container}>
@@ -27,10 +29,11 @@ export default function Philosopher() {
 
     <View style={styles.superior}>
     <Text style={styles.textoBotao}>Meu Perfil</Text>
-    <Image source={imgFilosofo} style={styles.imagemFilosofo} />
+    {/* <Image source={imgFilosofo} style={styles.imagemFilosofo} /> */}
+    <ProfileImage addressPicture= {assets[1]}/>
     <UserName nomeUsuario ='Julian Barreto'/>
     <Nickname nick ='J2pi5er'/>
-    {/* <ProfileImage addressPicture ='../assets/images/filosofos/tales.png'/> */}
+    
     
     <Text style={styles.textoBotao}>Nickname</Text>
     </View>

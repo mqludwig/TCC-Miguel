@@ -4,8 +4,8 @@ import Splash from './Splash';
 import DialogosField from '../components/DialogosField';
 import { useNavigation } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
-import TextoDireita from '../components/DialogComp/RightText';
-import TextoEsquerda from '../components/DialogComp/LeftText';
+import RightText from '../components/DialogComp/RightText';
+import LeftText from '../components/DialogComp/LeftText';
 import CharacterName from '../components/DialogComp/CharacterName';
 export default function Texto() {
 
@@ -30,13 +30,17 @@ export default function Texto() {
                     style={styles.superior} // Aplica o gradiente ao estilo da barra superior
                 >
     <Image source={imgFilosofo} style={styles.imagemFilosofo} />
-    <DialogosField nomePersonagem ='Professor Setarcos' style={styles.nome}/>
+   <CharacterName NameChar = 'Professor Setarcós'/>
+    
     
     </LinearGradient>
     <ScrollView style={styles.scrollContent}>
       <View style={styles.centro}>
-     
-      <CharacterName NomePersonagem = 'Professor Setarcós'/>
+      <LeftText Left= 'aaaaaaaaa bbbbbbbbb ccccccccc dddddddddddddddddd eeeeeeeeeeeeeeee fffffffffff gggggggggggggg!'/>
+      <RightText Right= 'aaaaaaaaa bbbbbbbbb ccccccccc!'/>
+      <RightText Right= 'aaaaaaaaa bbbbbbbbb ccccccccc!'/>
+      <LeftText Left= 'aaaaaaaaa bbbbbbbbb ccccccccc!'/>
+      <RightText Right= 'aaaaaaaaa bbbbbbbbb ccccccccc dddddddddddddddddd eeeeeeeeeeeeeeee fffffffffff gggggggggggggg!'/>
       
       {/* <DialogosField textoEsquerda ='Olá jovem, espero que você esteja tendo um ótimo dia 😀! Eu sou Aldus Setarcos, é um prazer conhecer você! '/>
       <DialogosField textoEsquerda ='Na aula de hoje vamos aprender um pouquinho sobre quem era Platão'/>

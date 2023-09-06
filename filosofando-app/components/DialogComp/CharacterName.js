@@ -5,7 +5,7 @@ export default (props) => {
     return(
         <View style={styles.container}>
 
-            <Text style={styles.nome}>{props.NomePersonagem}</Text>
+            <Text style={styles.nome}>{props.NameChar}</Text>
            
         </View>
     );
