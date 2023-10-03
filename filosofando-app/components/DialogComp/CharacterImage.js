@@ -23,17 +23,17 @@ export default (props) => {
 const styles = StyleSheet.create({
     
     imagemFilosofo:{
-        width: 150,
-        height: 150,
-       // resizeMode: "contain",
+        width: 60,
+      height: 60,
+      resizeMode: "contain",
        
     },
 
     container:{
-        width: 150,
-        height: 150,
-       // resizeMode: "contain",
-    
+        width: 60,
+        height: 60,
+        resizeMode: "contain",
+      
        
     },
 

@@ -13,7 +13,7 @@ export default (props) => {
             <Text style={styles.nome}>{props.nomeUsuario}</Text>
             <Text style={styles.nick}>{props.nickname}</Text>
             <Text style={styles.frase}>{props.fraseFilosofo}</Text>
-            <FontAwesome5 name={props.icon} size={70} color= 'red'  /> 
+            <FontAwesome5 name={props.icon} size={70} color= 'white'  /> 
             
            
 

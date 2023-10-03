@@ -4,21 +4,26 @@ import Splash from './Splash';
 import DialogosField from '../components/DialogosField';
 import { useNavigation } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
+import CharacterName from '../components/DialogComp/CharacterName';
+import CharacterImage from '../components/DialogComp/CharacterImage';
 import RightText from '../components/DialogComp/RightText';
 import LeftText from '../components/DialogComp/LeftText';
-import CharacterName from '../components/DialogComp/CharacterName';
+import { Asset, useAssets } from 'expo-asset';
 export default function Texto() {
 
   const imgFilosofo = require('../assets/images/filosofos/tales.png');
   const imgCapa = require('../assets/images/covers/talesCover.jpg');
   const nav = useNavigation();
 
+  const [assets, error] = useAssets([require('../assets/images/filosofos/tales.png'),
+  ])
+
   const [fontsLoaded] = useFonts ({
     'LisuBosa-Regular': require ('../assets/fonts/LisuBosa-Regular.ttf'),
     'PlayfairDisplay-Black' : require ('../assets/fonts/Playfair_Display/PlayfairDisplay-Black.ttf')
   });
   
-  if(fontsLoaded){
+  if(fontsLoaded && assets){
   return (
    
    
@@ -29,7 +34,8 @@ export default function Texto() {
                     colors={['black', 'gray']} // Cores do gradiente
                     style={styles.superior} // Aplica o gradiente ao estilo da barra superior
                 >
-    <Image source={imgFilosofo} style={styles.imagemFilosofo} />
+    
+    <CharacterImage addressPicture={assets[0]} />
    <CharacterName NameChar = 'Professor Setarcós'/>
     
     
@@ -37,10 +43,12 @@ export default function Texto() {
     <ScrollView style={styles.scrollContent}>
       <View style={styles.centro}>
       <LeftText Left= 'aaaaaaaaa bbbbbbbbb ccccccccc dddddddddddddddddd eeeeeeeeeeeeeeee fffffffffff gggggggggggggg!'/>
-      <RightText Right= 'aaaaaaaaa bbbbbbbbb ccccccccc!'/>
-      <RightText Right= 'aaaaaaaaa bbbbbbbbb ccccccccc!'/>
+      <RightText Right= 'aaac!'/>
+      <RightText Right= 'aaa!'/>
       <LeftText Left= 'aaaaaaaaa bbbbbbbbb ccccccccc!'/>
-      <RightText Right= 'aaaaaaaaa bbbbbbbbb ccccccccc dddddddddddddddddd eeeeeeeeeeeeeeee fffffffffff gggggggggggggg!'/>
+      <LeftText Left ='Certo?'/>
+      
+      <RightText Right= 'Olá!'/>
       
       {/* <DialogosField textoEsquerda ='Olá jovem, espero que você esteja tendo um ótimo dia 😀! Eu sou Aldus Setarcos, é um prazer conhecer você! '/>
       <DialogosField textoEsquerda ='Na aula de hoje vamos aprender um pouquinho sobre quem era Platão'/>

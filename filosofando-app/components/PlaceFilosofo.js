@@ -9,8 +9,7 @@ export default (props) => {
             
             
             {/* <TextInput placeholder = {props.label}  paddingLeft={4} placeholderTextColor={'rgba(0, 0, 0,0.6)'} color='black' ></TextInput> */}
-            <Text style={styles.nome}>{props.nomeFilosofo}</Text>
-            <Text style={styles.frase}>{props.fraseFilosofo}</Text>
+           
             <Icon name={props.icon} size={70} color= 'red'  /> 
             
            
@@ -43,22 +42,5 @@ const styles = StyleSheet.create({
     //     flex:2,
     //     selectionColor: 'white'
     // },
-
-    nome:{
-        color: 'white',
-        fontSize: 50,
-        fontWeight: 'bold',
-    },
-
-    frase:{
-        color: 'white',
-        fontSize: 20,
-        borderRadius: 15,
-        backgroundColor: '#332d2f',
-       
-    },
-
-
-
 
 })

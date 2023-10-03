@@ -11,16 +11,26 @@ export default (props) => {
     );
 }
 const styles = StyleSheet.create({
+    container:{
+        paddingTop:20,
+        paddingLeft:20,
+        paddingRight:50,
+     
+       },
+   
    
     esquerda:{
-        alignItems:  'flex-start',
-        paddingLeft: 20,
-        backgroundColor: 'red',
-        
+    
     },
     esquerdaTexto:{
         color: 'white',
-        fontSize: 20,
+        fontSize: 18,
+        backgroundColor: '#332d2f',
+        borderRadius:40,
+        alignItems:  'flex-start',
+        paddingLeft: 20,
+        paddingVertical:10,
+       
        
     },
 
