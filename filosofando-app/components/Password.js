@@ -10,13 +10,14 @@ export default (props) => {
         <View style={styles.container}>
            
             <View style={styles.texto}>
-            <TextInput placeholder= {props.labelpass} placeholderTextColor={'rgba(0, 0, 0,0.6)'}  color='black' value = {props.senha} onChangeText={(text) => props.setSenha(text)} secureTextEntry={hidePass}
+            <TextInput placeholder= {props.labelpass} 
+            placeholderTextColor={'rgba(0, 0, 0,0.6)'}  
+            color='black'
+             value = {props.pass} 
+             onChangeText={(text) => props.setSenha(text)} 
+             secureTextEntry={hidePass}
            />
-             
-           
-           
-
-             
+                
             </View>
             <TouchableOpacity style={styles.senhaVisivel} onPress={ () => setHidePass(!hidePass)}>
             {hidePass ?

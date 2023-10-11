@@ -13,6 +13,7 @@ export default (props) => {
 const styles = StyleSheet.create({
    
     nome:{
+        paddingLeft: 20,
         color: 'white',
         fontSize: 20,
        

@@ -15,9 +15,9 @@ export default (props) => {
 const styles = StyleSheet.create({
     container: {
        
-        backgroundColor:'#332d2f',
-         borderRadius: 100,
-         padding:15,
+      
+         paddingHorizontal:50,
+         paddingVertical: 10,
          
        
     },

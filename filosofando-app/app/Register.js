@@ -1,71 +1,86 @@
 import { StyleSheet, View, Text, TouchableOpacity as TO, ScrollView, KeyboardAvoidingView, ImageBackground } from 'react-native';
+import { useState } from 'react';
 import Cadastro from '../components/Cadastro';
 import { useFonts } from 'expo-font';
 import Splash from './Splash';
+import { emailLogin, auth, createUser, signOutFirebase } from "../connections_miguel/firebase-auth";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { router } from "expo-router";
 import { useNavigation } from 'expo-router';
 
-export default function Register(){
-    const [fontsLoaded] = useFonts ({
-        'Montserrat-Regular': require ('../assets/fonts/Montserrat-Regular.ttf'),
-        'LisuBosa-Regular': require ('../assets/fonts/LisuBosa-Regular.ttf'),
-        'LilitaOne-Regular': require ('../assets/fonts/LilitaOne-Regular.ttf'),
-      });
+export default function Register() {
     
-      const img = require('../assets/images/backgrounds/backgroundAzul.png')
+    const [fontsLoaded] = useFonts({
+        'Montserrat-Regular': require('../assets/fonts/Montserrat-Regular.ttf'),
+        'LisuBosa-Regular': require('../assets/fonts/LisuBosa-Regular.ttf'),
+        'LilitaOne-Regular': require('../assets/fonts/LilitaOne-Regular.ttf'),
+    });
+   
+    const img = require('../assets/images/backgrounds/backgroundAzul.png')
+    const nav = useNavigation();
+    const [nome, setNome] = useState('');
+    const [nomeUser, setNomeUser] = useState('');
+    const [email, setEmail] = useState('');
+    const [pass, setPass] = useState('');
+    const [passC, setpassC] = useState('');
+    const tryCreateUser = async () => {
+        createUser(email, pass);
+      }
 
-      const nav = useNavigation();
-      
-      if(fontsLoaded){
-    return(
-        <>
-        <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.container}>
-        <ImageBackground source={img} style={styles.imageBackground}>
-        <ScrollView>
-            <View style={styles.superior}>
-                <Text style={styles.textCadastro}> Criar uma nova  {'\n'} conta </Text>
-            </View>
-            <View style={styles.temConta}>
-                    
-                    <TO onPress ={() => nav.navigate ('Login')}>
-                    <Text style={styles.temContaText}>Já tem uma conta? Faça login aqui!</Text>
-                    </TO>
-                </View>
+    if (fontsLoaded) {
+        return (
+            <>
+                <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.container}>
+                    <ImageBackground source={img} style={styles.imageBackground}>
+                        <ScrollView>
+                            <View style={styles.superior}>
+                                <Text style={styles.textCadastro}> Criar uma nova  {'\n'} conta </Text>
+                            </View>
+                            <View style={styles.temConta}>
 
-            <View style={styles.meio}>
-                
-                <Cadastro label='Nome'/>
-                
-                <Cadastro label='Nome de usuário'/>
-                
-                <Cadastro label='Email'/>
+                                <TO onPress={() => nav.navigate('Login')}>
+                                    <Text style={styles.temContaText}>Já tem uma conta? Faça login aqui!</Text>
+                                </TO>
+                            </View>
 
-                <Cadastro label='Senha'/>
-                
-                <Cadastro label='Confirme sua senha'/>
-            </View>
-            <View style={styles.inferior}>
-                <TO style={styles.registerButton}>
-                    <Text style={styles.registerButtonText}>
-                        Sign Up
-                    </Text>
-                </TO>
-                </View>
+                            <View style={styles.meio}>
 
-               
-        </ScrollView>
-        </ImageBackground>
-        </KeyboardAvoidingView>
-        </>
-    );
+                                <Cadastro label='Nome' />
+
+                                <Cadastro label='Nome de usuário' />
+
+                                <Cadastro value={email} setText={setEmail} label='Email' />
+                                {/* <Cadastro value={email} onChangeText={t=>setEmail(t)} label='Email'/> */}
+
+
+                                <Cadastro value={pass} setText={setPass} label='Senha' />
+                                {/* <Cadastro value={pass} onChangeText={t=>setPass(t)} label='Senha'/> */}
+
+                                <Cadastro label='Confirme sua senha' />
+                            </View>
+                            <View style={styles.inferior}>
+                                <TO onPress={tryCreateUser} style={styles.registerButton}>
+                                    <Text style={styles.registerButtonText}>
+                                        Sign Up
+                                    </Text>
+                                </TO>
+                            </View>
+
+
+                        </ScrollView>
+                    </ImageBackground>
+                </KeyboardAvoidingView>
+            </>
+        );
+
+    }
+    else {
+        return <Splash />
+    }
 
 }
-            else{
-            return <Splash/>
-            }
-    
-        }
 const styles = StyleSheet.create({
-    container:{
+    container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
@@ -73,30 +88,30 @@ const styles = StyleSheet.create({
 
     imageBackground: {
         flex: 1,
-        resizeMode: "cover", 
+        resizeMode: "cover",
         width: "100%"
     },
-    
-    superior:{
+
+    superior: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'flex-end',
         paddingBottom: -100, //modificar
         marginTop: 80,
-    
+
     },
-    meio:{
+    meio: {
         flex: 2,
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop:80
+        marginTop: 80
     },
-    inferior:{
-        flex:1,
+    inferior: {
+        flex: 1,
         marginTop: 100
     },
-    
-    registerButton:{
+
+    registerButton: {
         padding: 4,
         height: 40,
         width: 200,
@@ -107,37 +122,37 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 50
     },
-    registerButtonText:{
+    registerButtonText: {
         fontWeight: 'bold',
         //fontWeight: '400',
-        fontSize:20,
+        fontSize: 20,
         color: 'white',
         textAlign: 'center',
-       
+
 
     },
-    textCadastro:{
+    textCadastro: {
         fontSize: 40,
         color: 'white',
-       marginBottom: 30,
+        marginBottom: 30,
         textAlign: 'center',
         fontFamily: 'LilitaOne-Regular',
-        
-        
+
+
     },
-  
-      temContaText:{
+
+    temContaText: {
         color: '#FF5757',
         fontWeight: 'bold',
         fontSize: 15,
-      },
-      temConta:{
+    },
+    temConta: {
         flexDirection: 'row',
         justifyContent: 'center',
         marginBottom: 0, //modificar
-       
 
-      },
+
+    },
 
 })
 

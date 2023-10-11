@@ -11,7 +11,7 @@ export default (props) => {
         <View style={styles.container}>
             
             <View style={styles.texto}>
-            <TextInput value = {props.Email} onChangeText={(text)=> props.setEmail(text)} placeholder = {props.label}  keyboardType='email-address' placeholderTextColor={'rgba(0, 0, 0,0.6)'} color='black' ></TextInput>
+            <TextInput value = {props.email} onChangeText={(text)=> props.setText(text)} placeholder = {props.label}  keyboardType='email-address' placeholderTextColor={'rgba(0, 0, 0,0.6)'} color='black' ></TextInput>
             </View>
         </View>
     );

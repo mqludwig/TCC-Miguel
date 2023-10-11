@@ -4,14 +4,37 @@ import Field from '../components/Field';
 import { useFonts } from 'expo-font';
 import Splash from './Splash'
 import Password from '../components/Password';
+import { emailLogin, auth, createUser, signOutFirebase } from "../connections_miguel/firebase-auth";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { router } from "expo-router";
 import { useNavigation } from 'expo-router';
-import { emailLogin } from '../auth/emailAuth'; 
+
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function Login() {
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
+
+  const [email, setEmail] = useState('miguelludwig1@gmail.com');
+  const [pass, setPass] = useState('123456');
   const [userMessage, setUserMessage] = useState(false);
-  
+
+   //Funcao para tentar logar no firebase
+   
+   const tryLogin = async () => {
+    console.log(email, pass)
+    const userCredential = await emailLogin(email, pass); //chamada para outro arquivo
+    if(userCredential){
+        
+        console.log(userCredential.user);
+        nav.navigate('Home')
+        
+    }else {
+        //Tratar quando o usuário errar login e senha
+        //Existem outras opções de erros:
+            //Varias tentativas d login fracassados
+        alert("erro");
+    }
+}
+
 
   const img = require('../assets/images/backgrounds/backgroundAzul.png')
 
@@ -42,39 +65,45 @@ export default function Login() {
     <View style={styles.inferior}>
     <View>
       {
-        userMessage ? <Text style={styles.loginMsg}>Usuário ou senha inválido</Text> : null
+        userMessage ? <Text style={styles.loginMsg}>Usuário ou pass inválido</Text> : null
       }
       
     </View>
     
         <View style={styles.loginForm}>
-              <Field label='E-MAIL' email={email} setEmail={setEmail}/>
-              <Password labelpass= 'SENHA' senha={senha} setSenha={setSenha}/>
+              <Field label='E-MAIL' value={email} setText={setEmail}/>
+              <Password labelpass='SENHA' value={pass} setSenha={setPass} />
+              {/* <Password labelpass= 'SENHA'  value={pass} onChangeText={t=>setPass(t)}/> */}
 
               <TouchableOpacity 
               //onPress={()=>setUserMessage(true)} 
               style={styles.loginButton}
-              onPress={() => {
-                emailLogin(email, senha)
-                console.log(email, senha)
-              }}
-              >
+             
+              onPress={tryLogin}
+              
+              // onPress={() => {
+              //   emailLogin(email, pass)
+              //   console.log(email, pass)
+              //   onPress={tryLogin}
+              // }}
+             
+             >
 
                 <Text style={styles.loginButtonText}>ENTRAR</Text>
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.forgotPassword}>
-                <Text style={styles.esquecer}>Esqueceu sua senha?</Text>
+                <Text style={styles.esquecer}>Esqueceu sua pass?</Text>
               </TouchableOpacity>
               
-
-              <View style={styles.naoPossui}>
               
+              <View style={styles.naoPossui}>
+              <ScrollView horizontal>
                 <TouchableOpacity onPress ={() => nav.navigate ('Register')}>
                   <Text style={styles.esquecer}>Criar nova conta!</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress ={() => nav.navigate ('Home')}>
-                  <Text style={styles.esquecer}>Home</Text>
+                <TouchableOpacity onPress ={() => nav.navigate ('Unit')}>
+                  <Text style={styles.esquecer}>Philosophers</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress ={() => nav.navigate ('Quiz')}>
                   <Text style={styles.esquecer}>Quiz</Text>
@@ -88,7 +117,10 @@ export default function Login() {
                 <TouchableOpacity onPress ={() => nav.navigate ('Profile')}>
                   <Text style={styles.esquecer}>Profile</Text>
                 </TouchableOpacity>
-
+                <TouchableOpacity onPress ={() => nav.navigate ('Home')}>
+                  <Text style={styles.esquecer}>Home</Text>
+                </TouchableOpacity>
+                </ScrollView>
                 </View>
         </View>
     </View>

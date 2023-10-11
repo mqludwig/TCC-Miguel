@@ -7,7 +7,7 @@ export default (props) => {
     return(
         <View style={styles.container}>
 
-            <Icon name={props.icon} size={70} color= 'white'  /> 
+            <Icon name={props.icon} size={35} color= 'red'  /> 
     
         </View>
     );
@@ -15,9 +15,9 @@ export default (props) => {
 const styles = StyleSheet.create({
     container: {
        
-        backgroundColor:'#332d2f',
-         borderRadius: 100,
-         padding:15,
+      
+         paddingHorizontal:50,
+         paddingVertical: 10,
          
        
     },

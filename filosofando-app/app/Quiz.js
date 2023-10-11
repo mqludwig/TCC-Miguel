@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, KeyboardAvoidingView, Platform, SafeAreaView, ImageBackground, ScrollView } from 'react-native';
 import { useFonts } from 'expo-font';
 import Splash from './Splash';
-import Question from '../components/QuizComp/Question';
+
 import { useNavigation } from 'expo-router';
 import { Asset, useAssets } from 'expo-asset';
 export default function Quiz() {
@@ -22,7 +22,7 @@ export default function Quiz() {
         <ScrollView>
 
           <View style={styles.superior}>
-          <Question question='Julian Barreto' />
+         
           </View>
 
           <View style={styles.centro}>
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    width: "100%",
+        width: "100%",
     backgroundColor: '#5271FF',
 
   },

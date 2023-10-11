@@ -41,6 +41,7 @@ export default function Philosopher() {
           </View>
 
           <View style={styles.centro}>
+          <Text style={styles.textoBotao}>Estatísticas</Text>
             <View style={styles.button}>
               <Icon icon='star' style={styles.button} />
               <Text style={styles.textoBotao}>XP</Text>
@@ -62,7 +63,7 @@ export default function Philosopher() {
             </View>
           </View>
           <View style={styles.inferior}>
-          <Text style={styles.exercicios}>Insígnias</Text>
+          <Text style={styles.textoBotao}>Insígnias</Text>
           </View>
          
         </ScrollView>
@@ -78,9 +79,10 @@ export default function Philosopher() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'black',
     // flexDirection: "column",
     // width: "100%",
-    backgroundColor: '#3D1E7B',
+    // backgroundColor: '#3D1E7B',
 
   },
   superior: {
@@ -97,32 +99,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     textAlign: 'center',
     marginBottom: 60,
-    flexDirection: 'row',
+    flexDirection: 'column',
     backgroundColor: '#8F8E8E',
     borderRadius: 30,
+    marginHorizontal: 20,
   },
   meuPerfil: {
     color: '#8F8E8E',
     fontSize: 25,
   },
 
-  exercicios: {
-    color: 'white',
-    fontSize: 35,
-    marginBottom: 20,
-    fontFamily: 'LisuBosa-Regular',
-
-  },
-
   inferior: {
+    backgroundColor: '#8F8E8E',
+    borderRadius: 30,
+    marginHorizontal: 20, 
     textAlign: 'center',
     flexDirection: 'row',
 
   },
   button: {
+    backgroundColor: 'yellow',
+    borderRadius: 30,
     marginHorizontal: 20,
+    marginVertical: 20,
+    paddingHorizontal:50,
     alignItems: 'center',
-    marginTop: 0,
+    
   },
   textoBotao: {
     color: 'white',

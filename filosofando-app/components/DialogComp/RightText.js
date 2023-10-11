@@ -4,33 +4,27 @@ export default (props) => {
     
     
     return(
-        <View style={styles.container}>
-            <LinearGradient
-                    colors={['#784cc2', '#4c4cc2']} // Cores do gradiente   
-               
-                    style={styles.direita} // Aplica o gradiente ao estilo da barra superior
-                >
+        <View style={styles.direita}>
+            
               
             <Text style={styles.direitaTexto}>{props.Right}</Text>
        
-           </LinearGradient>
+          
         </View>
     );
 }
 const styles = StyleSheet.create({
    
    container:{
-    paddingTop:20,
-    paddingLeft:50,
-    paddingRight:20,
+    
  
    },
    
     direita:{
         alignItems:  'flex-end',
-        paddingRight: 20,
-        borderRadius:40,
-   
+        paddingTop:20,
+        paddingLeft:50,
+        paddingRight:20,
        // backgroundColor: '#784cc2',
     },
     
@@ -38,7 +32,14 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 18,
         paddingVertical:10,
-       
+        backgroundColor:'#784cc2',
+        borderBottomRightRadius: 20,
+        borderBottomLeftRadius: 20,
+        borderTopLeftRadius: 20,
+        borderBottomRightRadius: 20,
+        borderTopLeftRadius: 20,
+        paddingLeft:35,
+        paddingRight:15,
     },
 
 })
