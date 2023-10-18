@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, KeyboardAvoidingView, Platform, SafeAreaView, ImageBackground, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Button, Image, TouchableOpacity, KeyboardAvoidingView, Platform, SafeAreaView, ImageBackground, ScrollView } from 'react-native';
 import { useFonts } from 'expo-font';
 import Splash from './Splash';
 import PlacePerfil from '../components/PlacePerfil';
@@ -11,7 +11,30 @@ import Experience from '../components/ProfileComp/Experience';
 import Level from '../components/ProfileComp/Level';
 import { useNavigation } from 'expo-router';
 import { Asset, useAssets } from 'expo-asset';
+import { emailLogin, auth, createUser, signOutFirebase } from "../connections_miguel/firebase-auth";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { router } from "expo-router";
+import { useState, useEffect } from 'react';
+import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
+import { set } from 'react-native-reanimated';
+import { getPerfilFromUid } from '../connections_miguel/firebase-store';
 export default function Philosopher() {
+  
+  const trySignOut = async () => {
+    signOutFirebase()
+    nav.navigate('index')
+}
+
+const [perfil, setPerfil] = useState(null);
+
+useEffect(() => {
+  getPerfilFromUid(auth.currentUser.uid).then((perfil) => {
+    setPerfil(perfil);
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+}, [])
 
   const imgFilosofo = require('../assets/images/filosofos/tales.png');
   const imgCapa = require('../assets/images/covers/talesCover.jpg');
@@ -36,8 +59,9 @@ export default function Philosopher() {
 
             {/* <Image source={imgFilosofo} style={styles.imagemFilosofo} /> */}
             <ProfileImage addressPicture={assets[0]} />
-            <UserName nomeUsuario='Julian Barreto' />
-            <Nickname nick='J2pi5er' />
+           
+            <UserName nomeUsuario={perfil && perfil.name} />
+            <Nickname nick={perfil && perfil.username} />
           </View>
 
           <View style={styles.centro}>
@@ -48,6 +72,8 @@ export default function Philosopher() {
               <Experience xp='2500' />
              
             </View>
+
+
 
 
             <View style={styles.button}>
@@ -64,10 +90,15 @@ export default function Philosopher() {
           </View>
           <View style={styles.inferior}>
           <Text style={styles.textoBotao}>Insígnias</Text>
+          <View style={{height:20}}/>
+            <Button color={"orange"}  title="Log Off" onPress={trySignOut}/>
           </View>
+          
          
         </ScrollView>
+      
       </View>
+      
 
 
     );
@@ -79,7 +110,7 @@ export default function Philosopher() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: 'red',
     // flexDirection: "column",
     // width: "100%",
     // backgroundColor: '#3D1E7B',

@@ -1,9 +1,11 @@
 import { StyleSheet, Text, View, Image,TouchableOpacity, KeyboardAvoidingView, Platform, SafeAreaView, ImageBackground } from 'react-native';
 import { useFonts } from 'expo-font';
+import { useEffect, useState } from 'react';
 import Splash from './Splash'
-import { useNavigation } from 'expo-router';
+import { useNavigation,  useRouter} from 'expo-router';
 import 'react-native-gesture-handler';
-import { createStackNavigator } from '@react-navigation/stack';
+import {auth} from '../connections_miguel/firebase-app';
+
 
 
 
@@ -17,6 +19,18 @@ export default function Welcome() {
   const [fontsLoaded] = useFonts ({
     'LisuBosa-Regular': require ('../assets/fonts/LisuBosa-Regular.ttf'),
   });
+
+  useEffect(() => {
+    if (auth && auth.currentUser) {
+      console.log(auth().currentUser)
+      nav.navigate('Home')
+    } 
+  }, [])
+
+  const entrarClicado = () => {
+    
+    nav.navigate('Login')
+  }
   
   if(fontsLoaded){
   return (
@@ -41,7 +55,7 @@ export default function Welcome() {
                 <Text style={styles.botaoTexto}>Inscreva-se</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => nav.navigate ('Login')}>
+            <TouchableOpacity style={styles.enterButton} onPress={entrarClicado}>
                 <Text style={styles.fontInferior}>Entrar</Text>
             </TouchableOpacity>
         </SafeAreaView>

@@ -4,6 +4,9 @@ import Splash from './Splash';
 import Icons from '../components/HomeComp/Icons';
 import { useNavigation } from 'expo-router';
 import { Asset, useAssets } from 'expo-asset';
+import { getPerfilFromUid } from '../connections_miguel/firebase-store';
+import { useState, useEffect } from 'react';
+import { emailLogin, auth, createUser, signOutFirebase } from "../connections_miguel/firebase-auth";
 export default function Home() {
 
   const imgpresocraticos = require('../assets/images/logos/presocraticos.png');
@@ -11,6 +14,16 @@ export default function Home() {
   const imghelenisticos = require('../assets/images/logos/helenisticos.png');
   const imgLogo = require('../assets/images/logos/logo.png');
 
+  const [perfil, setPerfil] = useState(null);
+
+useEffect(() => {
+  getPerfilFromUid(auth.currentUser.uid).then((perfil) => {
+    setPerfil(perfil);
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+}, [])
 
   const nav = useNavigation();
   const [assets, error] = useAssets([require('../assets/images/filosofos/anaximandro.png'), require('../assets/images/filosofos/anaximenes.png'),
@@ -40,7 +53,7 @@ export default function Home() {
         <ScrollView>
 
           <View style={styles.boasVindas}>
-            <Text style={styles.ola}>Olá, Estudante!</Text>
+            <Text style={styles.ola}>Olá, {perfil && perfil.username}</Text>
             <Text style={styles.ola2}>O que você gostaria de aprender hoje?</Text>
           </View>
 

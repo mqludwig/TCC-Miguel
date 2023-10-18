@@ -1,4 +1,8 @@
 import { StyleSheet, View, Text} from 'react-native';
+import { collection, query, where } from "firebase/firestore";
+import { db } from "../../connections_miguel/firebase-app";
+import { useState, useEffect } from 'react';
+
 export default (props) => {
     
     

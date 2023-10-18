@@ -7,6 +7,8 @@ import { emailLogin, auth, createUser, signOutFirebase } from "../connections_mi
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router } from "expo-router";
 import { useNavigation } from 'expo-router';
+import { addUserFirestore } from '../connections_miguel/firebase-store';
+
 
 export default function Register() {
     
@@ -24,8 +26,22 @@ export default function Register() {
     const [pass, setPass] = useState('');
     const [passC, setpassC] = useState('');
     const tryCreateUser = async () => {
-        createUser(email, pass);
-      }
+        if (pass !== passC) {
+            alert('As senhas não coincidem');
+            return;
+        }
+
+        const userCredential = await createUser(email, pass);
+        if (userCredential) {
+            console.log(userCredential);    
+            addUserFirestore(userCredential, nome, nomeUser);
+            nav.navigate('Home');
+        } else {
+            alert('Erro ao criar usuário');
+        }
+    };
+
+      
 
     if (fontsLoaded) {
         return (
@@ -45,9 +61,9 @@ export default function Register() {
 
                             <View style={styles.meio}>
 
-                                <Cadastro label='Nome' />
+                                <Cadastro label='Nome' setText={setNome} />
 
-                                <Cadastro label='Nome de usuário' />
+                                <Cadastro label='Nome de usuário' setText={setNomeUser} />
 
                                 <Cadastro value={email} setText={setEmail} label='Email' />
                                 {/* <Cadastro value={email} onChangeText={t=>setEmail(t)} label='Email'/> */}
@@ -56,7 +72,8 @@ export default function Register() {
                                 <Cadastro value={pass} setText={setPass} label='Senha' />
                                 {/* <Cadastro value={pass} onChangeText={t=>setPass(t)} label='Senha'/> */}
 
-                                <Cadastro label='Confirme sua senha' />
+                                <Cadastro label='Confirme sua senha'setText={setpassC} />
+
                             </View>
                             <View style={styles.inferior}>
                                 <TO onPress={tryCreateUser} style={styles.registerButton}>
@@ -155,4 +172,3 @@ const styles = StyleSheet.create({
     },
 
 })
-
