@@ -1,53 +1,49 @@
-import { StyleSheet, View, TextInput, Text } from 'react-native';
-import { useFonts } from 'expo-font';
-
+import { StyleSheet, View, TextInput, TouchableOpacity } from 'react-native';
 export default (props) => {
 
-    const [fontsLoaded] = useFonts({
-        'Montserrat-Regular': require('../assets/fonts/Montserrat-Regular.ttf')
-    });
-    
-    if (fontsLoaded) {
-        return (
-            <View style={styles.container}>
-                <View style={styles.texto}>
-                    <Text style={styles.texti}> {props.label} </Text>
-                    <TextInput
-                        value={props.text}
-                        onChangeText={(text) => {
-                            props.setText(text);
-                        }}
-                        paddingTop={9}
-                        paddingLeft={4}
-                        color='white'
-                    />
-                </View>
+    return (
+        <View style={styles.container}>
+            <View style={styles.texto}>
+                <TextInput
+                    value={props.text}
+                    onChangeText={(text) => {
+                        props.setText(text);
+                    }}
+                    placeholder={props.label}
+                    paddingLeft={4}
+                    placeholderTextColor={'rgba(0, 0, 0,0.6)'}
+                    color='black' ></TextInput>
             </View>
-        );
-    }
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
     container: {
         borderBottomWidth: 1,
-        borderBottomColor: 'white',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        width: '80%',
-        height: '9%',
+        width: '70%',
+        height: '15%',
+        paddingTop: 0,
+        paddingBottom: 0,
         marginTop: 20,
-        marginBottom: 15
+        marginBottom: 15,
+        backgroundColor: "rgba(255, 255, 255, 0.4)",
+        borderRadius: 15,
+
     },
 
     texto: {
         color: 'white',
-        flex: 2
+        paddingBottom: 0,
+        paddingLeft: 10,
+        flex: 2,
+        selectionColor: 'white'
+
+
 
     },
-    texti: {
-        color: 'white',
-        fontFamily: 'Montserrat-Regular'
-    }
 
 })

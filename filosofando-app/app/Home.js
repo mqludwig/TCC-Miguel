@@ -9,10 +9,11 @@ import { useState, useEffect } from 'react';
 import { emailLogin, auth, createUser, signOutFirebase } from "../connections_miguel/firebase-auth";
 export default function Home() {
 
+  const logo = require('../assets/images/logos/logoBranca.png');
   const imgpresocraticos = require('../assets/images/logos/presocraticos.png');
   const imgclassicos = require('../assets/images/logos/classicos.png');
   const imghelenisticos = require('../assets/images/logos/helenisticos.png');
-  const imgLogo = require('../assets/images/logos/logo.png');
+ 
 
   const [perfil, setPerfil] = useState(null);
 
@@ -45,7 +46,7 @@ useEffect(() => {
       <View style={styles.container}>
 
         <View style={styles.superior}>
-
+        <Image source={logo} style={styles.logo} />
           <Text style={styles.nomeApp}>Filosofando</Text>
 
         </View>
@@ -129,6 +130,7 @@ const styles = StyleSheet.create({
   superior: {
     justifyContent: 'center',
     alignItems: 'center',
+    flexDirection: 'row',
     marginTop: 40,
     marginBottom: 10,
     borderBottomColor: 'white',
@@ -140,6 +142,11 @@ const styles = StyleSheet.create({
     fontFamily: 'LilitaOne-Regular',
     color: 'white',
     fontSize: 20,
+  },
+  logo: {
+    width: 50,
+    height: 50,
+    borderRadius: 10,
   },
 
   centro: {

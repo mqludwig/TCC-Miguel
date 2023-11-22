@@ -13,8 +13,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 export default function Login() {
 
-  const [email, setEmail] = useState('teste@gmail.com');
-  const [pass, setPass] = useState('123456');
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
   const [userMessage, setUserMessage] = useState(false);
 
    //Funcao para tentar logar no firebase
@@ -93,7 +93,7 @@ export default function Login() {
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.forgotPassword}>
-                <Text style={styles.esquecer}>Esqueceu sua pass?</Text>
+                <Text style={styles.esquecer}>Esqueceu sua senha?</Text>
               </TouchableOpacity>
               
               

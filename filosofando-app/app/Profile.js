@@ -69,7 +69,7 @@ useEffect(() => {
             <View style={styles.button}>
               <Icon icon='star' style={styles.button} />
               <Text style={styles.textoBotao}>XP</Text>
-              <Experience xp='2500' />
+              <Experience xp={perfil && perfil.xp} />
              
             </View>
 
@@ -79,18 +79,21 @@ useEffect(() => {
             <View style={styles.button}>
               <Icon icon='calendar' />
               <Text style={styles.textoBotao}>Entrou em</Text>
-              <Text style={styles.textoBotao}>Maio 2023</Text>
+              {/* <Text style={styles.textoBotao}>{perfil && perfil.createdAt}</Text> */}
             </View>
 
             <View style={styles.button}>
               <Icon icon='trophy' />
               <Text style={styles.textoBotao}>Nível</Text>
-              <Level nivel='Ouro' />
+              <Level nivel={perfil && perfil.level} />
             </View>
           </View>
-          <View style={styles.inferior}>
+          <View style={styles.centro}>
           <Text style={styles.textoBotao}>Insígnias</Text>
-          <View style={{height:20}}/>
+          </View>
+         
+          <View style={styles.inferior}>  
+        
             <Button color={"orange"}  title="Log Off" onPress={trySignOut}/>
           </View>
           
@@ -110,7 +113,7 @@ useEffect(() => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'red',
+    backgroundColor: 'black',
     // flexDirection: "column",
     // width: "100%",
     // backgroundColor: '#3D1E7B',

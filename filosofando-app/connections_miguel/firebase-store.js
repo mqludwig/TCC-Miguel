@@ -22,13 +22,13 @@ const db = getFirestore(app);
 
    
 
-const addUserFirestore = async (userCredential, name, nameUser) => {
+const addUserFirestore = async (userCredential, name, username) => {
     const uid = auth.currentUser.uid;
     const data = {
         name: name,
-        username: nameUser,
+        username: username,
         xp: 0,
-        level: 'bronze',
+        level: 'Bronze',
     }
     //NESSE CASO, A CHAVE DO DOCUMENTO IGUAL AO USER ID (UID)
     console.log(data)
@@ -44,6 +44,10 @@ const addUserFirestore = async (userCredential, name, nameUser) => {
             return null;
         }
     }
+
+
+
+
 
     // //FUNCAO PARA ADICIONAR UM DOCUMENTO NA COLEÇÃO "DOGS"
 // const addDogFirebase = async (dogNome, dogRaca, dogPeso) => {

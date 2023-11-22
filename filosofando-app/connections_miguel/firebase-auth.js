@@ -31,6 +31,7 @@ const createUser = async (email, pass, name) => {
             alert(error) //Tratar o erro
         });
 
+    return userCredential; //RETORNA AS CREDENCIAIS DO USUARIO
     //CHAMA FUNCAO EM firebase-store
     //addUserFirestore(userCredential, "Leticia Pedrinho", "123.456.789-00","53 9991730000", "27/07/1996")
 

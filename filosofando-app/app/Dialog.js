@@ -55,7 +55,10 @@ export default function Texto() {
 
           </View>
           <View style={styles.inferior}>
-            <Icons icon='arrow-alt-circle-right' />
+          <TouchableOpacity onPress ={() => console.log("ok")}>
+          <Icons icon='arrow-alt-circle-right' />
+                </TouchableOpacity>
+          
           </View>
         </ScrollView>
       </View>

@@ -20,21 +20,22 @@ export default function Register() {
    
     const img = require('../assets/images/backgrounds/backgroundAzul.png')
     const nav = useNavigation();
-    const [nome, setNome] = useState('');
-    const [nomeUser, setNomeUser] = useState('');
+
+    const [name, setName] = useState('');
+    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [passC, setpassC] = useState('');
+    
     const tryCreateUser = async () => {
-        if (pass !== passC) {
+        if (pass != passC) {
             alert('As senhas não coincidem');
             return;
         }
-
+        console.log(email, pass)
         const userCredential = await createUser(email, pass);
-        if (userCredential) {
-            console.log(userCredential);    
-            addUserFirestore(userCredential, nome, nomeUser);
+        if (userCredential) {   
+            addUserFirestore(userCredential.user.uid, name, username);
             nav.navigate('Home');
         } else {
             alert('Erro ao criar usuário');
@@ -61,9 +62,9 @@ export default function Register() {
 
                             <View style={styles.meio}>
 
-                                <Cadastro label='Nome' setText={setNome} />
+                                <Cadastro label='Nome' setText={setName} />
 
-                                <Cadastro label='Nome de usuário' setText={setNomeUser} />
+                                <Cadastro label='Nome de usuário' setText={setUsername} />
 
                                 <Cadastro value={email} setText={setEmail} label='Email' />
                                 {/* <Cadastro value={email} onChangeText={t=>setEmail(t)} label='Email'/> */}
