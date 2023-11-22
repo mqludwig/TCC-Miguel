@@ -79,6 +79,7 @@ useEffect(() => {
             <View style={styles.button}>
               <Icon icon='calendar' />
               <Text style={styles.textoBotao}>Entrou em</Text>
+              <Level nivel={perfil && perfil.createdAt}/>
               {/* <Text style={styles.textoBotao}>{perfil && perfil.createdAt}</Text> */}
             </View>
 

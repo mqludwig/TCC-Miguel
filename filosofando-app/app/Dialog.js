@@ -9,11 +9,28 @@ import RightText from '../components/DialogComp/RightText';
 import LeftText from '../components/DialogComp/LeftText';
 import Icons from '../components/DialogComp/Icons';
 import { Asset, useAssets } from 'expo-asset';
+import { getDialogFromUid, getDialogoFromFilosofo, getPerfilFromUid } from '../connections_miguel/firebase-store';
+import { useState, useEffect } from 'react';
 export default function Texto() {
 
   const imgFilosofo = require('../assets/images/filosofos/tales.png');
   const imgCapa = require('../assets/images/covers/talesCover.jpg');
   const nav = useNavigation();
+
+  const [texto, setTexto] = useState(null);
+  const [dialogo, setDialogo] = useState ([]);
+
+useEffect(() => {
+  // getPerfilFromUid(auth.currentUser.uid).then((perfil) => {
+  //   setPerfil(perfil);
+  // })
+  // .catch((error) => {
+  //   console.log(error);
+  // })
+  getDialogoFromFilosofo("platao").then((dialogo) => {
+    setDialogo(dialogo.dialogo);
+  })
+}, [])
 
   const [assets, error] = useAssets([require('../assets/images/filosofos/tales.png'),
   ])
@@ -38,7 +55,18 @@ export default function Texto() {
 
         <ScrollView style={styles.scrollContent}>
           <View style={styles.centro}>
-            <LeftText Left='aaaaaaaaa bbbbbbbbb ccccccccc dddddddddddddddddd eeeeeeeeeeeeeeee fffffffffff gggggggggggggg!' />
+           {dialogo.map((elemento, id) => {
+              if(elemento.id == 1){
+                return <LeftText key={id} Left={elemento.message} />
+              } else {
+                return <RightText  key={id} Right={elemento.message} />
+              }
+           })
+          }
+           
+           
+           
+            {/* <LeftText Left= {texto && texto.username} />
             <RightText Right='aaac!' />
             <RightText Right='aaa!' />
             <LeftText Left='aaaaaaaaa bbbbbbbbb ccccccccc!' />
@@ -51,7 +79,7 @@ export default function Texto() {
             <LeftText Left='aaaaaaaaa bbbbbbbbb ccccccccc!' />
             <LeftText Left='Certo?' />
             <RightText Right='aaaaaaaaa bbbbbbbbb ccccccccc dddddddddddddddddd eeeeeeeeeeeeeeee fffffffffff gggggggggggggg!' />
-            <RightText Right='Olá!' />
+            <RightText Right='Olá!' /> */}
 
           </View>
           <View style={styles.inferior}>

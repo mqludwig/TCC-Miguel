@@ -29,9 +29,9 @@ const addUserFirestore = async (userCredential, name, username) => {
         username: username,
         xp: 0,
         level: 'Bronze',
-    }
-    //NESSE CASO, A CHAVE DO DOCUMENTO IGUAL AO USER ID (UID)
-    console.log(data)
+        createdAt: new Date() // Add the current date
+    };
+    console.log(data);
     return await setDoc(doc(db, "usuarios", uid), data);
 }
 
@@ -45,6 +45,16 @@ const addUserFirestore = async (userCredential, name, username) => {
         }
     }
 
+    const getDialogoFromFilosofo = async (nomeFilosofo) => {
+        const docRef = doc(db, "dialogos", nomeFilosofo );
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            console.log(docSnap.data());
+            return docSnap.data();
+        } else {
+            return null;
+        }
+    }
 
 
 
@@ -62,7 +72,7 @@ const addUserFirestore = async (userCredential, name, username) => {
 // }
 
 //EXPORTA AS FUNCOES
-export {addUserFirestore, getPerfilFromUid}
+export {addUserFirestore, getPerfilFromUid, getDialogoFromFilosofo }
 
 
 //aaaaaaaaaaaaaaaaaaaaaaaa
