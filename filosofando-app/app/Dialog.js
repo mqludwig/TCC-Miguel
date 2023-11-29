@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, KeyboardAvoidingView, Platform, SafeAreaView, ImageBackground, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Button, Alert, KeyboardAvoidingView, Platform, SafeAreaView, ImageBackground, ScrollView } from 'react-native';
 import { useFonts } from 'expo-font';
 import Splash from './Splash';
 import { useNavigation } from 'expo-router';
@@ -9,9 +9,26 @@ import RightText from '../components/DialogComp/RightText';
 import LeftText from '../components/DialogComp/LeftText';
 import Icons from '../components/DialogComp/Icons';
 import { Asset, useAssets } from 'expo-asset';
-import { getDialogFromUid, getDialogoFromFilosofo, getPerfilFromUid } from '../connections_miguel/firebase-store';
+import { aumentarXp, getDialogFromUid, getDialogoFromFilosofo, getPerfilFromUid } from '../connections_miguel/firebase-store';
+import {auth} from "../connections_miguel/firebase-auth";
 import { useState, useEffect } from 'react';
 export default function Texto() {
+
+  const [perfil, setPerfil] = useState(null);
+
+useEffect(() => {
+  getPerfilFromUid(auth.currentUser.uid).then((perfil) => {
+    setPerfil(perfil);
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+}, [])
+
+  const createTwoButtonAlert = () =>
+    Alert.alert('Tarefa Finalizada', 'Você ganhou 20 pontos de xp');
+
+    
 
   const imgFilosofo = require('../assets/images/filosofos/tales.png');
   const imgCapa = require('../assets/images/covers/talesCover.jpg');
@@ -82,15 +99,15 @@ useEffect(() => {
             <RightText Right='Olá!' /> */}
 
           </View>
+     
           <View style={styles.inferior}>
-          <TouchableOpacity onPress ={() => console.log("ok")}>
-          <Icons icon='arrow-alt-circle-right' />
-                </TouchableOpacity>
-          
+          <TouchableOpacity onPress={()=>{createTwoButtonAlert(); aumentarXp(20)}}>
+          <Text style={styles.textoBotao}>Finalizar Tarefa</Text>
+          </TouchableOpacity>
           </View>
+       
         </ScrollView>
       </View>
-
 
     );
   }
@@ -135,11 +152,9 @@ const styles = StyleSheet.create({
   imagemFilosofo: {
     width: 60,
     height: 60,
-    resizeMode: "contain",
+    contentFit: "contain", // era resizeMode 
 
   },
-
-
 
   inferior: {
     alignContent: 'center',
@@ -148,13 +163,15 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
 
-
-  button: {
-    marginHorizontal: 35,
-    alignItems: 'center',
-    marginTop: -90,
-
+  textoBotao: {
+    backgroundColor: 'blue',
+    color: 'white',
+    fontSize: 20,
+    fontFamily: 'LisuBosa-Regular',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
   },
+
 
 
 

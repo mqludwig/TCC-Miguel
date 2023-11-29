@@ -1,6 +1,6 @@
 //ARQUIVO PARA ACESSAR O BANCO DE DADOS DO FIREBASE
 
-import { getFirestore, collection, addDoc, setDoc, doc, getDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, setDoc, doc, getDoc, updateDoc,increment } from "firebase/firestore";
 import { auth } from "./firebase-auth";
 import { app } from "./firebase-app"
 
@@ -56,6 +56,14 @@ const addUserFirestore = async (userCredential, name, username) => {
         }
     }
 
+    const aumentarXp = async (quantidade) => {
+        const docRef = doc(db, "usuarios", auth.currentUser.uid );
+        await updateDoc(docRef,{
+            xp: increment(quantidade)
+        })
+
+
+    }
 
 
 
@@ -72,7 +80,7 @@ const addUserFirestore = async (userCredential, name, username) => {
 // }
 
 //EXPORTA AS FUNCOES
-export {addUserFirestore, getPerfilFromUid, getDialogoFromFilosofo }
+export {addUserFirestore, getPerfilFromUid, getDialogoFromFilosofo, aumentarXp }
 
 
 //aaaaaaaaaaaaaaaaaaaaaaaa

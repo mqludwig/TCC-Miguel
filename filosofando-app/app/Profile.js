@@ -9,6 +9,8 @@ import ProfileImage from '../components/ProfileComp/ProfileImage';
 import HorizontalLine from '../components/ProfileComp/HorizontalLine';
 import Experience from '../components/ProfileComp/Experience';
 import Level from '../components/ProfileComp/Level';
+import Icons from '../components/HomeComp/Icons';
+import TabBar from '../components/TabBarComp';
 import { useNavigation } from 'expo-router';
 import { Asset, useAssets } from 'expo-asset';
 import { emailLogin, auth, createUser, signOutFirebase } from "../connections_miguel/firebase-auth";
@@ -79,7 +81,7 @@ useEffect(() => {
             <View style={styles.button}>
               <Icon icon='calendar' />
               <Text style={styles.textoBotao}>Entrou em</Text>
-              <Level nivel={perfil && perfil.createdAt}/>
+              {/* <Level nivel={perfil && perfil.createdAt}/> */}
               {/* <Text style={styles.textoBotao}>{perfil && perfil.createdAt}</Text> */}
             </View>
 
@@ -89,19 +91,29 @@ useEffect(() => {
               <Level nivel={perfil && perfil.level} />
             </View>
           </View>
-          <View style={styles.centro}>
-          <Text style={styles.textoBotao}>Insígnias</Text>
-          </View>
-         
-          <View style={styles.inferior}>  
-        
-            <Button color={"orange"}  title="Log Off" onPress={trySignOut}/>
-          </View>
           
          
+          <View style={styles.inferior}>  
+            <Button color={"orange"}  title="Log Off" onPress={()=> {trySignOut();nav.navigate('Index')}} />
+          </View>
+               
         </ScrollView>
-      
-      </View>
+
+        <View style={styles.tabBar}>
+<TouchableOpacity onPress={() => nav.navigate('Home')} >
+  <Icons icon='home' />
+</TouchableOpacity>
+
+<TouchableOpacity onPress={() => nav.navigate('Profile')} >
+  <Icons icon='user-circle' />
+</TouchableOpacity>
+
+<TouchableOpacity onPress={() => nav.navigate('Quiz')} >
+  <Icons icon='info-circle' />
+</TouchableOpacity>
+</View>
+</View>
+    
       
 
 
@@ -165,5 +177,13 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 25,
   },
+  tabBar: {
+    width: '100%',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    borderTopWidth: 1,
+    borderTopColor: 'white'
+},
 
 });
