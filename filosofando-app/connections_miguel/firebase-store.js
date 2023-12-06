@@ -1,6 +1,6 @@
 //ARQUIVO PARA ACESSAR O BANCO DE DADOS DO FIREBASE
 
-import { getFirestore, collection, addDoc, setDoc, doc, getDoc, updateDoc,increment } from "firebase/firestore";
+import { getFirestore, collection, addDoc, setDoc, doc, getDoc, updateDoc,increment, getDocs } from "firebase/firestore";
 import { auth } from "./firebase-auth";
 import { app } from "./firebase-app"
 
@@ -65,6 +65,12 @@ const addUserFirestore = async (userCredential, name, username) => {
 
     }
 
+    const getQuizFromFilosofo = async (nomeFilosofo) => {
+        const querySnapshot = await getDocs(collection(db, "quiz/"+nomeFilosofo+"/perguntas"));
+        const perguntas = querySnapshot.docs.map(doc => doc.data());
+        return perguntas;
+    }
+
 
 
     // //FUNCAO PARA ADICIONAR UM DOCUMENTO NA COLEÇÃO "DOGS"
@@ -80,7 +86,7 @@ const addUserFirestore = async (userCredential, name, username) => {
 // }
 
 //EXPORTA AS FUNCOES
-export {addUserFirestore, getPerfilFromUid, getDialogoFromFilosofo, aumentarXp }
+export {addUserFirestore, getPerfilFromUid, getDialogoFromFilosofo, aumentarXp, getQuizFromFilosofo}
 
 
 //aaaaaaaaaaaaaaaaaaaaaaaa

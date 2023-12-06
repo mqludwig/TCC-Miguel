@@ -4,8 +4,8 @@ export default (props) => {
     
     return(
      
-         <TouchableOpacity style={styles.botaoBranco} onPress={() => props.onPress(props.alternativa)}>
-            <Text style={styles.answerText}>{props.Answer}</Text>
+         <TouchableOpacity style={styles.botaoBranco} onPress={() => Alert.alert('Simple Button pressed')}>
+            <Text style={styles.answerText}>{props.Confirm}</Text>
             </TouchableOpacity>
   
     );
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",   
     },
     botaoBranco: {
-        backgroundColor: "white",
+        backgroundColor: "red",
         borderRadius: 10,
         width: 350,
         height: 40,
