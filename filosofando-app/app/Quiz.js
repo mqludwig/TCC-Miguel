@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, KeyboardAvoidingView, Platform, SafeAreaView, ImageBackground, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, KeyboardAvoidingView, Platform, SafeAreaView, Alert, ImageBackground, ScrollView } from 'react-native';
 import { useFonts } from 'expo-font';
 import Splash from './Splash';
 import Question from '../components/QuizComp/Question';
@@ -8,28 +8,39 @@ import { useEffect } from 'react';
 import { useNavigation } from 'expo-router';
 import { Asset, useAssets } from 'expo-asset';
 import { useState } from 'react';
-import { getQuizFromFilosofo } from '../connections_miguel/firebase-store';
+import { getQuizFromFilosofo, aumentarXp } from '../connections_miguel/firebase-store';
 export default function Quiz() {
 
   const nav = useNavigation();
+
+  const createTwoButtonAlert = () =>
+    Alert.alert('Tarefa Finalizada', 'Você ganhou 20 pontos de xp');
 
   const [perguntas, setPerguntas] = useState([]);
   const [perguntaAtual, setPerguntaAtual] = useState(0);
   const [corretas, setCorretas] = useState(0);
   const verificaAcerto = (alternativa) => {
+    
     if (alternativa == perguntas[perguntaAtual].correta) {
       console.log("Acertou");
-      setPerguntaAtual(perguntaAtual + 1);
+      
+      if (perguntaAtual == perguntas.length - 1) {
+        createTwoButtonAlert();
+        aumentarXp(20);
+        setTimeout(()=> nav.navigate('Philosopher'), 3000)  
+        
+      }
+      else{
+        setPerguntaAtual(perguntaAtual + 1);
+      }
     }
     else {
       console.log("Errou");
+      alert("erro");
 
     }
+
   }
-
-
-
-
 
   useEffect(() => {
     getQuizFromFilosofo("platao").then((perguntas) => {
@@ -39,7 +50,10 @@ export default function Quiz() {
       .catch((error) => {
         console.log(error);
       })
-  }, [])
+  
+      
+      
+    }, [])
 
  
 
@@ -69,10 +83,7 @@ export default function Quiz() {
 
             </SafeAreaView></>}
 
-          <SafeAreaView style={styles.inferior}>
-            <Confirm Confirm='Confirmar' />
-          </SafeAreaView>
-
+         
 
         </ScrollView>
       </View>

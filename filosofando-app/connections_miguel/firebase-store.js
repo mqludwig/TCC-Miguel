@@ -71,6 +71,19 @@ const addUserFirestore = async (userCredential, name, username) => {
         return perguntas;
     }
 
+    const getDesafiosFromFilosofo = async (nomeFilosofo) => {
+        const docRef = doc(db, "desafios", nomeFilosofo );
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            console.log(docSnap.data());
+            return docSnap.data();
+        } else {
+            return null;
+        }
+    }
+
+
+    
 
 
     // //FUNCAO PARA ADICIONAR UM DOCUMENTO NA COLEÇÃO "DOGS"
@@ -86,7 +99,7 @@ const addUserFirestore = async (userCredential, name, username) => {
 // }
 
 //EXPORTA AS FUNCOES
-export {addUserFirestore, getPerfilFromUid, getDialogoFromFilosofo, aumentarXp, getQuizFromFilosofo}
+export {addUserFirestore, getPerfilFromUid, getDialogoFromFilosofo, aumentarXp, getQuizFromFilosofo, getDesafiosFromFilosofo, getFilosofoFromFilosofo}
 
 
 //aaaaaaaaaaaaaaaaaaaaaaaa

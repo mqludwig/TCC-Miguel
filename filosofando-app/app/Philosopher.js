@@ -9,6 +9,8 @@ import PhilosopherQuote from '../components/PhilosopherComp/PhilosopherQuote';
 import PhilosopherIcons from '../components/PhilosopherComp/PhilosopherIcons';
 import { useNavigation } from 'expo-router';
 import { Asset, useAssets } from 'expo-asset';
+import { useState, useEffect } from 'react';
+
 
 export default function Philosopher() {
 

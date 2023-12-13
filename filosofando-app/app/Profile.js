@@ -27,6 +27,22 @@ export default function Philosopher() {
     nav.navigate('index')
 }
 
+if(xp <= 200 ){
+  setLevel('Bronze')
+}
+if(xp > 200 && xp <= 400 ){
+  setLevel('Prata')
+}
+if(xp > 400 && xp <= 600 ){
+  setLevel('Ouro')
+}
+if(xp > 600 && xp <= 800 ){
+  setLevel('Platina')
+}
+if(xp > 800 && xp <= 1000 ){
+  setLevel('Diamante')
+}
+
 const [perfil, setPerfil] = useState(null);
 
 useEffect(() => {
@@ -88,13 +104,13 @@ useEffect(() => {
             <View style={styles.button}>
               <Icon icon='trophy' />
               <Text style={styles.textoBotao}>Nível</Text>
-              <Level nivel={perfil && perfil.level} />
+              {/* <Level nivel={perfil && perfil.level} /> */}
             </View>
           </View>
           
          
           <View style={styles.inferior}>  
-            <Button color={"orange"}  title="Log Off" onPress={()=> {trySignOut();nav.navigate('Index')}} />
+            <Button color={"orange"}  title="Log Off" onPress={()=> {trySignOut();nav.navigate('index')}} />
           </View>
                
         </ScrollView>

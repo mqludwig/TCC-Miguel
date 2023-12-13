@@ -4,7 +4,7 @@ export default (props) => {
     
     return(
      
-         <TouchableOpacity style={styles.botaoBranco} onPress={() => Alert.alert('Simple Button pressed')}>
+         <TouchableOpacity style={styles.botaoBranco}>
             <Text style={styles.answerText}>{props.Confirm}</Text>
             </TouchableOpacity>
   
