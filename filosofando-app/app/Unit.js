@@ -1,14 +1,15 @@
 import React from "react";
 import { View, Text, ImageBackground, Image, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } from "react-native";
 //import { TouchableOpacity } from "react-native-gesture-handler";
-import { useNavigation } from 'expo-router';
+import { useNavigation, useRouter } from 'expo-router';
 
 const Philosophers = () => {
     const nav = useNavigation();
+    const router = useRouter();
    
     const filosofos = [
-        { nome: "Tales de Mileto", image: require('../assets/images/filosofos/tales.png'), cover: require('../assets/images/covers/talesCover.jpg'), rota: 'Philosopher'  },
-        { nome: "Anaximandro", image: require('../assets/images/filosofos/anaximandro.png'), cover: require('../assets/images/covers/anaximandroCover.jpg'), rota: 'Quiz'  },
+        { nome: "Tales de Mileto", image: require('../assets/images/filosofos/tales.png'), cover: require('../assets/images/covers/talesCover.jpg'), rota: '/philosopher/platao'  },
+        { nome: "Anaximandro", image: require('../assets/images/filosofos/anaximandro.png'), cover: require('../assets/images/covers/anaximandroCover.jpg'), rota: '/philosopher/socrates'  },
         { nome: "Anaximenes", image: require('../assets/images/filosofos/anaximenes.png'), cover: require('../assets/images/covers/anaximenesCover.jpg') },
         { nome: "Heraclito", image: require('../assets/images/filosofos/heraclito.png'), cover: require('../assets/images/covers/heraclitoCover.jpg') },
         { nome: "Pitagoras", image: require('../assets/images/filosofos/pitagoras.png'), cover: require('../assets/images/covers/pitagorasCover.jpg') },
@@ -22,7 +23,7 @@ const Philosophers = () => {
                 <TouchableOpacity
                     key={index}
                     style={styles.filosofoContainer}
-                    onPress={() => nav.navigate(filosofo.rota)}
+                    onPress={() => router.replace(filosofo.rota)}
                     activeOpacity={1}
                 >
                     <ImageBackground source={filosofo.cover} style={styles.imgCover} resizeMode="cover">

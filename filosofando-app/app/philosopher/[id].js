@@ -1,32 +1,34 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, KeyboardAvoidingView, Platform, SafeAreaView, ImageBackground, ScrollView } from 'react-native';
 import { useFonts } from 'expo-font';
-import Splash from './Splash';
-import PlaceFilosofo from '../components/PlaceFilosofo';
-import PhilosopherImage from '../components/PhilosopherComp/PhilosopherImage';
-import PhilosopherName from '../components/PhilosopherComp/PhilosopherName';
-import PhilosopherCover from '../components/PhilosopherComp/PhilosopherCover';
-import PhilosopherQuote from '../components/PhilosopherComp/PhilosopherQuote';
-import PhilosopherIcons from '../components/PhilosopherComp/PhilosopherIcons';
-import { getFilosofoFromFilosofo } from '../connections_miguel/firebase-store'
-import { useNavigation } from 'expo-router';
+import Splash from '../Splash';
+import PlaceFilosofo from '../../components/PlaceFilosofo';
+import PhilosopherImage from '../../components/PhilosopherComp/PhilosopherImage';
+import PhilosopherName from '../../components/PhilosopherComp/PhilosopherName';
+import PhilosopherCover from '../../components/PhilosopherComp/PhilosopherCover';
+import PhilosopherQuote from '../../components/PhilosopherComp/PhilosopherQuote';
+import PhilosopherIcons from '../../components/PhilosopherComp/PhilosopherIcons';
+import { getFilosofoFromFilosofo } from '../../connections_miguel/firebase-store'
+import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { Asset, useAssets } from 'expo-asset';
 import { useState, useEffect } from 'react';
 
 
 export default function Philosopher() {
 
-  const imgFilosofo = require('../assets/images/filosofos/tales.png');
-  const imgCapa = require('../assets/images/covers/talesCover.jpg');
+  const {id} = useLocalSearchParams()
+
+  const imgFilosofo = require('../../assets/images/filosofos/tales.png');
+  const imgCapa = require('../../assets/images/covers/talesCover.jpg');
   const nav = useNavigation();
-  const [assets, error] = useAssets([require('../assets/images/filosofos/anaximandro.png'), require('../assets/images/covers/testeCapa.png'), require('../assets/images/filosofos/anaximenes.png'),
+  const [assets, error] = useAssets([require('../../assets/images/filosofos/anaximandro.png'), require('../../assets/images/covers/testeCapa.png'), require('../../assets/images/filosofos/anaximenes.png'),
   ])
   const [fontsLoaded] = useFonts({
-    'LisuBosa-Regular': require('../assets/fonts/LisuBosa-Regular.ttf'),
-    'PlayfairDisplay-Black': require('../assets/fonts/Playfair_Display/PlayfairDisplay-Black.ttf')
+    'LisuBosa-Regular': require('../../assets/fonts/LisuBosa-Regular.ttf'),
+    'PlayfairDisplay-Black': require('../../assets/fonts/Playfair_Display/PlayfairDisplay-Black.ttf')
   });
 
   useEffect(() => {
-    getFilosofoFromFilosofo("platao").then((dados) => {
+    getFilosofoFromFilosofo(id).then((dados) => {
       console.log(dados)
 
 
@@ -43,7 +45,7 @@ export default function Philosopher() {
   const [fraseFilosofo, setFraseFilosofo] = useState([]);
 
   useEffect(() => {
-    getFilosofoFromFilosofo("platao").then((DADOS) => {
+    getFilosofoFromFilosofo(id).then((DADOS) => {
       setNomeFilosfo(DADOS.nomeFilosofo);
       setFraseFilosofo(DADOS.fraseFilosofo);
       console.log(DADOS);

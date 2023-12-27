@@ -57,9 +57,9 @@ export default function Philosopher() {
       <View style={styles.container}>
         <ScrollView>
           <View style={styles.superior}>
-          <TouchableOpacity onPress={() => nav.navigate('Profile')} style={styles.configIcon}>
-            <Icon icon='angle-left' />
-          </TouchableOpacity>
+            <TouchableOpacity onPress={() => nav.navigate('Profile')} style={styles.configIcon}>
+              <Icon icon='angle-left' />
+            </TouchableOpacity>
             <Text style={styles.meuPerfil}>Configurações</Text>
             <Text style={styles.meuPerfil}>SALVAR</Text>
           </View>
@@ -69,19 +69,19 @@ export default function Philosopher() {
             <Text style={styles.meuPerfil}>Modificar Foto de Perfil</Text>
           </View>
 
-             <View style={styles.centro}>
-          <Text style={styles.sairTexto}>Nome</Text>
-          <Cadastro label={perfil && perfil.name} setText={setName} />
-          <Text style={styles.sairTexto}>Username</Text>
-            <Cadastro label={perfil && perfil.username} setText={setUsername} />  
+          <View style={styles.centro}>
+            <Text style={styles.sairTexto}>Nome</Text>
+            <Cadastro label={perfil && perfil.name} setText={setName} />
+            <Text style={styles.sairTexto}>Username</Text>
+            <Cadastro label={perfil && perfil.username} setText={setUsername} />
           </View>
           <View style={styles.inferior}>
-          <TouchableOpacity onPress={() => { trySignOut(); nav.navigate('index') }} style={styles.sair}>
-          <Text style={styles.sairTexto}>SIGN OUT</Text>
-          </TouchableOpacity>
+            <TouchableOpacity onPress={() => { trySignOut(); nav.navigate('index') }} style={styles.sair}>
+              <Text style={styles.sairTexto}>SIGN OUT</Text>
+            </TouchableOpacity>
           </View>
-  
-          
+
+
         </ScrollView>
 
         <View style={styles.tabBar}>
@@ -149,27 +149,29 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     alignContent: 'center',
     backgroundColor: "blue",
+    height: 250,
 
   },
-    sair: {
-        padding: 4,
-        height: 60,
-        width: 350,
-        borderColor: '#8F8E8E',
-        borderWidth: 4,
-        
-        justifyContent: 'center',
-        borderRadius: 15,
-        alignSelf: 'center',
-        marginTop: 10,
-        marginBottom: 50
-    },
-    sairTexto: {
-        fontWeight: 'bold',
-        fontSize: 24,
-        color: 'white',
-        textAlign: 'center',
-    },
+  sair: {
+    padding: 4,
+    height: 60,
+    width: 350,
+    borderColor: '#8F8E8E',
+    borderWidth: 4,
+
+
+    justifyContent: 'center',
+    borderRadius: 15,
+    alignSelf: 'center',
+    marginTop: 10,
+    marginBottom: 50
+  },
+  sairTexto: {
+    fontWeight: 'bold',
+    fontSize: 24,
+    color: 'white',
+    textAlign: 'center',
+  },
   tabBar: {
     width: '100%',
     alignItems: 'center',
