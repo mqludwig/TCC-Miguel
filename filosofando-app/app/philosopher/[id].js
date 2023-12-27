@@ -8,15 +8,17 @@ import PhilosopherCover from '../../components/PhilosopherComp/PhilosopherCover'
 import PhilosopherQuote from '../../components/PhilosopherComp/PhilosopherQuote';
 import PhilosopherIcons from '../../components/PhilosopherComp/PhilosopherIcons';
 import { getFilosofoFromFilosofo } from '../../connections_miguel/firebase-store'
-import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { useLocalSearchParams, useNavigation,  useRouter  } from 'expo-router';
 import { Asset, useAssets } from 'expo-asset';
-import { useState, useEffect } from 'react';
+import { useState, useEffect} from 'react';
 
 
 export default function Philosopher() {
 
   const {id} = useLocalSearchParams()
-
+ 
+  const router = useRouter();
+   
   const imgFilosofo = require('../../assets/images/filosofos/tales.png');
   const imgCapa = require('../../assets/images/covers/talesCover.jpg');
   const nav = useNavigation();
@@ -83,7 +85,7 @@ export default function Philosopher() {
 
           <View style={styles.inferior}>
 
-            <TouchableOpacity onPress={() => nav.navigate('Dialog')} >
+            <TouchableOpacity onPress={() => router.replace(`Dialog/${id}`)} >
               <PhilosopherIcons icon='book-open' />
               <Text style={styles.textoBotao}>Textos</Text>
             </TouchableOpacity>

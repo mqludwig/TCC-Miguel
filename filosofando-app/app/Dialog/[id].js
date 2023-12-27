@@ -1,20 +1,22 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, Button, Alert, KeyboardAvoidingView, Platform, SafeAreaView, ImageBackground, ScrollView } from 'react-native';
 import { useFonts } from 'expo-font';
-import Splash from './Splash';
-import { useNavigation } from 'expo-router';
+import Splash from '../Splash';
 import { LinearGradient } from 'expo-linear-gradient';
-import CharacterName from '../components/DialogComp/CharacterName';
-import CharacterImage from '../components/DialogComp/CharacterImage';
-import RightText from '../components/DialogComp/RightText';
-import LeftText from '../components/DialogComp/LeftText';
-import Icons from '../components/DialogComp/Icons';
+import CharacterName from '../../components/DialogComp/CharacterName';
+import CharacterImage from '../../components/DialogComp/CharacterImage';
+import RightText from '../../components/DialogComp/RightText';
+import LeftText from '../../components/DialogComp/LeftText';
+import Icons from '../../components/DialogComp/Icons';
 import { Asset, useAssets } from 'expo-asset';
-import { aumentarXp, getDialogFromUid, getDialogoFromFilosofo, getPerfilFromUid } from '../connections_miguel/firebase-store';
-import {auth} from "../connections_miguel/firebase-auth";
+import { aumentarXp, getDialogFromUid, getDialogoFromFilosofo, getPerfilFromUid } from '../../connections_miguel/firebase-store';
+import {auth} from "../../connections_miguel/firebase-auth";
 import { useState, useEffect } from 'react';
+import { useLocalSearchParams, useNavigation } from 'expo-router';
 export default function Texto() {
 
   const [perfil, setPerfil] = useState(null);
+
+  const {id} = useLocalSearchParams()
 
 useEffect(() => {
   getPerfilFromUid(auth.currentUser.uid).then((perfil) => {
@@ -30,8 +32,8 @@ useEffect(() => {
 
     
 
-  const imgFilosofo = require('../assets/images/filosofos/tales.png');
-  const imgCapa = require('../assets/images/covers/talesCover.jpg');
+  const imgFilosofo = require('../../assets/images/filosofos/tales.png');
+  const imgCapa = require('../../assets/images/covers/talesCover.jpg');
   const nav = useNavigation();
 
   const [texto, setTexto] = useState(null);
@@ -44,17 +46,17 @@ useEffect(() => {
   // .catch((error) => {
   //   console.log(error);
   // })
-  getDialogoFromFilosofo("platao").then((dialogo) => {
+  getDialogoFromFilosofo(id).then((dialogo) => {
     setDialogo(dialogo.dialogo);
   })
 }, [])
 
-  const [assets, error] = useAssets([require('../assets/images/filosofos/tales.png'),
+  const [assets, error] = useAssets([require('../../assets/images/filosofos/tales.png'),
   ])
 
   const [fontsLoaded] = useFonts({
-    'LisuBosa-Regular': require('../assets/fonts/LisuBosa-Regular.ttf'),
-    'PlayfairDisplay-Black': require('../assets/fonts/Playfair_Display/PlayfairDisplay-Black.ttf')
+    'LisuBosa-Regular': require('../../assets/fonts/LisuBosa-Regular.ttf'),
+    'PlayfairDisplay-Black': require('../../assets/fonts/Playfair_Display/PlayfairDisplay-Black.ttf')
   });
 
   if (fontsLoaded && assets) {
