@@ -6,10 +6,7 @@ export default (props) => {
     
     return(
         <View>
-            
-            <Icon name={props.icon} size={40} color= 'green'  /> 
-
-           
+            <Icon name={props.icon} size={40} color= 'white'  />  
         </View>
     );
 }

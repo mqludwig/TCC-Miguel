@@ -23,13 +23,19 @@ const db = getFirestore(app);
    
 
 const addUserFirestore = async (userCredential, name, username) => {
+    const date = new Date();
+
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+
     const uid = auth.currentUser.uid;
     const data = {
         name: name,
         username: username,
         xp: 0,
         level: 'Bronze',
-        createdAt: new Date() // Add the current date
+        createdAt: `${day}/${month}/${year}`,
     };
     console.log(data);
     return await setDoc(doc(db, "usuarios", uid), data);
@@ -82,6 +88,16 @@ const addUserFirestore = async (userCredential, name, username) => {
         }
     }
 
+    const getFilosofoFromFilosofo = async (nomeFilosofo) => {
+        const docRef = doc(db, "filosofos", nomeFilosofo );
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            console.log(docSnap.data());
+            return docSnap.data();
+        } else {
+            return null;
+        }
+    }
 
     
 

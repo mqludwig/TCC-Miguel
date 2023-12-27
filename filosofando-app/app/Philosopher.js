@@ -7,6 +7,7 @@ import PhilosopherName from '../components/PhilosopherComp/PhilosopherName';
 import PhilosopherCover from '../components/PhilosopherComp/PhilosopherCover';
 import PhilosopherQuote from '../components/PhilosopherComp/PhilosopherQuote';
 import PhilosopherIcons from '../components/PhilosopherComp/PhilosopherIcons';
+import { getFilosofoFromFilosofo } from '../connections_miguel/firebase-store'
 import { useNavigation } from 'expo-router';
 import { Asset, useAssets } from 'expo-asset';
 import { useState, useEffect } from 'react';
@@ -24,6 +25,37 @@ export default function Philosopher() {
     'PlayfairDisplay-Black': require('../assets/fonts/Playfair_Display/PlayfairDisplay-Black.ttf')
   });
 
+  useEffect(() => {
+    getFilosofoFromFilosofo("platao").then((dados) => {
+      console.log(dados)
+
+
+    })
+      .catch((error) => {
+        console.log(error);
+      })
+
+
+
+  }, [])
+
+  const [nomeFilosofo, setNomeFilosfo] = useState([]);
+  const [fraseFilosofo, setFraseFilosofo] = useState([]);
+
+  useEffect(() => {
+    getFilosofoFromFilosofo("platao").then((DADOS) => {
+      setNomeFilosfo(DADOS.nomeFilosofo);
+      setFraseFilosofo(DADOS.fraseFilosofo);
+      console.log(DADOS);
+    })
+      .catch((error) => {
+        console.log(error);
+      })
+  
+      
+      
+    }, [])
+
   if (fontsLoaded && assets) {
     return (
 
@@ -33,14 +65,14 @@ export default function Philosopher() {
 
           <View style={styles.superior}>
 
-            <PhilosopherName nomeFilosofo='Tales de Mileto' />
+            <PhilosopherName nomeFilosofo={nomeFilosofo} />
             <PhilosopherImage addressPicture={assets[2]} />
           </View>
 
           <View style={styles.centro}>
             <PhilosopherCover addressPicture={assets[1]} />
             <View style={styles.centroBaixo}>
-            <PhilosopherQuote fraseFilosofo='"A água é o princípio de todas as coisas."' />
+              <PhilosopherQuote fraseFilosofo={fraseFilosofo} />
             </View>
           </View>
 
@@ -101,7 +133,7 @@ const styles = StyleSheet.create({
 
 
   },
-  centroBaixo:{
+  centroBaixo: {
     paddingTop: 30,
   },
 

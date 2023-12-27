@@ -9,7 +9,6 @@ export default (props) => {
   return (
  
         <View style={styles.tabBar}>
-
           <TouchableOpacity onPress={() => nav.navigate('Home')} >
             <Icons icon='home' />
           </TouchableOpacity>
@@ -17,7 +16,6 @@ export default (props) => {
           <TouchableOpacity onPress={() => nav.navigate('Profile')} >
             <Icons icon='user-circle' />
           </TouchableOpacity>
-
           <TouchableOpacity onPress={() => nav.navigate('Quiz')} >
             <Icons icon='info-circle' />
           </TouchableOpacity>

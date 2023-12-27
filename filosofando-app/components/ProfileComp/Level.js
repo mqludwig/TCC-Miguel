@@ -7,7 +7,7 @@ export default (props) => {
 }
 const styles = StyleSheet.create({
     texto:{
-        color: 'black',
+        color: 'white',
         fontSize: 25,
     },
 

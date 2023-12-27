@@ -6,9 +6,7 @@ import Icon from '../components/ProfileComp/Icon';
 import UserName from '../components/ProfileComp/UserName';
 import Nickname from '../components/ProfileComp/Nickname';
 import ProfileImage from '../components/ProfileComp/ProfileImage';
-import HorizontalLine from '../components/ProfileComp/HorizontalLine';
-import Experience from '../components/ProfileComp/Experience';
-import Level from '../components/ProfileComp/Level';
+import Cadastro from '../components/Cadastro';
 import Icons from '../components/HomeComp/Icons';
 import TabBar from '../components/TabBarComp';
 import { useNavigation } from 'expo-router';
@@ -20,14 +18,12 @@ import { useState, useEffect } from 'react';
 import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 import { set } from 'react-native-reanimated';
 import { getPerfilFromUid } from '../connections_miguel/firebase-store';
-
 export default function Philosopher() {
 
   const trySignOut = async () => {
     signOutFirebase()
     nav.navigate('index')
   }
-
 
   const [perfil, setPerfil] = useState(null);
 
@@ -40,7 +36,8 @@ export default function Philosopher() {
       })
   }, [])
 
-  
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
 
   const imgFilosofo = require('../assets/images/filosofos/tales.png');
   const imgCapa = require('../assets/images/covers/talesCover.jpg');
@@ -60,48 +57,46 @@ export default function Philosopher() {
       <View style={styles.container}>
         <ScrollView>
           <View style={styles.superior}>
-            <Text style={styles.meuPerfil}>Meu Perfil</Text>
-          
-            <TouchableOpacity onPress={() => nav.navigate('Settings')} style={styles.configIcon}>
-            <Icon icon='cog' />
+          <TouchableOpacity onPress={() => nav.navigate('Profile')} style={styles.configIcon}>
+            <Icon icon='angle-left' />
           </TouchableOpacity>
-            
-          
+            <Text style={styles.meuPerfil}>Configurações</Text>
+            <Text style={styles.meuPerfil}>SALVAR</Text>
           </View>
           <View style={styles.superior2}>
             {/* <Image source={imgFilosofo} style={styles.imagemFilosofo} /> */}
             <ProfileImage addressPicture={assets[0]} />
-            <UserName nomeUsuario={perfil && perfil.name} />
-            <Nickname nick={perfil && perfil.username} />
+            <Text style={styles.meuPerfil}>Modificar Foto de Perfil</Text>
           </View>
 
-          <View style={styles.centro}>
-            <Text style={styles.textoBotao}>Estatísticas</Text>
-            <View style={styles.button}>
-              <Icon icon='star' style={styles.button} />
-              <Text style={styles.textoBotao}>XP</Text>
-              <Experience xp={perfil && perfil.xp} />
-
-            </View>
-
-            <View style={styles.button}>
-              <Icon icon='calendar' />
-              <Text style={styles.textoBotao}>Entrou em</Text>
-               <Level nivel={perfil && perfil.createdAt}/>
-              {/* <Text style={styles.textoBotao}>{perfil && perfil.createdAt}</Text> */}
-            </View>
-
-            <View style={styles.button}>
-              <Icon icon='trophy' />
-              <Text style={styles.textoBotao}>Nível</Text>
-              <Level nivel={perfil && perfil.level} />
-            </View>
+             <View style={styles.centro}>
+          <Text style={styles.sairTexto}>Nome</Text>
+          <Cadastro label={perfil && perfil.name} setText={setName} />
+          <Text style={styles.sairTexto}>Username</Text>
+            <Cadastro label={perfil && perfil.username} setText={setUsername} />  
           </View>
-
+          <View style={styles.inferior}>
+          <TouchableOpacity onPress={() => { trySignOut(); nav.navigate('index') }} style={styles.sair}>
+          <Text style={styles.sairTexto}>SIGN OUT</Text>
+          </TouchableOpacity>
+          </View>
+  
+          
         </ScrollView>
 
-        <TabBar />
-       
+        <View style={styles.tabBar}>
+          <TouchableOpacity onPress={() => nav.navigate('Home')} >
+            <Icons icon='home' />
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => nav.navigate('Profile')} >
+            <Icons icon='user-circle' />
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => nav.navigate('Quiz')} >
+            <Icons icon='info-circle' />
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -112,7 +107,7 @@ export default function Philosopher() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: '#131F24',
     // flexDirection: "column",
     // width: "100%",
     // backgroundColor: '#3D1E7B',
@@ -128,7 +123,7 @@ const styles = StyleSheet.create({
   },
   configIcon: {
     position: 'absolute',
-    right: 20,
+    left: 20,
   },
 
   superior2: {
@@ -137,19 +132,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 20,
     marginBottom: 20,
-    marginHorizontal: 20,
-    borderRadius: 30,
-    backgroundColor: "pink",
+    backgroundColor: "yellow",
   },
   centro: {
     alignContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
-    marginBottom: 60,
-    flexDirection: 'column',
-    backgroundColor: '#8F8E8E',
-    borderRadius: 30,
-    marginHorizontal: 20,
+    backgroundColor: "red",
   },
   meuPerfil: {
     color: '#8F8E8E',
@@ -157,33 +146,38 @@ const styles = StyleSheet.create({
   },
 
   inferior: {
-    backgroundColor: '#8F8E8E',
-    borderRadius: 30,
-    marginHorizontal: 20,
     textAlign: 'center',
-    flexDirection: 'row',
+    alignContent: 'center',
+    backgroundColor: "blue",
 
   },
-  button: {
-    backgroundColor: 'green',
-    borderRadius: 30,
-    marginHorizontal: 20,
-    marginVertical: 20,
-    paddingHorizontal: 50,
-    alignItems: 'center',
-
-  },
-  textoBotao: {
-    color: 'white',
-    fontSize: 25,
-  },
+    sair: {
+        padding: 4,
+        height: 60,
+        width: 350,
+        borderColor: '#8F8E8E',
+        borderWidth: 4,
+        
+        justifyContent: 'center',
+        borderRadius: 15,
+        alignSelf: 'center',
+        marginTop: 10,
+        marginBottom: 50
+    },
+    sairTexto: {
+        fontWeight: 'bold',
+        fontSize: 24,
+        color: 'white',
+        textAlign: 'center',
+    },
   tabBar: {
     width: '100%',
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     borderTopWidth: 1,
-    borderTopColor: 'white'
+    borderTopColor: 'white',
+    backgroundColor: 'green',
   },
 
 });
