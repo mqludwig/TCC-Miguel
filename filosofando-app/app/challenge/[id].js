@@ -1,22 +1,23 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, KeyboardAvoidingView, Platform, SafeAreaView, ImageBackground, ScrollView, Alert } from 'react-native';
 import { useFonts } from 'expo-font';
-import Splash from './Splash';
-import Question from '../components/QuizComp/Question';
-import { aumentarXp, getDialogFromUid, getDialogoFromFilosofo, getPerfilFromUid, getDesafiosFromFilosofo} from '../connections_miguel/firebase-store';
-import {auth} from "../connections_miguel/firebase-auth";
+import Splash from '../Splash';
+import Question from '../../components/QuizComp/Question';
+import { aumentarXp, getDialogFromUid, getDialogoFromFilosofo, getPerfilFromUid, getDesafiosFromFilosofo} from '../../connections_miguel/firebase-store';
+import {auth} from "../../connections_miguel/firebase-auth";
 import { useState, useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useNavigation } from 'expo-router';
+import { useNavigation,  useLocalSearchParams, useRouter} from 'expo-router';
 import { Asset, useAssets } from 'expo-asset';
-
 
 export default function Quiz() {
 
-  const nav = useNavigation();
-  
+  const {id} = useLocalSearchParams()
+ 
+  const router = useRouter();
+
   const [fontsLoaded] = useFonts({
-    'LisuBosa-Regular': require('../assets/fonts/LisuBosa-Regular.ttf'),
-    'PlayfairDisplay-Black': require('../assets/fonts/Playfair_Display/PlayfairDisplay-Black.ttf')
+    'LisuBosa-Regular': require('../../assets/fonts/LisuBosa-Regular.ttf'),
+    'PlayfairDisplay-Black': require('../../assets/fonts/Playfair_Display/PlayfairDisplay-Black.ttf')
   });
 
   const createTwoButtonAlert = () =>
@@ -25,7 +26,7 @@ export default function Quiz() {
   const [desafio, setDesafio] = useState(null);
 
   const fetchDesafios = async() => {
-    const documento = await getDesafiosFromFilosofo("platao")
+    const documento = await getDesafiosFromFilosofo(id)
     setDesafio(documento.desafio)
    }
 
@@ -40,19 +41,17 @@ export default function Quiz() {
 
     return (
 
-
       <View style={styles.container}>
         <ScrollView>
                     <Question Question={desafio} />
                 <SafeAreaView style={styles.centro}>
 
-                    
-
                 </SafeAreaView>
 
                 <SafeAreaView style={styles.inferior}>
                
-          <TouchableOpacity onPress={()=>{createTwoButtonAlert(); aumentarXp(20); nav.navigate('Philosopher')}}>
+          <TouchableOpacity onPress={()=>{createTwoButtonAlert(); aumentarXp(20); router.replace(`philosopher/${id}`), 3000}}> 
+          {/* modificar para nav.navigate('Home') */}
           <Text style={styles.textoBotao}>Finalizar Tarefa</Text>
           </TouchableOpacity>
                 </SafeAreaView>

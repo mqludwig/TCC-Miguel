@@ -1,17 +1,21 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, KeyboardAvoidingView, Platform, SafeAreaView, Alert, ImageBackground, ScrollView } from 'react-native';
 import { useFonts } from 'expo-font';
-import Splash from './Splash';
-import Question from '../components/QuizComp/Question';
-import Answer from '../components/QuizComp/Answer';
-import Confirm from '../components/QuizComp/Confirm';
+import Splash from '../Splash';
+import Question from '../../components/QuizComp/Question';
+import Answer from '../../components/QuizComp/Answer';
+import Confirm from '../../components/QuizComp/Confirm';
 import { useEffect } from 'react';
-import { useNavigation } from 'expo-router';
+import { useNavigation, useLocalSearchParams, useRouter} from 'expo-router';
 import { Asset, useAssets } from 'expo-asset';
 import { useState } from 'react';
-import { getQuizFromFilosofo, aumentarXp } from '../connections_miguel/firebase-store';
+import { getQuizFromFilosofo, aumentarXp } from '../../connections_miguel/firebase-store';
 export default function Quiz() {
 
   const nav = useNavigation();
+
+  const router = useRouter();
+
+  const {id} = useLocalSearchParams()
 
   const createTwoButtonAlert = () =>
     Alert.alert('Tarefa Finalizada', 'Você ganhou 20 pontos de xp');
@@ -27,7 +31,7 @@ export default function Quiz() {
       if (perguntaAtual == perguntas.length - 1) {
         createTwoButtonAlert();
         aumentarXp(20);
-        setTimeout(()=> nav.navigate('Philosopher'), 3000)  
+        setTimeout(()=> router.replace(`philosopher/${id}`), 3000)  
         
       }
       else{
@@ -43,7 +47,7 @@ export default function Quiz() {
   }
 
   useEffect(() => {
-    getQuizFromFilosofo("platao").then((perguntas) => {
+    getQuizFromFilosofo(id).then((perguntas) => {
       setPerguntas(perguntas);
       console.log(perguntas);
     })
@@ -59,8 +63,8 @@ export default function Quiz() {
 
 
   const [fontsLoaded] = useFonts({
-    'LisuBosa-Regular': require('../assets/fonts/LisuBosa-Regular.ttf'),
-    'PlayfairDisplay-Black': require('../assets/fonts/Playfair_Display/PlayfairDisplay-Black.ttf')
+    'LisuBosa-Regular': require('../../assets/fonts/LisuBosa-Regular.ttf'),
+    'PlayfairDisplay-Black': require('../../assets/fonts/Playfair_Display/PlayfairDisplay-Black.ttf')
   });
 
   if (fontsLoaded) {

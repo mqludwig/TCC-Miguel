@@ -85,18 +85,18 @@ export default function Philosopher() {
 
           <View style={styles.inferior}>
 
-            <TouchableOpacity onPress={() => router.replace(`Dialog/${id}`)} >
+            <TouchableOpacity onPress={() => router.replace(`dialog/${id}`)} >
               <PhilosopherIcons icon='book-open' />
               <Text style={styles.textoBotao}>Textos</Text>
             </TouchableOpacity>
 
 
-            <TouchableOpacity onPress={() => nav.navigate('Quiz')} >
+            <TouchableOpacity onPress={() => router.replace(`quiz/${id}`)} >
               <PhilosopherIcons icon='clipboard-list' />
               <Text style={styles.textoBotao}>Quiz</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => nav.navigate('Challenge')} >
+            <TouchableOpacity onPress={() => router.replace(`challenge/${id}`)} >
               <PhilosopherIcons icon='bolt' />
               <Text style={styles.textoBotao}>Desafio</Text>
             </TouchableOpacity>

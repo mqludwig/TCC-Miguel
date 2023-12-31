@@ -11,12 +11,14 @@ import { Asset, useAssets } from 'expo-asset';
 import { aumentarXp, getDialogFromUid, getDialogoFromFilosofo, getPerfilFromUid } from '../../connections_miguel/firebase-store';
 import {auth} from "../../connections_miguel/firebase-auth";
 import { useState, useEffect } from 'react';
-import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router';
 export default function Texto() {
 
   const [perfil, setPerfil] = useState(null);
 
   const {id} = useLocalSearchParams()
+
+  const router = useRouter();
 
 useEffect(() => {
   getPerfilFromUid(auth.currentUser.uid).then((perfil) => {
@@ -103,7 +105,7 @@ useEffect(() => {
           </View>
      
           <View style={styles.inferior}>
-          <TouchableOpacity onPress={()=>{createTwoButtonAlert(); aumentarXp(20)}}>
+          <TouchableOpacity onPress={()=>{createTwoButtonAlert(); aumentarXp(20); router.replace(`philosopher/${id}`), 9000}}>
           <Text style={styles.textoBotao}>Finalizar Tarefa</Text>
           </TouchableOpacity>
           </View>
