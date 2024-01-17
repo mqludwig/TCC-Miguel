@@ -112,7 +112,7 @@ export default function Philosopher() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: '#131F24',
     // flexDirection: "column",
     // width: "100%",
     // backgroundColor: '#3D1E7B',
@@ -122,8 +122,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 10,
-    borderBottomWidth: 1,
+    marginTop: 15,
+    borderBottomWidth: 0.5,
     borderBottomColor: 'white',
   },
   configIcon: {
@@ -139,7 +139,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginHorizontal: 20,
     borderRadius: 30,
-    backgroundColor: "pink",
   },
   centro: {
     alignContent: 'center',
@@ -147,26 +146,21 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 60,
     flexDirection: 'column',
-    backgroundColor: '#8F8E8E',
     borderRadius: 30,
     marginHorizontal: 20,
   },
   meuPerfil: {
     color: '#8F8E8E',
     fontSize: 25,
+    marginVertical: 25,
+    letterSpacing: 1,
   },
 
-  inferior: {
-    backgroundColor: '#8F8E8E',
-    borderRadius: 30,
-    marginHorizontal: 20,
-    textAlign: 'center',
-    flexDirection: 'row',
-
-  },
   button: {
-    backgroundColor: 'green',
+    borderWidth: 2,
     borderRadius: 30,
+    borderColor: 'white',
+    padding: 10,
     marginHorizontal: 20,
     marginVertical: 20,
     paddingHorizontal: 50,

@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 export default (props) => {
     return(
         <View style={styles.container}>
-            <Icon name={props.icon} size={35} color= 'red'  /> 
+            <Icon name={props.icon} size={35} color= 'white'  /> 
         </View>
     );
 }

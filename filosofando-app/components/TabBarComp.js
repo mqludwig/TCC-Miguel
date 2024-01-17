@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-evenly',
-        borderTopWidth: 1,
-        borderTopColor: 'white'
+        borderTopWidth: 0.2,
+        borderTopColor: 'white',
   },
 });

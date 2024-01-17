@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, ImageBackground, Image, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity } from "react-native";
 //import { TouchableOpacity } from "react-native-gesture-handler";
+import { BlurView } from 'expo-blur';
+import GenericIcons from '../components/GenericComp/Icons';
 import { useNavigation, useRouter } from 'expo-router';
 
 const Philosophers = () => {
@@ -17,15 +19,23 @@ const Philosophers = () => {
 
     return (
         <SafeAreaView style={styles.container}>
+           <View style={styles.superior}>
+           <TouchableOpacity onPress={() => nav.goBack()} >
+          <GenericIcons goBackIcon='arrow-left' />
+          </TouchableOpacity>
+            <Text style={{fontSize: 30, fontWeight: "bold", margin: 10}}>Filósofos Pré-Socráticos</Text>
+           </View>
+           
             <ScrollView>
             {filosofos.map((filosofo, index) => (
            
                 <TouchableOpacity
                     key={index}
-                    style={styles.filosofoContainer}
+                    style={styles.imgFilosofoContainer}
                     onPress={() => router.replace(filosofo.rota)}
                     activeOpacity={1}
                 >
+                    
                     <ImageBackground source={filosofo.cover} style={styles.imgCover} resizeMode="cover">
                     <View style={styles.imgFilosofoContainer}>
                         <Image source={filosofo.image} style={styles.imgFilosofo} resizeMode="contain" />
@@ -34,7 +44,7 @@ const Philosophers = () => {
                         <Text style={styles.textoFilosofo}>{filosofo.nome}</Text>
                     </View>
                     </ImageBackground>
-                   
+             
                 </TouchableOpacity>
             ))}
        </ScrollView>
@@ -46,14 +56,19 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
-      
-       
+    },
+    superior: {
+        backgroundColor: "#5271FF",
+        height: 80,
+        justifyContent: "center",
+        alignItems: "center",
     },
 //    filosofoContainer: {
 //     activeOpacity: 1,
 //    },
     imgFilosofoContainer: {
-        marginBottom: 10,
+        marginHorizontal: 10,
+        marginVertical: 10,
         alignItems: "center",
     },
     imgFilosofo: {
@@ -69,6 +84,11 @@ const styles = StyleSheet.create({
         resizeMode: "cover",
         justifyContent: "center",
         alignItems: "center",
+        borderRadius: 10,
+        overflow: "hidden",
+        
+       
+        
     },
     nomeFilosofo: {
         backgroundColor: "#5271FF",

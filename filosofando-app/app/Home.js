@@ -46,7 +46,7 @@ useEffect(() => {
       <View style={styles.container}>
 
         <View style={styles.superior}>
-        <Image source={logo} style={styles.logo} />
+        {/* <Image source={logo} style={styles.logo} /> */}
           <Text style={styles.nomeApp}>Filosofando</Text>
 
         </View>
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     // flexDirection: "column",
     // width: "100%",
     //backgroundColor: '#5271FF',
-    backgroundColor: 'black'
+    backgroundColor: '#131F24',
   },
 
   superior: {
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   nomeApp: {
     fontFamily: 'LilitaOne-Regular',
     color: 'white',
-    fontSize: 20,
+    fontSize: 27,
   },
   logo: {
     width: 50,
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
   },
 
   unidades: {
-    backgroundColor: '#3256fa',
+    backgroundColor: '#00004B',
     borderRadius: 15,
     alignItems: 'center',
     marginHorizontal: 30,
@@ -200,14 +200,16 @@ const styles = StyleSheet.create({
 
 
   botaoIniciarTexto: {
-    backgroundColor: 'white',
+    backgroundColor: '#5271FF',
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#5271FF',
+    color: 'white',
     borderRadius: 15,
     paddingHorizontal: 100,
     paddingVertical: 10,
     marginBottom: 20,
+    borderBottomColor: 'black',
+    borderBottomWidth: 4,
   },
 
   exercicios: {

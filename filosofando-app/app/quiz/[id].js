@@ -9,6 +9,7 @@ import { useNavigation, useLocalSearchParams, useRouter} from 'expo-router';
 import { Asset, useAssets } from 'expo-asset';
 import { useState } from 'react';
 import { getQuizFromFilosofo, aumentarXp } from '../../connections_miguel/firebase-store';
+import { LinearGradient } from 'expo-linear-gradient';
 export default function Quiz() {
 
   const nav = useNavigation();
@@ -71,28 +72,28 @@ export default function Quiz() {
 
     return (
 
-
-      <View style={styles.container}>
-        <View style={styles.superior}>
+         <LinearGradient
+        colors={['black', '#071B39']}
+        style={{ height: '100%'}}>
+         <View style={styles.superior}>
           <Text style={styles.fontSuperior}>Pergunta {perguntaAtual+1} de {perguntas.length}</Text>
         </View>
         <ScrollView>
+          
           {perguntas.length>0 && <><Question Question={perguntas[perguntaAtual].questao} />
-            <SafeAreaView style={styles.centro}>
+      
+            <View style={styles.centro}>
 
               <Answer alternativa={0} onPress={verificaAcerto} Answer={perguntas[perguntaAtual].alternativas[0]} />
               <Answer alternativa={1} onPress={verificaAcerto} Answer={perguntas[perguntaAtual].alternativas[1]} />
               <Answer alternativa={2} onPress={verificaAcerto} Answer={perguntas[perguntaAtual].alternativas[2]} />
               <Answer alternativa={3} onPress={verificaAcerto} Answer={perguntas[perguntaAtual].alternativas[3]} />
 
-            </SafeAreaView></>}
-
-         
+            </View></>}
 
         </ScrollView>
-      </View>
-
-
+        </LinearGradient>
+    
     );
   }
   else {
@@ -100,47 +101,21 @@ export default function Quiz() {
   }
 }
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#5271FF",
-    flex: 1,
-    flexDirection: "column",
-    width: "100%",
-
-  },
   superior: {
-    marginTop: 40,
+    paddingTop: 40,
+    paddingBottom: 20,
     textAlign: "center",
-  },
-  centro: {
-    alignItems: "center",
-  },
-  inferior: {
-    marginBottom: 20,
-    textAlign: "center",
-  },
-
-  botaoBranco: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: 350,
-    height: 40,
-    margin: 17,
-    padding: 8,
-    textAlign: "center",
-
-
-  },
-
-  botaoTexto: {
-    fontSize: 15,
-    fontWeight: "bold",
-
   },
   fontSuperior: {
+    textAlign: "center",
     fontSize: 20,
     color: "white",
-    fontWeight: "bold",
     paddingLeft: 13,
   },
+  centro: {
+    paddingTop: 50,
+    alignItems: "center",
+  },
 
+  
 });

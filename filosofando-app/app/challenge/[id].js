@@ -2,17 +2,19 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, KeyboardAvoidingView, 
 import { useFonts } from 'expo-font';
 import Splash from '../Splash';
 import Question from '../../components/QuizComp/Question';
-import { aumentarXp, getDialogFromUid, getDialogoFromFilosofo, getPerfilFromUid, getDesafiosFromFilosofo} from '../../connections_miguel/firebase-store';
-import {auth} from "../../connections_miguel/firebase-auth";
+import { aumentarXp, getDialogFromUid, getDialogoFromFilosofo, getPerfilFromUid, getDesafiosFromFilosofo } from '../../connections_miguel/firebase-store';
+import { auth } from "../../connections_miguel/firebase-auth";
 import { useState, useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useNavigation,  useLocalSearchParams, useRouter} from 'expo-router';
+import { useNavigation, useLocalSearchParams, useRouter } from 'expo-router';
 import { Asset, useAssets } from 'expo-asset';
 
 export default function Quiz() {
 
-  const {id} = useLocalSearchParams()
- 
+  const imgDesafio = require('../../assets/images/logos/desafio.png');
+
+  const { id } = useLocalSearchParams()
+
   const router = useRouter();
 
   const [fontsLoaded] = useFonts({
@@ -25,39 +27,44 @@ export default function Quiz() {
 
   const [desafio, setDesafio] = useState(null);
 
-  const fetchDesafios = async() => {
+  const fetchDesafios = async () => {
     const documento = await getDesafiosFromFilosofo(id)
     setDesafio(documento.desafio)
-   }
+  }
 
   useEffect(() => {
     console.log("entrou no useEffect")
     fetchDesafios()
     console.log("saiu do useEffect")
 
-  },[])
+  }, [])
 
   if (fontsLoaded) {
 
     return (
 
       <View style={styles.container}>
-        <ScrollView>
-                    <Question Question={desafio} />
-                <SafeAreaView style={styles.centro}>
-
-                </SafeAreaView>
-
-                <SafeAreaView style={styles.inferior}>
-               
-          <TouchableOpacity onPress={()=>{createTwoButtonAlert(); aumentarXp(20); router.replace(`philosopher/${id}`), 3000}}> 
-          {/* modificar para nav.navigate('Home') */}
-          <Text style={styles.textoBotao}>Finalizar Tarefa</Text>
+          
+           <View style={styles.superior}>
+           
+           <Image source={imgDesafio} style={styles.imgLogoDesafio} />
+           </View>
+        <View style={styles.centro}>
+          <Text style={styles.fontSuperior}>É hora do</Text>
+          <Text style={styles.fontSuperior2}>Desafio!</Text>
+          
+          <Question Question={desafio} />
+          <View style={styles.botao}>
+          <TouchableOpacity onPress={() => { createTwoButtonAlert(); aumentarXp(20); router.replace(`philosopher/${id}`), 3000 }}>
+            {/* modificar para nav.navigate('Home') */}
+            <Text style={styles.textoBotao}>Finalizar Tarefa</Text>
           </TouchableOpacity>
-                </SafeAreaView>
+          </View>
+        </View>
+        <SafeAreaView style={styles.inferior}>
 
-         
-        </ScrollView>
+          
+        </SafeAreaView>
       </View>
 
 
@@ -69,56 +76,73 @@ export default function Quiz() {
 }
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#5271FF",
+    backgroundColor: "black",
     flex: 1,
-    flexDirection: "column",
     width: "100%",
+    alignContent: "center",
+    alignItems: "center",
 
-},
-superior: {
-    marginTop: 90,
+  },
+
+  superior: {
+    marginTop: 20,
     marginBottom: 40,
     textAlign: "center",
-},
-centro: {
-    marginBottom: 90,
+  },
+
+  imgLogoDesafio: {
+    width: 380,
+    height: 380,
+    marginBottom: -130,
+    // resizeMode: "contain",
+  },
+
+  centro: {
+    width: "100%",
+    height: "60%",
+    borderTopLeftRadius: 110,
+    borderTopRightRadius: 110,
+    marginTop: 20,
     alignItems: "center",
-},
-inferior: {
+    backgroundColor: "white",
+  },
+
+  inferior: {
     marginBottom: 20,
     textAlign: "center",
-},
+  },
 
-botaoBranco: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    width: 350,
-    height: 40,
-    margin: 17,
-    padding: 8,
-    textAlign: "center",
-   
-
-},
-
-botaoTexto: {
-    fontSize: 15,
+  fontSuperior: {
+    fontSize: 40,
+    color: "black",
     fontWeight: "bold",
+    marginTop: 20,
+  },
+  fontSuperior2: {
+    marginTop: -10,
+    marginBottom: 20,
+    fontSize: 40,
+    color: "red",
+    fontWeight: "bold",
+  },
 
-},
-fontSuperior: {
+  botao: {
+    paddingVertical: 60,
+    paddingHorizontal: 40,
+    width: 300,
+    top: 260,
+    position: "absolute",
+  },
+  textoBotao: {
+    backgroundColor: 'red',
+    borderRadius: 30,
+    color: 'white',
     fontSize: 20,
-    color: "white",
-    fontWeight: "bold",
-    paddingLeft: 13,
-},
-textoBotao: {
-  backgroundColor: 'red',
-  color: 'white',
-  fontSize: 20,
-  fontFamily: 'LisuBosa-Regular',
-  paddingVertical: 10,
-  paddingHorizontal: 20,
-},
+    fontFamily: 'LisuBosa-Regular',
+    paddingVertical: 20,
+    paddingHorizontal: 40,
+    textAlign: 'center',
+
+  },
 
 });

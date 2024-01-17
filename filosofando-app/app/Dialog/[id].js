@@ -7,6 +7,7 @@ import CharacterImage from '../../components/DialogComp/CharacterImage';
 import RightText from '../../components/DialogComp/RightText';
 import LeftText from '../../components/DialogComp/LeftText';
 import Icons from '../../components/DialogComp/Icons';
+import GenericIcons from  '../../components/GenericComp/Icons';
 import { Asset, useAssets } from 'expo-asset';
 import { aumentarXp, getDialogFromUid, getDialogoFromFilosofo, getPerfilFromUid } from '../../connections_miguel/firebase-store';
 import {auth} from "../../connections_miguel/firebase-auth";
@@ -68,7 +69,9 @@ useEffect(() => {
       <View style={styles.container}>
 
         <View style={styles.superior}>
-
+          <TouchableOpacity onPress={() => nav.goBack()} >
+          <GenericIcons goBackIcon='arrow-left' />
+          </TouchableOpacity>
           <CharacterImage addressPicture={assets[0]} />
           <CharacterName NameChar='Professor Setarcós' />
 
@@ -149,7 +152,6 @@ const styles = StyleSheet.create({
 
 
 
-
   },
 
 
@@ -165,6 +167,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     textAlign: 'center',
     flexDirection: 'column',
+    paddingVertical: 30,
   },
 
   textoBotao: {
@@ -174,6 +177,7 @@ const styles = StyleSheet.create({
     fontFamily: 'LisuBosa-Regular',
     paddingVertical: 10,
     paddingHorizontal: 20,
+    borderRadius: 10,
   },
 
 

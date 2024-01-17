@@ -33,6 +33,11 @@ const styles = StyleSheet.create({
         width: 150,
         height: 150,
        // resizeMode: "contain",
+       backgroundColor: '#94265B',
+       borderRadius: 100,
+       borderBottomWidth: 5,
+        borderColor: '#6F78FD',
+         
     
        
     },

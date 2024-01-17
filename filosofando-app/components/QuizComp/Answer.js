@@ -12,8 +12,9 @@ export default (props) => {
 }
 const styles = StyleSheet.create({
     answerText:{
-        fontSize: 15,
+        fontSize: 17,
         fontWeight: "bold",   
+        textAlign: "center",
     },
     botaoBranco: {
         backgroundColor: "white",
