@@ -1,4 +1,5 @@
 import { StyleSheet, View, Text} from 'react-native';
+
 export default (props) => {
     
     return(
@@ -9,18 +10,16 @@ export default (props) => {
 }
 const styles = StyleSheet.create({
     questionView:{
-        marginTop: 70,
-        marginBottom: 30,
-        paddingBottom: 8,
+        marginTop: 50,
         textAlign: "center",
         alignContent: "center",
         alignItems: "center",
     },
    questionText:{
-    fontSize: 23,
-    color: "black",
-    fontWeight: "bold",   
+    fontSize: 20,
+    color: "white",
     textAlign: "center",
+    marginHorizontal: 10,
    },
 
 })

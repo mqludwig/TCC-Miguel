@@ -45,11 +45,13 @@ export default function Philosopher() {
 
   const [nomeFilosofo, setNomeFilosfo] = useState([]);
   const [fraseFilosofo, setFraseFilosofo] = useState([]);
+  const [fotoFilosofo, setFotoFilosofo] = useState([]);
 
   useEffect(() => {
     getFilosofoFromFilosofo(id).then((DADOS) => {
       setNomeFilosfo(DADOS.nomeFilosofo);
       setFraseFilosofo(DADOS.fraseFilosofo);
+      setFotoFilosofo(DADOS.fotoFilosofo);
       console.log(DADOS);
     })
       .catch((error) => {
@@ -70,7 +72,7 @@ export default function Philosopher() {
           <View style={styles.superior}>
 
             <PhilosopherName nomeFilosofo={nomeFilosofo} />
-            <PhilosopherImage addressPicture={assets[2]} />
+            <PhilosopherImage addressPicture={fotoFilosofo} />
           </View>
 
           <View style={styles.centro}>
@@ -85,18 +87,18 @@ export default function Philosopher() {
 
           <View style={styles.inferior}>
 
-            <TouchableOpacity onPress={() => router.replace(`dialog/${id}`)} >
+            <TouchableOpacity onPress={() => router.push(`dialog/${id}`)} >
               <PhilosopherIcons icon='book-open' />
               <Text style={styles.textoBotao}>Textos</Text>
             </TouchableOpacity>
 
 
-            <TouchableOpacity onPress={() => router.replace(`quiz/${id}`)} >
+            <TouchableOpacity onPress={() => router.push(`quiz/${id}`)} >
               <PhilosopherIcons icon='clipboard-list' />
               <Text style={styles.textoBotao}>Quiz</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => router.replace(`challenge/${id}`)} >
+            <TouchableOpacity onPress={() => router.push(`challenge/${id}`)} >
               <PhilosopherIcons icon='bolt' />
               <Text style={styles.textoBotao}>Desafio</Text>
             </TouchableOpacity>

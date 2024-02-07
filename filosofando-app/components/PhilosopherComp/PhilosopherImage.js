@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     imagemFilosofo:{
         width: 150,
         height: 150,
+        borderRadius: 100,
        // resizeMode: "contain",
        
     },

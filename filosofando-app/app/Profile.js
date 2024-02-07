@@ -3,6 +3,7 @@ import { useFonts } from 'expo-font';
 import Splash from './Splash';
 import PlacePerfil from '../components/PlacePerfil';
 import Icon from '../components/ProfileComp/Icon';
+import ConfigIcon from '../components/ProfileComp/ConfigIcon';
 import UserName from '../components/ProfileComp/UserName';
 import Nickname from '../components/ProfileComp/Nickname';
 import ProfileImage from '../components/ProfileComp/ProfileImage';
@@ -40,7 +41,19 @@ export default function Philosopher() {
       })
   }, [])
 
-  
+  function getLevel(xp) {
+    if (xp >= 1000) {
+        return 'Diamante';
+    } else if (xp >= 700) {
+        return 'Platina';
+    } else if (xp >= 500) {
+        return 'Ouro';
+    } else if (xp >= 300) {
+        return 'Prata';
+    } else {
+        return 'Bronze';
+    }
+}
 
   const imgFilosofo = require('../assets/images/filosofos/tales.png');
   const imgCapa = require('../assets/images/covers/talesCover.jpg');
@@ -61,9 +74,15 @@ export default function Philosopher() {
         <ScrollView>
           <View style={styles.superior}>
             <Text style={styles.meuPerfil}>Meu Perfil</Text>
+             <Image
+        style={styles.bla}
+        source={{
+          uri: 'https://uploads.metropoles.com/wp-content/uploads/2024/02/06145633/Bolsonaro_baleia.jpg',
+        }}
+      />
           
             <TouchableOpacity onPress={() => nav.navigate('Settings')} style={styles.configIcon}>
-            <Icon icon='cog' />
+            <ConfigIcon icon='cog' color='yellow'/>
           </TouchableOpacity>
             
           
@@ -112,7 +131,7 @@ export default function Philosopher() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#131F24',
+    backgroundColor: 'black',
     // flexDirection: "column",
     // width: "100%",
     // backgroundColor: '#3D1E7B',
@@ -178,6 +197,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     borderTopWidth: 1,
     borderTopColor: 'white'
+  },
+
+  bla: {
+    width: 50,
+    height: 50,
+    resizeMode: 'cover',
+    alignSelf: 'center',
+    marginTop: 30,
   },
 
 });

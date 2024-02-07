@@ -5,6 +5,9 @@
       "bundler": "metro"
     },
     "name": "filosofando-app",
-    "slug": "filosofando-app"
+    "slug": "filosofando-app",
+    "plugins": [
+      "expo-router"
+    ]
   }
 }

@@ -11,7 +11,7 @@ import { Asset, useAssets } from 'expo-asset';
 
 export default function Quiz() {
 
-  const imgDesafio = require('../../assets/images/logos/desafio.png');
+  const imgDesafio = require('../../assets/images/logos/pensador.png');
 
   const { id } = useLocalSearchParams()
 
@@ -42,31 +42,30 @@ export default function Quiz() {
   if (fontsLoaded) {
 
     return (
-
-      <View style={styles.container}>
-          
-           <View style={styles.superior}>
-           
-           <Image source={imgDesafio} style={styles.imgLogoDesafio} />
-           </View>
+      <LinearGradient
+     start={{x: 0, y: 0.25}} 
+    end={{x: 1, y: 0.25}} 
+    colors={[ '#373435' , 'blue']} 
+    style={{ height: '100%'}}>
+        <ScrollView>
+        <View style={styles.superior}>
+         <Image source={imgDesafio} style={styles.imgLogoDesafio} />
+        </View>
+       
         <View style={styles.centro}>
-          <Text style={styles.fontSuperior}>É hora do</Text>
-          <Text style={styles.fontSuperior2}>Desafio!</Text>
-          
+          <Text style={styles.fontSuperior}>Hora do Desafio!</Text>
           <Question Question={desafio} />
-          <View style={styles.botao}>
+          </View>
+         </ScrollView>
+          <View style={styles.inferior}>
           <TouchableOpacity onPress={() => { createTwoButtonAlert(); aumentarXp(20); router.replace(`philosopher/${id}`), 3000 }}>
             {/* modificar para nav.navigate('Home') */}
             <Text style={styles.textoBotao}>Finalizar Tarefa</Text>
           </TouchableOpacity>
           </View>
-        </View>
-        <SafeAreaView style={styles.inferior}>
-
           
-        </SafeAreaView>
-      </View>
 
+        </LinearGradient>
 
     );
   }
@@ -85,26 +84,23 @@ const styles = StyleSheet.create({
   },
 
   superior: {
-    marginTop: 20,
-    marginBottom: 40,
+    marginTop: 60,
     textAlign: "center",
+    alignContent: "center",
+    alignItems: "center",
   },
 
   imgLogoDesafio: {
-    width: 380,
-    height: 380,
-    marginBottom: -130,
+    width: 290,
+    height: 290,
+    marginBottom: 0,
     // resizeMode: "contain",
   },
 
   centro: {
-    width: "100%",
-    height: "60%",
-    borderTopLeftRadius: 110,
-    borderTopRightRadius: 110,
-    marginTop: 20,
+    marginTop: 40,
     alignItems: "center",
-    backgroundColor: "white",
+  
   },
 
   inferior: {
@@ -113,35 +109,33 @@ const styles = StyleSheet.create({
   },
 
   fontSuperior: {
-    fontSize: 40,
-    color: "black",
+    fontSize: 30,
+    color: "white",
     fontWeight: "bold",
-    marginTop: 20,
   },
-  fontSuperior2: {
-    marginTop: -10,
+  
+  inferior: {
+    alignContent: 'center',
+    alignItems: 'center',
     marginBottom: 20,
-    fontSize: 40,
-    color: "red",
-    fontWeight: "bold",
-  },
+    marginTop: 20,
 
-  botao: {
-    paddingVertical: 60,
-    paddingHorizontal: 40,
-    width: 300,
-    top: 260,
-    position: "absolute",
+    
   },
   textoBotao: {
-    backgroundColor: 'red',
-    borderRadius: 30,
+   // backgroundColor: '#040D1B',
+   backgroundColor: '#018abe',
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginBottom: 12,
     color: 'white',
     fontSize: 20,
     fontFamily: 'LisuBosa-Regular',
-    paddingVertical: 20,
-    paddingHorizontal: 40,
     textAlign: 'center',
+    
+    
+
 
   },
 

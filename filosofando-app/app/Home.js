@@ -1,243 +1,144 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, KeyboardAvoidingView, Platform, SafeAreaView, ImageBackground, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions , AppRegistry} from 'react-native';
 import { useFonts } from 'expo-font';
 import Splash from './Splash';
-import Icons from '../components/HomeComp/Icons';
+import TabBar from '../components/TabBarComp';
+import Swiper from 'react-native-swiper';
 import { useNavigation } from 'expo-router';
-import { Asset, useAssets } from 'expo-asset';
-import { getPerfilFromUid } from '../connections_miguel/firebase-store';
-import { useState, useEffect } from 'react';
-import { emailLogin, auth, createUser, signOutFirebase } from "../connections_miguel/firebase-auth";
+
 export default function Home() {
-
-  const logo = require('../assets/images/logos/logoBranca.png');
-  const imgpresocraticos = require('../assets/images/logos/presocraticos.png');
-  const imgclassicos = require('../assets/images/logos/classicos.png');
-  const imghelenisticos = require('../assets/images/logos/helenisticos.png');
- 
-
-  const [perfil, setPerfil] = useState(null);
-
-useEffect(() => {
-  getPerfilFromUid(auth.currentUser.uid).then((perfil) => {
-    setPerfil(perfil);
-  })
-  .catch((error) => {
-    console.log(error);
-  })
-}, [])
-
-  const nav = useNavigation();
-  const [assets, error] = useAssets([require('../assets/images/filosofos/anaximandro.png'), require('../assets/images/filosofos/anaximenes.png'),
-  ])
   const [fontsLoaded] = useFonts({
-    'LisuBosa-Regular': require('../assets/fonts/LisuBosa-Regular.ttf'),
-    'PlayfairDisplay-Black': require('../assets/fonts/Playfair_Display/PlayfairDisplay-Black.ttf'),
-    'Comfortaa-Regular': require('../assets/fonts/Comfortaa/Comfortaa-Regular.ttf'),
-    'Comfortaa-Bold': require('../assets/fonts/Comfortaa/Comfortaa-Bold.ttf'),
-    'Comfortaa-Light': require('../assets/fonts/Comfortaa/Comfortaa-Light.ttf'),
-    'LilitaOne-Regular': require('../assets/fonts/LilitaOne-Regular.ttf'),
+    // Seus carregamentos de fontes aqui
   });
 
-  if (fontsLoaded && assets) {
+  const nav = useNavigation();
 
+
+  const [atual, setAtual] = useState(0);
+
+  const [data, setData] = React.useState([
+    {id: 1, title: 'Unidade 1', subtitle:'Período Pré-Socrático', image: require('../assets/images/logos/presocraticos.png'), description: 'O nascimento da filosofia na Grécia Antiga, focando na exploração das origens e natureza do mundo através de ideias como os elementos naturais.' },
+    {id: 2, title: 'Unidade 2', subtitle:'Período Clássico', image: require('../assets/images/logos/classicos.png'), description: 'A era de ouro da filosofia grega, destacando figuras como Sócrates, Platão e Aristóteles, que exploraram a ética, política e a busca pelo conhecimento.'},
+    {id: 3, title: 'Unidade 3',  subtitle:'Período Helenístico', image: require('../assets/images/logos/helenisticos.png'), description: 'Uma época de difusão das filosofias gregas pelo vasto Império de Alexandre, o Grande, focando em filosofias pessoais, ética, e a busca pela felicidade em um mundo em transformação.'},
+  ]);
+
+  const _renderItem = (item) => {
     return (
-
-
-      <View style={styles.container}>
-
-        <View style={styles.superior}>
-        {/* <Image source={logo} style={styles.logo} /> */}
-          <Text style={styles.nomeApp}>Filosofando</Text>
-
+      <View style={styles.slide} key={item.id-1+""}>
+        <Image source={item.image} style={styles.imagemPrincipal} />
+        <View style={styles.textos}>
+          <Text style={styles.titulo}>{item.title}</Text>
+          <Text style={styles.subtitulo}>{item.subtitle}</Text>
+          <Text style={styles.descricao}>{item.description}</Text>
+          <TouchableOpacity onPress={() => nav.navigate('Unit')}>
+            <Text style={styles.botaoIniciarTexto}>INICIAR</Text>
+          </TouchableOpacity>
         </View>
-
-        <ScrollView>
-
-          <View style={styles.boasVindas}>
-            <Text style={styles.ola}>Olá, {perfil && perfil.username}</Text>
-            <Text style={styles.ola2}>O que você gostaria de aprender hoje?</Text>
-          </View>
-
-          <View style={styles.centro}>
-            <Image source={imgpresocraticos} style={styles.imgUnidades} />
-            <View style={styles.unidades}>
-              <Text style={styles.txtUnidade}>Unidade 1: Período Pré-Socrático</Text>
-              <Text style={styles.exercicios}>O nascimento da filosofia na Grécia Antiga, focando na exploração das origens e natureza do mundo através de ideias como os elementos naturais.</Text>
-              <TouchableOpacity onPress={() => nav.navigate('Unit')}>
-                <Text style={styles.botaoIniciarTexto}>INICIAR</Text>
-              </TouchableOpacity>
-            </View>
-
-
-            <Image source={imgclassicos} style={styles.imgUnidades} />
-            <View style={styles.unidades}>
-              <Text style={styles.txtUnidade}>Unidade 2: Período Clássico</Text>
-              <Text style={styles.exercicios}>5 Filósofos</Text>
-              <Text style={styles.exercicios}>A era de ouro da filosofia grega, destacando figuras como Sócrates, Platão e Aristóteles, que exploraram a ética, política e a busca pelo conhecimento.</Text>
-              <TouchableOpacity onPress={() => nav.navigate('Unit')}>
-                <Text style={styles.botaoIniciarTexto}>INICIAR</Text>
-              </TouchableOpacity>
-            </View>
-
-
-            <Image source={imghelenisticos} style={styles.imgUnidades} />
-            <View style={styles.unidades}>
-              <Text style={styles.txtUnidade}>Unidade 3: Período Helenístico</Text>
-              <Text style={styles.exercicios}>6 Filósofos</Text>
-              <Text style={styles.exercicios}>Uma época de difusão das filosofias gregas pelo vasto Império de Alexandre, o Grande, focando em filosofias pessoais, ética, e a busca pela felicidade em um mundo em transformação.</Text>
-              <TouchableOpacity onPress={() => nav.navigate('Unit')}>
-                <Text style={styles.botaoIniciarTexto}>INICIAR</Text>
-              </TouchableOpacity>
-            </View>
-
-          </View>
-        </ScrollView>
-        <View style={styles.inferior}>
-
-          <TouchableOpacity onPress={() => nav.navigate('Home')} >
-            <Icons icon='home' />
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={() => nav.navigate('Profile')} >
-            <Icons icon='user-circle' />
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={() => nav.navigate('Quiz')} >
-            <Icons icon='info-circle' />
-          </TouchableOpacity>
-
-        </View>
-
-
       </View>
-
-
     );
-  }
-  else {
-    return <Splash />
+  };
+
+  if (fontsLoaded) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.superior}>
+          <Text style={styles.nomeApp}>Filosofando</Text>
+        </View>
+        <Swiper
+          autoplay={true}
+          
+          showsPagination={true}
+          showsButtons={true}
+          paginationStyle={{ bottom: 10 }}
+          activeDotColor="#fff"
+          onIndexChanged={(index) => {setAtual(index); console.log(atual)}}
+          style={{ flex: 1 }}
+        >
+          {data.map(index => _renderItem(index))}
+        </Swiper>
+        <TabBar />
+      </View>
+    );
+  } else {
+    return <Splash />;
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // flexDirection: "column",
-    // width: "100%",
-    //backgroundColor: '#5271FF',
-    backgroundColor: '#131F24',
+    backgroundColor: '#11224d',
   },
-
   superior: {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    marginTop: 40,
+    width: '100%',
+    marginTop: 20,
     marginBottom: 10,
     borderBottomColor: 'white',
     borderBottomWidth: 1,
     paddingBottom: 10,
   },
-
   nomeApp: {
     fontFamily: 'LilitaOne-Regular',
-    color: 'white',
     fontSize: 27,
+    color: 'white',
   },
-  logo: {
-    width: 50,
-    height: 50,
-    borderRadius: 10,
-  },
-
-  centro: {
-    alignContent: 'center',
+  slide: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    textAlign: 'center',
-    marginBottom: 60,
-    marginTop: 50,
-    flexDirection: 'column',
   },
-
-  boasVindas: {
-    textAlign: 'left',
-    marginLeft: 20,
-    marginTop: 10,
+  imagemPrincipal: {
+    width: 200,
+    height: 200,
+    resizeMode: 'cover',
+    alignSelf: 'center',
+    marginTop: 30,
   },
-
-  ola: {
-    fontSize: 25,
-    color: 'white',
-    fontFamily: 'Comfortaa-Bold',
-  },
-
-  ola2: {
-    fontSize: 15,
-    textAlign: 'left',
-    color: 'white',
-    fontFamily: 'Comfortaa-Light',
-  },
-
-  unidades: {
-    backgroundColor: '#00004B',
+  textos: {
+    marginTop: 20,
+    padding: 20,
+    alignItems: 'center',
+    backgroundColor: '#193a6f',
     borderRadius: 15,
-    alignItems: 'center',
     marginHorizontal: 30,
   },
-
-  txtUnidade: {
+  titulo: {
     fontSize: 25,
-    textAlign: 'center',
+    fontWeight: 'bold',
     color: 'white',
-    fontFamily: 'Comfortaa-Bold',
+    marginBottom: 10,
+    textAlign: 'center',
   },
-
-  imgUnidades: {
-    width: 150,
-    height: 150,
+  subtitulo: {
+    fontSize: 20,
+    color: 'white',
+    marginBottom: 10,
+    marginTop: 10,
+    textAlign: 'center',
+  },
+  descricao: {
+    fontSize: 15,
+    color: 'white',
+    marginBottom: 10,
+    textAlign: 'justify',
     marginBottom: 20,
-    // resizeMode: "contain",
   },
-
-
   botaoIniciarTexto: {
-    backgroundColor: '#5271FF',
+    backgroundColor: '#2c599d',
     fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
     borderRadius: 15,
-    paddingHorizontal: 100,
+    paddingHorizontal: 80,
     paddingVertical: 10,
     marginBottom: 20,
-    borderBottomColor: 'black',
-    borderBottomWidth: 4,
+    textAlign: 'center',  
   },
-
-  exercicios: {
-    color: 'white',
-    fontSize: 20,
-    marginBottom: 20,
-    textAlign: 'center',
-    fontFamily: 'Comfortaa-Light',
-  },
-
-  inferior: {
-        width: '100%',
-        alignItems: 'center',
-        flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        borderTopWidth: 1,
-        borderTopColor: 'white'
-  },
-
-  button: {
-    marginHorizontal: 20,
-    alignItems: 'center',
-    marginTop: 0,
-  },
-
-  textoBotao: {
-    color: 'white',
-    fontSize: 25,
-  },
-
 });
+
+
+
+

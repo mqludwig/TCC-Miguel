@@ -2,17 +2,13 @@ import { StyleSheet, View, TextInput, TouchableOpacity,Text, image } from 'react
 //import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 export default (props) => {
+    const iconSize = props.size ? props.size : 40;
+    const iconColor = props.color ? props.color : '#8F8E8E';
+  
+    
     return(
-        <View style={styles.container}>
-            <Icon name={props.icon} size={30} color= 'white'  /> 
+        <View>
+            <Icon name={props.icon} size={iconSize} color= {iconColor}  />  
         </View>
     );
 }
-const styles = StyleSheet.create({
-    container: {
-         paddingHorizontal:50,
-         paddingVertical: 10, 
-    },
-
-
-})

@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import { StyleSheet, Text, View, Image,TouchableOpacity, KeyboardAvoidingView, Platform, SafeAreaView, ImageBackground } from 'react-native';
 import { useFonts } from 'expo-font';
 import { useEffect, useState } from 'react';
@@ -47,7 +48,10 @@ export default function Welcome() {
         </SafeAreaView>
         <SafeAreaView style={styles.centro}>
             <Text style={styles.fontCentro}>Bem vindo ao Filosofando.</Text>
-            <Text style={[styles.fontCentro, { marginTop: 25 }]}>Aprenda filosofia de forma divertida.</Text>
+            <SafeAreaView style={styles.centro2}>
+            <Text style={styles.fontCentro2}>Aprenda filosofia de</Text>
+            <Text style={styles.fontCentro2}>forma divertida.</Text>
+            </SafeAreaView>
         </SafeAreaView>
 
         <SafeAreaView style={styles.inferior}>
@@ -84,7 +88,11 @@ const styles = StyleSheet.create({
         marginBottom: 90,
         textAlign: "center",
         alignItems:"center",
-        
+    },
+    centro2: {
+        marginTop: 20,
+        textAlign: "center",
+        alignItems:"center",
     },
     inferior: {
         marginBottom: 20,
@@ -127,7 +135,16 @@ const styles = StyleSheet.create({
     fontCentro: {
         fontSize: 25,
         color: "white",
+        textAlign: "center",
+        fontWeight: "bold",
         
+
+    },
+    fontCentro2: {
+        fontSize: 20,
+        color: "white",
+        textAlign: "center",
+        marginTop: 0,
 
     },
 

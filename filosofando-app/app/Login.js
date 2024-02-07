@@ -13,8 +13,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 export default function Login() {
 
-  const [email, setEmail] = useState('');
-  const [pass, setPass] = useState('');
+  const [email, setEmail] = useState('aeyou@gmail.com');
+  const [pass, setPass] = useState('123456');
   const [userMessage, setUserMessage] = useState(false);
 
    //Funcao para tentar logar no firebase
@@ -98,29 +98,9 @@ export default function Login() {
               
               
               <View style={styles.naoPossui}>
-              <ScrollView horizontal>
                 <TouchableOpacity onPress ={() => nav.navigate ('Register')}>
                   <Text style={styles.esquecer}>Criar nova conta!</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress ={() => nav.navigate ('Unit')}>
-                  <Text style={styles.esquecer}>Philosophers</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress ={() => nav.navigate ('Quiz')}>
-                  <Text style={styles.esquecer}>Quiz</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress ={() => nav.navigate ('Philosopher')}>
-                  <Text style={styles.esquecer}>Filosofo</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress ={() => nav.navigate ('Dialog')}>
-                  <Text style={styles.esquecer}>Texto</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress ={() => nav.navigate ('Profile')}>
-                  <Text style={styles.esquecer}>Profile</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress ={() => nav.navigate ('Home')}>
-                  <Text style={styles.esquecer}>Home</Text>
-                </TouchableOpacity>
-                </ScrollView>
                 </View>
         </View>
     </View>
