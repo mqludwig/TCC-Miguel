@@ -1,42 +1,32 @@
-import { StyleSheet, View, Text} from 'react-native';
-import {Asset, useAssets} from 'expo-asset';
-import {Image} from 'expo-image';
-
+import { StyleSheet, View, Text } from 'react-native';
+import { Asset, useAssets } from 'expo-asset';
+import { Image } from 'expo-image';
 
 export default (props) => {
-   // const reqstr =  props.addressPicture || '../../assets/images/filosofos/tales.png'
-   // const imgFilosofo = require(reqstr)
+    // const reqstr =  props.addressPicture || '../../assets/images/filosofos/tales.png'
+    // const imgFilosofo = require(reqstr)
     //const [assets, error] = useAssets([require (reqstr)])
-    
 
-    return(
+    return (
         <View style={styles.container}>
-            {<Image 
-            
-                source= {props.addressPicture} 
-                
+            {<Image
+                source={props.addressPicture}
                 style={styles.imagemFilosofo} />}
-       
         </View>
     );
 }
 const styles = StyleSheet.create({
-    
-    imagemFilosofo:{
+
+    imagemFilosofo: {
         width: 150,
         height: 150,
         borderRadius: 100,
-       // resizeMode: "contain",
-       
+        // resizeMode: "contain",
     },
 
-    container:{
+    container: {
         width: 150,
         height: 150,
-       // resizeMode: "contain",
-      
-       
+        // resizeMode: "contain",     
     },
-
-
 })

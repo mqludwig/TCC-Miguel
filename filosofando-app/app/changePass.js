@@ -1,11 +1,12 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, KeyboardAvoidingView, Platform, ImageBackground, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, KeyboardAvoidingView, Platform, ImageBackground, StatusBar, TextInput } from 'react-native';
 import { useState } from 'react';
 import Field from '../components/Field';
 import { useFonts } from 'expo-font';
 import Splash from './Splash'
 import Password from '../components/Password';
-import { emailLogin, auth, createUser, signOutFirebase } from "../connections_miguel/firebase-auth";
+import { emailLogin, auth, createUser, signOutFirebase} from "../connections_miguel/firebase-auth";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { sendPasswordResetEmail } from 'firebase/auth';
 import { router } from "expo-router";
 import { useNavigation } from 'expo-router';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -13,25 +14,24 @@ import { ScrollView } from 'react-native-gesture-handler';
 export default function Login() {
 
   const [email, setEmail] = useState('');
-  const [pass, setPass] = useState('');
-  const [userMessage, setUserMessage] = useState(false);
 
-  //Funcao para tentar logar no firebase
-
-  const tryLogin = async () => {
-    console.log(email, pass)
-    const userCredential = await emailLogin(email, pass); //chamada para outro arquivo
-
-    if (userCredential) {
-      console.log(userCredential.user);
-      nav.navigate('Home')
+  const replacePassword = async () => {
+    if (email !== "") {
+      sendPasswordResetEmail(auth, email)
+        .then(() => {
+          alert("Email enviado com sucesso!");
+          nav.navigate("Login");
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          alert("Erro ao enviar email: " + errorMessage);
+          return;
+        });
     } else {
-      //Tratar quando o usuário errar login e senha
-      //Existem outras opções de erros:
-      //Varias tentativas d login fracassados
-      alert("erro");
+      alert("Preencha o campo de email!");
+      return;
     }
-  }
+  };
 
   const img = require('../assets/images/backgrounds/backgroundAzul.png')
 
@@ -50,53 +50,43 @@ export default function Login() {
           <ImageBackground source={img} style={styles.imageBackground}>
 
             <View style={styles.container}>
-
+              
               <StatusBar barStyle="light-content" backgroundColor="#0F1166" />
 
               <View style={styles.superior}>
-                <Text style={styles.nomeApp}>Filosofando</Text>
+              <Text style={styles.subtitulo}>Redefina sua senha</Text>
               </View>
 
-              <View style={styles.centro}>
-                <Text style={styles.subtitulo}>Login</Text>
-                <Text style={styles.vermelho}>Entre para continuar</Text>
+              <View style={styles.centro}>   
+                <Text style={styles.vermelho}>Insira seu email e verifique sua caixa</Text>
+                <Text style={styles.vermelho}>verifique sua caixa de entrada.</Text>
               </View>
 
               <View style={styles.inferior}>
-                <View>
-                  {
-                    userMessage ? <Text style={styles.loginMsg}>Usuário ou pass inválido</Text> : null
-                  }
-
-                </View>
 
                 <View style={styles.loginForm}>
-                  <Field label='E-MAIL' value={email} setText={setEmail} />
-                  <Password labelpass='SENHA' value={pass} setSenha={setPass} />
-                  {/* <Password labelpass= 'SENHA'  value={pass} onChangeText={t=>setPass(t)}/> */}
+                <TextInput
+          style={styles.formInput}
+          placeholder="INSIRA SEU EMAIL"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoComplete="email"
+          value={email}
+          onChangeText={setEmail}
+          placeholderTextColor="rgba(0, 0, 0,0.6)"
+        />
 
                   <TouchableOpacity
-                    //onPress={()=>setUserMessage(true)} 
                     style={styles.loginButton}
-                    onPress={tryLogin}
-                  // onPress={() => {
-                  //   emailLogin(email, pass)
-                  //   console.log(email, pass)
-                  //   onPress={tryLogin}
-                  // }}
+                    onPress={replacePassword}
                   >
-                    <Text style={styles.loginButtonText}>ENTRAR</Text>
+                    <Text style={styles.loginButtonText}>ENVIAR EMAIL</Text>
                   </TouchableOpacity>
 
+                  
                   <View style={styles.naoPossui}>
-                  <TouchableOpacity onPress={() => nav.navigate('changePass')}>
-                    <Text style={styles.esquecer}>Esqueceu sua senha?</Text>
-                  </TouchableOpacity>
-                  </View>
-
-                  <View style={styles.naoPossui}>
-                    <TouchableOpacity onPress={() => nav.navigate('Register')}>
-                      <Text style={styles.esquecer}>Criar nova conta!</Text>
+                    <TouchableOpacity onPress={() => nav.navigate('Login')}>
+                      <Text style={styles.esquecer}>Voltar a tela de Login!</Text>
                     </TouchableOpacity>
 
                   </View>
@@ -141,13 +131,24 @@ const styles = StyleSheet.create({
   },
 
   subtitulo: {
-    fontSize: 50,
+    fontSize: 30,
     color: 'white',
   },
 
   vermelho: {
     color: '#FF5757',
     fontSize: 16,
+  },
+
+  formInput: {
+    borderWidth: 1,
+    
+    width: 250,
+    height: 50,
+    borderRadius: 15,
+    backgroundColor: "rgba(255, 255, 255, 0.4)",
+    paddingLeft: 10,
+    marginBottom: 10,
   },
 
   naoPossui: {
@@ -167,12 +168,13 @@ const styles = StyleSheet.create({
 
   superior: {
     alignItems: 'center',
-    paddingTop: 150,
+    paddingTop: 200,
   },
 
   centro: {
     alignItems: 'center',
-    paddingTop: 50,
+    paddingTop: 10,
+    paddingBottom: 20,
   },
 
   inferior: {

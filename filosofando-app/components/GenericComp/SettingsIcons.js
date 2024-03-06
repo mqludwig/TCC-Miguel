@@ -1,10 +1,11 @@
 import { StyleSheet, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-export default function SettingsIcons (props)  {
-    return(
+export default function SettingsIcons(props) {
+    return (
+
         <View style={[styles.goBackIcon, { backgroundColor: props.backgroundColor }]}>
-            <Icon name={props.settingsIcons} size={20} color= 'white' /> 
+            <Icon name={props.settingsIcons} size={20} color='white' />
         </View>
     );
 }

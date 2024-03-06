@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         backgroundColor: "rgba(255, 255, 255, 0.4)",
         borderRadius: 15,
-
     },
 
     texto: {
@@ -41,9 +40,6 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         flex: 2,
         selectionColor: 'white'
-
-
-
     },
 
 })

@@ -55,9 +55,10 @@ const signOutFirebase = async () => {
     });
 }
 
+
 //EXPORTA O OBJETI DO APP (DESNECESSARIAMENTE, NA VERDADE), O DE AUTENTICACAO E AS TRES FUNCOES CRIADAS
 export { app, 
     auth, 
     emailLogin, //
     createUser, 
-    signOutFirebase }
+    signOutFirebase,}

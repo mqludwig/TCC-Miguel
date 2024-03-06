@@ -1,15 +1,12 @@
 import { StyleSheet, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-export default function GoBackIcon (props)  {
-   
-    return(
-        <View style={styles.goBackIcon}>
-            <Icon name={props.goBackIcon} size={25} color= 'white' /> 
+export default (props) => {
+    const iconSize = props.size ? props.size : 40;
+    const iconColor = props.color ? props.color : '#8F8E8E';
+
+    return (
+        <View>
+            <Icon name={props.icon} size={iconSize} color={iconColor} />
         </View>
     );
 }
-const styles = StyleSheet.create({
-        goBackIcon: {
-        paddingLeft: 10,
-    },
-})

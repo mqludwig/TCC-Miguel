@@ -1,13 +1,13 @@
-import { StyleSheet, View, Text} from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 export default (props) => {
-    return(
+    return (
         <View style={styles.container}>
-         <Text style={styles.nome}>{props.nomeUsuario}</Text>  
+            <Text style={styles.nome}>{props.nomeUsuario}</Text>
         </View>
     );
 }
 const styles = StyleSheet.create({
-    nome:{
+    nome: {
         color: 'white',
         fontSize: 35,
         fontWeight: 'bold',

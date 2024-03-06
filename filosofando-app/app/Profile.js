@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button, Image, TouchableOpacity, KeyboardAvoidingView, Platform, SafeAreaView, ImageBackground, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, StatusBar } from 'react-native';
 import { useFonts } from 'expo-font';
 import Splash from './Splash';
 import PlacePerfil from '../components/PlacePerfil';
@@ -29,7 +29,6 @@ export default function Philosopher() {
     nav.navigate('index')
   }
 
-
   const [perfil, setPerfil] = useState(null);
 
   useEffect(() => {
@@ -41,14 +40,10 @@ export default function Philosopher() {
       })
   }, [])
 
-  function getLevel(xp) {
-    if (xp >= 1000) {
-        return 'Diamante';
-    } else if (xp >= 700) {
-        return 'Platina';
-    } else if (xp >= 500) {
+  getLevel = (xp) => {
+    if (xp >= 500) {
         return 'Ouro';
-    } else if (xp >= 300) {
+    } else if (xp >= 100) {
         return 'Prata';
     } else {
         return 'Bronze';
@@ -58,7 +53,7 @@ export default function Philosopher() {
   const imgFilosofo = require('../assets/images/filosofos/tales.png');
   const imgCapa = require('../assets/images/covers/talesCover.jpg');
   const nav = useNavigation();
-  const [assets, error] = useAssets([require('../assets/images/filosofos/anaximandro.png'), require('../assets/images/filosofos/anaximenes.png'),
+  const [assets, error] = useAssets([require('../assets/images/logos/fotoPerfil.png'), require('../assets/images/filosofos/anaximenes.png'),
   ])
   const [fontsLoaded] = useFonts({
     'LisuBosa-Regular': require('../assets/fonts/LisuBosa-Regular.ttf'),
@@ -69,24 +64,18 @@ export default function Philosopher() {
 
     return (
 
-
       <View style={styles.container}>
+
+        <StatusBar barStyle="light-content" backgroundColor="#131F24" />
+
         <ScrollView>
           <View style={styles.superior}>
             <Text style={styles.meuPerfil}>Meu Perfil</Text>
-             <Image
-        style={styles.bla}
-        source={{
-          uri: 'https://uploads.metropoles.com/wp-content/uploads/2024/02/06145633/Bolsonaro_baleia.jpg',
-        }}
-      />
-          
             <TouchableOpacity onPress={() => nav.navigate('Settings')} style={styles.configIcon}>
-            <ConfigIcon icon='cog' color='yellow'/>
-          </TouchableOpacity>
-            
-          
+              <ConfigIcon icon='cog' color='#8F8E8E' />
+            </TouchableOpacity>
           </View>
+
           <View style={styles.superior2}>
             {/* <Image source={imgFilosofo} style={styles.imagemFilosofo} /> */}
             <ProfileImage addressPicture={assets[0]} />
@@ -96,31 +85,32 @@ export default function Philosopher() {
 
           <View style={styles.centro}>
             <Text style={styles.textoBotao}>Estatísticas</Text>
+
             <View style={styles.button}>
               <Icon icon='star' style={styles.button} />
               <Text style={styles.textoBotao}>XP</Text>
               <Experience xp={perfil && perfil.xp} />
-
             </View>
 
             <View style={styles.button}>
               <Icon icon='calendar' />
               <Text style={styles.textoBotao}>Entrou em</Text>
-               <Level nivel={perfil && perfil.createdAt}/>
+              <Level nivel={perfil && perfil.createdAt} />
               {/* <Text style={styles.textoBotao}>{perfil && perfil.createdAt}</Text> */}
             </View>
 
             <View style={styles.button}>
               <Icon icon='trophy' />
               <Text style={styles.textoBotao}>Nível</Text>
-              <Level nivel={perfil && perfil.level} />
+              <Level nivel={this.getLevel(perfil && perfil.xp)} />
             </View>
+
           </View>
 
         </ScrollView>
 
         <TabBar />
-       
+
       </View>
     );
   }
@@ -131,20 +121,18 @@ export default function Philosopher() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
-    // flexDirection: "column",
-    // width: "100%",
-    // backgroundColor: '#3D1E7B',
-
+    backgroundColor: '#131F24',
   },
+
   superior: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 15,
     borderBottomWidth: 0.5,
     borderBottomColor: 'white',
+    marginTop: -10,
   },
+
   configIcon: {
     position: 'absolute',
     right: 20,
@@ -159,6 +147,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     borderRadius: 30,
   },
+
   centro: {
     alignContent: 'center',
     alignItems: 'center',
@@ -167,7 +156,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     borderRadius: 30,
     marginHorizontal: 20,
+    borderColor: 'white',
+    borderWidth: 0.2,
   },
+
   meuPerfil: {
     color: '#8F8E8E',
     fontSize: 25,
@@ -184,19 +176,11 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     paddingHorizontal: 50,
     alignItems: 'center',
-
   },
+
   textoBotao: {
     color: 'white',
     fontSize: 25,
-  },
-  tabBar: {
-    width: '100%',
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    borderTopWidth: 1,
-    borderTopColor: 'white'
   },
 
   bla: {
@@ -206,5 +190,4 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 30,
   },
-
 });

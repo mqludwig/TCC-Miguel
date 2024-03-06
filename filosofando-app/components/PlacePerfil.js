@@ -1,23 +1,16 @@
-import { StyleSheet, View, TextInput, TouchableOpacity,Text, image } from 'react-native';
+import { StyleSheet, View, TextInput, TouchableOpacity, Text, image } from 'react-native';
 //import Icon from 'react-native-vector-icons/FontAwesome5';
 //import Icon from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5"
 export default (props) => {
     const imgFilosofo = require('../assets/images/filosofos/tales.png');
-    
-    return(
+
+    return (
         <View style={styles.container}>
-            
-            
-           
             <Text style={styles.nome}>{props.nomeUsuario}</Text>
             <Text style={styles.nick}>{props.nickname}</Text>
             <Text style={styles.frase}>{props.fraseFilosofo}</Text>
-            <FontAwesome5 name={props.icon} size={70} color= 'white'  /> 
-            
-           
-
-           
+            <FontAwesome5 name={props.icon} size={70} color='white' />
         </View>
     );
 }
@@ -34,8 +27,7 @@ const styles = StyleSheet.create({
         // marginTop: 20,
         // marginBottom: 15,
         // backgroundColor: "rgba(255, 255, 255, 0.4)",
-        // borderRadius: 15,
-       
+        // borderRadius: 15,   
     },
 
     // texto:{
@@ -46,21 +38,17 @@ const styles = StyleSheet.create({
     //     selectionColor: 'white'
     // },
 
-    nome:{
+    nome: {
         color: 'white',
         fontSize: 50,
         fontWeight: 'bold',
     },
 
-    frase:{
+    frase: {
         color: 'white',
         fontSize: 20,
         borderRadius: 15,
         //backgroundColor: '#332d2f',
-       
+
     },
-
-
-
-
 })

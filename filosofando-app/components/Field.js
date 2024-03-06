@@ -3,15 +3,20 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { useFonts } from 'expo-font';
 import { useState } from 'react';
 export default (props) => {
-    
-      const [hydePass, setHidePass] = useState(true);
-      
 
-    return(
+    const [hydePass, setHidePass] = useState(true);
+
+    return (
         <View style={styles.container}>
-            
+
             <View style={styles.texto}>
-            <TextInput value = {props.email} onChangeText={(text)=> props.setText(text)} placeholder = {props.label}  keyboardType='email-address' placeholderTextColor={'rgba(0, 0, 0,0.6)'} color='black' ></TextInput>
+                <TextInput value={props.email} 
+                onChangeText={(text) => props.setText(text)} 
+                placeholder={props.label} 
+                keyboardType='email-address' 
+                autoCapitalize="none" 
+                placeholderTextColor={'rgba(0, 0, 0,0.6)'} 
+                color='black' ></TextInput>
             </View>
         </View>
     );
@@ -33,14 +38,13 @@ const styles = StyleSheet.create({
         borderRadius: 15,
     },
 
-    texto:{
+    texto: {
         color: 'white',
         paddingBottom: 0,
-        paddingLeft:4,
-        paddingTop:3,
-        flex:2,
+        paddingLeft: 4,
+        paddingTop: 3,
+        flex: 2,
         selectionColor: 'white'
-
     },
 
 })

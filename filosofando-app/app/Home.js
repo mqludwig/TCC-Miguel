@@ -1,144 +1,238 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, Dimensions , AppRegistry} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, StatusBar } from 'react-native';
 import { useFonts } from 'expo-font';
 import Splash from './Splash';
-import TabBar from '../components/TabBarComp';
-import Swiper from 'react-native-swiper';
+import Icons from '../components/HomeComp/Icons';
 import { useNavigation } from 'expo-router';
-
+import { Asset, useAssets } from 'expo-asset';
+import { getPerfilFromUid } from '../connections_miguel/firebase-store';
+import { useState, useEffect } from 'react';
+import { emailLogin, auth, createUser, signOutFirebase } from "../connections_miguel/firebase-auth";
+import TabBar from '../components/TabBarComp';
 export default function Home() {
-  const [fontsLoaded] = useFonts({
-    // Seus carregamentos de fontes aqui
-  });
+
+  const logo = require('../assets/images/logos/logoVirada.png');
+  const imgpresocraticos = require('../assets/images/logos/presocraticos.png');
+  const imgclassicos = require('../assets/images/logos/classicos.png');
+  const imghelenisticos = require('../assets/images/logos/helenisticos.png');
+  const imgEstudantes = require('../assets/images/logos/EstudantesAprendendo.png');
+
+
+  const [perfil, setPerfil] = useState(null);
+
+  useEffect(() => {
+    getPerfilFromUid(auth.currentUser.uid).then((perfil) => {
+      setPerfil(perfil);
+    })
+      .catch((error) => {
+        console.log(error);
+      })
+  }, [])
 
   const nav = useNavigation();
+  const [assets, error] = useAssets([require('../assets/images/filosofos/anaximandro.png'), require('../assets/images/filosofos/anaximenes.png'),
+  ])
+  const [fontsLoaded] = useFonts({
+    'LisuBosa-Regular': require('../assets/fonts/LisuBosa-Regular.ttf'),
+    'PlayfairDisplay-Black': require('../assets/fonts/Playfair_Display/PlayfairDisplay-Black.ttf'),
+    'Comfortaa-Regular': require('../assets/fonts/Comfortaa/Comfortaa-Regular.ttf'),
+    'Comfortaa-Bold': require('../assets/fonts/Comfortaa/Comfortaa-Bold.ttf'),
+    'Comfortaa-Light': require('../assets/fonts/Comfortaa/Comfortaa-Light.ttf'),
+    'LilitaOne-Regular': require('../assets/fonts/LilitaOne-Regular.ttf'),
+  });
 
+  if (fontsLoaded && assets) {
 
-  const [atual, setAtual] = useState(0);
-
-  const [data, setData] = React.useState([
-    {id: 1, title: 'Unidade 1', subtitle:'Período Pré-Socrático', image: require('../assets/images/logos/presocraticos.png'), description: 'O nascimento da filosofia na Grécia Antiga, focando na exploração das origens e natureza do mundo através de ideias como os elementos naturais.' },
-    {id: 2, title: 'Unidade 2', subtitle:'Período Clássico', image: require('../assets/images/logos/classicos.png'), description: 'A era de ouro da filosofia grega, destacando figuras como Sócrates, Platão e Aristóteles, que exploraram a ética, política e a busca pelo conhecimento.'},
-    {id: 3, title: 'Unidade 3',  subtitle:'Período Helenístico', image: require('../assets/images/logos/helenisticos.png'), description: 'Uma época de difusão das filosofias gregas pelo vasto Império de Alexandre, o Grande, focando em filosofias pessoais, ética, e a busca pela felicidade em um mundo em transformação.'},
-  ]);
-
-  const _renderItem = (item) => {
-    return (
-      <View style={styles.slide} key={item.id-1+""}>
-        <Image source={item.image} style={styles.imagemPrincipal} />
-        <View style={styles.textos}>
-          <Text style={styles.titulo}>{item.title}</Text>
-          <Text style={styles.subtitulo}>{item.subtitle}</Text>
-          <Text style={styles.descricao}>{item.description}</Text>
-          <TouchableOpacity onPress={() => nav.navigate('Unit')}>
-            <Text style={styles.botaoIniciarTexto}>INICIAR</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  };
-
-  if (fontsLoaded) {
     return (
       <View style={styles.container}>
+
+        <StatusBar barStyle="light-content" backgroundColor="#131F24" />
+
         <View style={styles.superior}>
           <Text style={styles.nomeApp}>Filosofando</Text>
         </View>
-        <Swiper
-          autoplay={true}
-          
-          showsPagination={true}
-          showsButtons={true}
-          paginationStyle={{ bottom: 10 }}
-          activeDotColor="#fff"
-          onIndexChanged={(index) => {setAtual(index); console.log(atual)}}
-          style={{ flex: 1 }}
-        >
-          {data.map(index => _renderItem(index))}
-        </Swiper>
+
+        <Text style={styles.olaTexto}>Olá, {perfil && perfil.username}</Text>
+
+        <ScrollView>
+
+          <TouchableOpacity onPress={() => nav.navigate('Summary')}>
+            <View style={styles.boasVindas}>
+              <Text style={styles.gostarAprender}>O que você gostaria{'\n'}de aprender{'\n'}hoje?</Text>
+              <Text style={styles.botaoIniciarTexto}>Começar</Text>
+            </View>
+            <Image source={imgEstudantes} style={styles.imgEstudantes} />
+          </TouchableOpacity>
+
+          <Text style={styles.olaTexto}>Escolhido para você</Text>
+
+          <View style={styles.centro}>
+
+            <TouchableOpacity onPress={() => nav.navigate('Unit')}>
+              <View style={styles.esquerda}>
+                <Text style={styles.txtGEsquerda}>Unidade 1</Text>
+                <Text style={styles.txtMEsquerda}>Os pré-socráticos</Text>
+                <Image source={imgpresocraticos} style={styles.preImg} />
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => nav.navigate('About')}>
+              <View style={styles.direita}>
+                <Text style={styles.txtGDireita}>Conheça {'\n'} o app</Text>
+                <Image source={logo} style={styles.logo} />
+              </View>
+            </TouchableOpacity>
+
+          </View>
+
+        </ScrollView>
+
         <TabBar />
+
       </View>
     );
-  } else {
-    return <Splash />;
+  }
+  else {
+    return <Splash />
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#11224d',
+    // flexDirection: "column",
+    // width: "100%",
+    //backgroundColor: '#5271FF',
+    backgroundColor: '#131F24',
   },
+
   superior: {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    width: '100%',
-    marginTop: 20,
+    marginTop: 10,
     marginBottom: 10,
     borderBottomColor: 'white',
     borderBottomWidth: 1,
     paddingBottom: 10,
   },
+
   nomeApp: {
     fontFamily: 'LilitaOne-Regular',
+    color: 'white',
     fontSize: 27,
-    color: 'white',
   },
-  slide: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  imagemPrincipal: {
-    width: 200,
-    height: 200,
-    resizeMode: 'cover',
-    alignSelf: 'center',
-    marginTop: 30,
-  },
-  textos: {
+
+  olaTexto: {
     marginTop: 20,
-    padding: 20,
-    alignItems: 'center',
-    backgroundColor: '#193a6f',
-    borderRadius: 15,
-    marginHorizontal: 30,
-  },
-  titulo: {
     fontSize: 25,
-    fontWeight: 'bold',
     color: 'white',
-    marginBottom: 10,
-    textAlign: 'center',
+    fontFamily: 'Comfortaa-Bold',
+    paddingLeft: 20,
   },
-  subtitulo: {
-    fontSize: 20,
-    color: 'white',
-    marginBottom: 10,
-    marginTop: 10,
-    textAlign: 'center',
+
+  imgEstudantes: {
+    width: 150,
+    height: 150,
+    marginTop: 52,
+    marginLeft: 190,
+    position: 'absolute',
   },
-  descricao: {
+
+  boasVindas: {
+    marginHorizontal: 30,
+    marginTop: 30,
+    padding: 10,
+    paddingTop: 15,
+    paddingBottom: 100,
+    backgroundColor: '#1f3892',
+    borderRadius: 10,
+  },
+
+  gostarAprender: {
     fontSize: 15,
     color: 'white',
-    marginBottom: 10,
-    textAlign: 'justify',
-    marginBottom: 20,
+    fontFamily: 'Comfortaa-Light',
   },
+
   botaoIniciarTexto: {
-    backgroundColor: '#2c599d',
+    color: '#1f3892',
     fontSize: 20,
-    fontWeight: 'bold',
+    backgroundColor: 'white',
+    textAlign: 'center',
+    borderRadius: 10,
+    position: 'absolute',
+    paddingVertical: 5,
+    paddingHorizontal: 25,
+    top: 100,
+    left: 20,
+  },
+
+  centro: {
+    alignContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    marginBottom: 60,
+    marginTop: 50,
+    flexDirection: 'row',
+  },
+
+  esquerda: {
+    marginLeft: 20,
+    backgroundColor: '#1f3892',
+    borderRadius: 10,
+    paddingVertical: 100,
+    paddingHorizontal: 70,
+  },
+
+  txtGEsquerda: {
     color: 'white',
-    borderRadius: 15,
-    paddingHorizontal: 80,
-    paddingVertical: 10,
-    marginBottom: 20,
-    textAlign: 'center',  
+    fontSize: 22,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    position: 'absolute',
+    left: 23,
+    top: 25,
+  },
+
+  txtMEsquerda: {
+    color: 'white',
+    fontSize: 16,
+    textAlign: 'center',
+    position: 'absolute',
+    top: 60,
+    left: 7,
+  },
+
+  preImg: {
+    width: 100,
+    height: 100,
+    position: 'absolute',
+    top: 90,
+    left: 20,
+  },
+
+  direita: {
+    marginLeft: 40,
+    backgroundColor: '#ffff',
+    borderRadius: 10,
+    paddingVertical: 100,
+    paddingHorizontal: 70,
+  },
+
+  txtGDireita: {
+    color: '#1f3892',
+    fontSize: 22,
+    textAlign: 'center',
+    position: 'absolute',
+    left: 10,
+    top: 25,
+    textAlign: 'left',
+  },
+
+  logo: {
+    width: 100,
+    height: 100,
+    position: 'absolute',
+    top: 105,
+    left: 30,
   },
 });
-
-
-
-

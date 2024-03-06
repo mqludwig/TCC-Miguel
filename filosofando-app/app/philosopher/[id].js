@@ -1,29 +1,33 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, KeyboardAvoidingView, Platform, SafeAreaView, ImageBackground, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, StatusBar } from 'react-native';
 import { useFonts } from 'expo-font';
 import Splash from '../Splash';
 import PlaceFilosofo from '../../components/PlaceFilosofo';
+import TabBar from '../../components/TabBarComp';
 import PhilosopherImage from '../../components/PhilosopherComp/PhilosopherImage';
 import PhilosopherName from '../../components/PhilosopherComp/PhilosopherName';
 import PhilosopherCover from '../../components/PhilosopherComp/PhilosopherCover';
 import PhilosopherQuote from '../../components/PhilosopherComp/PhilosopherQuote';
 import PhilosopherIcons from '../../components/PhilosopherComp/PhilosopherIcons';
 import { getFilosofoFromFilosofo } from '../../connections_miguel/firebase-store'
-import { useLocalSearchParams, useNavigation,  useRouter  } from 'expo-router';
+import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router';
 import { Asset, useAssets } from 'expo-asset';
-import { useState, useEffect} from 'react';
-
+import { useState, useEffect } from 'react';
 
 export default function Philosopher() {
 
-  const {id} = useLocalSearchParams()
- 
+  const { id } = useLocalSearchParams()
+
   const router = useRouter();
-   
+
   const imgFilosofo = require('../../assets/images/filosofos/tales.png');
+
   const imgCapa = require('../../assets/images/covers/talesCover.jpg');
+
   const nav = useNavigation();
-  const [assets, error] = useAssets([require('../../assets/images/filosofos/anaximandro.png'), require('../../assets/images/covers/testeCapa.png'), require('../../assets/images/filosofos/anaximenes.png'),
+
+  const [assets, error] = useAssets([require('../../assets/images/filosofos/anaximandro.png'), require('../../assets/images/covers/heraclitoCover.jpg'), require('../../assets/images/filosofos/anaximenes.png'),
   ])
+
   const [fontsLoaded] = useFonts({
     'LisuBosa-Regular': require('../../assets/fonts/LisuBosa-Regular.ttf'),
     'PlayfairDisplay-Black': require('../../assets/fonts/Playfair_Display/PlayfairDisplay-Black.ttf')
@@ -32,19 +36,16 @@ export default function Philosopher() {
   useEffect(() => {
     getFilosofoFromFilosofo(id).then((dados) => {
       console.log(dados)
-
-
     })
       .catch((error) => {
         console.log(error);
       })
-
-
-
   }, [])
 
   const [nomeFilosofo, setNomeFilosfo] = useState([]);
+
   const [fraseFilosofo, setFraseFilosofo] = useState([]);
+
   const [fotoFilosofo, setFotoFilosofo] = useState([]);
 
   useEffect(() => {
@@ -57,20 +58,18 @@ export default function Philosopher() {
       .catch((error) => {
         console.log(error);
       })
-  
-      
-      
-    }, [])
+  }, [])
 
   if (fontsLoaded && assets) {
     return (
 
-
       <View style={styles.container}>
+
+        <StatusBar barStyle="light-content" backgroundColor="black" />
+
         <ScrollView>
 
           <View style={styles.superior}>
-
             <PhilosopherName nomeFilosofo={nomeFilosofo} />
             <PhilosopherImage addressPicture={fotoFilosofo} />
           </View>
@@ -105,9 +104,8 @@ export default function Philosopher() {
           </View>
 
         </ScrollView>
+        <TabBar />
       </View>
-
-
     );
   }
   else {
@@ -120,8 +118,8 @@ const styles = StyleSheet.create({
     // flexDirection: "column",
     // width: "100%",
     backgroundColor: 'black',
-
   },
+
   superior: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -131,64 +129,54 @@ const styles = StyleSheet.create({
     marginHorizontal: 70,
     paddingHorizontal: 20,
   },
-  centro: {
 
+  centro: {
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
-
-
   },
+
   centroBaixo: {
     paddingTop: 30,
   },
-
 
   imagemFilosofo: {
     width: 150,
     height: 150,
     resizeMode: "contain",
-
   },
+
   imagemCapa: {
     width: '90%',
     height: 180,
     borderRadius: 25,
   },
+
   exercicios: {
     color: 'white',
     fontWeight: 'bold',
     fontSize: 35,
     marginBottom: 20,
     marginTop: 20,
-    paddingHorizontal: 20,
-    paddingLeft: 40,
-
-
+    textAlign: 'center',
   },
+
   teste: {
     fontFamily: 'LisuBosa-Regular',
     color: 'white',
   },
 
   inferior: {
-
     alignContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
     marginBottom: 0,
     flexDirection: 'column',
-
   },
+
   textoBotao: {
     color: 'white',
     fontSize: 25,
     textAlign: 'center',
   },
-
-
-
-
-
-
 });

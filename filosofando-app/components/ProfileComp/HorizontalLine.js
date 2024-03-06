@@ -4,7 +4,7 @@ import { View, StyleSheet, Text } from 'react-native';
 const HorizontalLine = () => {
   return (
     <View style={styles.horizontalLine}>
-    <Text> aaaaaaaa</Text>
+      <Text> aaaaaaaa</Text>
     </View>
   );
 }

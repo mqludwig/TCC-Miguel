@@ -1,13 +1,11 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, KeyboardAvoidingView, Platform, SafeAreaView, ImageBackground, ScrollView, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, Alert, StatusBar } from 'react-native';
 import { useFonts } from 'expo-font';
 import Splash from '../Splash';
 import Question from '../../components/QuizComp/Question';
-import { aumentarXp, getDialogFromUid, getDialogoFromFilosofo, getPerfilFromUid, getDesafiosFromFilosofo } from '../../connections_miguel/firebase-store';
-import { auth } from "../../connections_miguel/firebase-auth";
+import { aumentarXp, getDesafiosFromFilosofo } from '../../connections_miguel/firebase-store';
 import { useState, useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation, useLocalSearchParams, useRouter } from 'expo-router';
-import { Asset, useAssets } from 'expo-asset';
 
 export default function Quiz() {
 
@@ -36,37 +34,39 @@ export default function Quiz() {
     console.log("entrou no useEffect")
     fetchDesafios()
     console.log("saiu do useEffect")
-
   }, [])
 
   if (fontsLoaded) {
 
     return (
       <LinearGradient
-     start={{x: 0, y: 0.25}} 
-    end={{x: 1, y: 0.25}} 
-    colors={[ '#373435' , 'blue']} 
-    style={{ height: '100%'}}>
+        start={{ x: 0, y: 0.25 }}
+        end={{ x: 1, y: 0.25 }}
+        colors={['#040D1B', '#0C0C37']}
+        style={{ height: '100%' }}>
+
+        <StatusBar barStyle="light-content" backgroundColor="#040D1B" />
+
         <ScrollView>
-        <View style={styles.superior}>
-         <Image source={imgDesafio} style={styles.imgLogoDesafio} />
-        </View>
-       
-        <View style={styles.centro}>
-          <Text style={styles.fontSuperior}>Hora do Desafio!</Text>
-          <Question Question={desafio} />
+
+          <View style={styles.superior}>
+            <Image source={imgDesafio} style={styles.imgLogoDesafio} />
           </View>
-         </ScrollView>
-          <View style={styles.inferior}>
+
+          <View style={styles.centro}>
+            <Text style={styles.fontSuperior}>Hora do Desafio!</Text>
+            <Question Question={desafio} />
+          </View>
+
+        </ScrollView>
+
+        <View style={styles.inferior}>
           <TouchableOpacity onPress={() => { createTwoButtonAlert(); aumentarXp(20); router.replace(`philosopher/${id}`), 3000 }}>
-            {/* modificar para nav.navigate('Home') */}
             <Text style={styles.textoBotao}>Finalizar Tarefa</Text>
           </TouchableOpacity>
-          </View>
-          
+        </View>
 
-        </LinearGradient>
-
+      </LinearGradient>
     );
   }
   else {
@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
     width: "100%",
     alignContent: "center",
     alignItems: "center",
-
   },
 
   superior: {
@@ -100,7 +99,6 @@ const styles = StyleSheet.create({
   centro: {
     marginTop: 40,
     alignItems: "center",
-  
   },
 
   inferior: {
@@ -113,30 +111,24 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
   },
-  
+
   inferior: {
     alignContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
     marginTop: 20,
-
-    
   },
+
   textoBotao: {
-   // backgroundColor: '#040D1B',
-   backgroundColor: '#018abe',
+    backgroundColor: '#3D1E7B',
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 20,
     marginBottom: 12,
     color: 'white',
     fontSize: 20,
-    fontFamily: 'LisuBosa-Regular',
     textAlign: 'center',
-    
-    
-
-
+    fontWeight: 'bold',
   },
 
 });
